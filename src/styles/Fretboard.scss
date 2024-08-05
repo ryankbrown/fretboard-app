@@ -1,0 +1,253 @@
+@use './variables.scss' as *;
+
+// $orientation-change: 800px;
+
+.fretboard {
+
+	--note-circle-default-color: #000;
+	--fret-wire-color: #525252;
+	--fret-wire-highlight-color: white;
+	--fret-number-color: var(--fret-wire-color);
+
+	align-self: center;
+	justify-self: center;
+	width: min(100%, 40rem);
+	height: 100%;
+
+	// background: rgba(white, .01);
+
+	display: grid;
+	grid-template-columns: repeat( var(--num-strings), 1fr) min-content;
+	grid-template-rows: min-content repeat( var(--num-frets), 1fr); 
+
+	grid-area: fretboard;
+	justify-content: center;
+	align-items: center;
+
+
+
+	@media (width >= $orientation-change) {
+	
+
+		width: clamp( 20rem, 100%, 400rem);
+		height: clamp( 20rem, 50%, 70rem);
+
+		grid-template-columns: min-content minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
+		grid-template-rows: repeat( var(--num-strings), minmax(0, 1fr)) minmax(5rem, min-content);
+
+		@media (orientation: portrait) {
+			// height: min(100%, 60rem);
+			aspect-ratio: 2 / 1;
+			height: auto;
+		}
+	}
+}
+
+.frets-wrapper, .fret-numbers-wrapper, .strings-wrapper, .notes-wrapper, .tuning-notes-wrapper {
+	grid-column: 1 / -1;
+	grid-row: 1 / -1;
+	
+	display: grid;
+	grid-template-columns: subgrid;
+	grid-template-rows: subgrid;
+}
+
+
+.tuning-note {
+	grid-column: calc(var(--num-strings) - var(--string-num)) / span 1;
+	grid-row: 1 / span 1;
+
+	justify-self: center;
+	align-self: center;
+
+	@media (width >= $orientation-change) {
+		grid-row: calc(var(--string-num) + 1) / span 1;
+		grid-column: 1 / span 1;
+	}
+}
+
+.fret-number, .tuning-note {
+	font-weight: 600;
+	font-size: 1.3rem;
+	color: var(--fret-number-color);
+}
+
+.fret-number {
+	
+	grid-row: calc(var(--fret-num) + 2) / span 1;
+	grid-column: -1 / span 1;
+	align-self: center;
+	justify-self: center;
+
+	@media ($orientation-change <= width) {
+		grid-column: calc(var(--fret-num) + 2) / span 1;
+		grid-row: -2 / -1;	
+		padding-top: 1.5rem;
+	}
+}
+
+.fret {
+	align-self: end;
+	grid-row: calc( var(--fret-num) + 2 ) / span 1;
+	grid-column: 1 / -2;
+
+	width: 100%;
+	height: .2rem;
+	
+	background: var(--fret-wire-color);
+
+	&__number {
+		display: none;
+	}
+	&:first-child, &:last-child  {
+		background: var(--fret-wire-highlight-color);
+	}
+
+	@media ($orientation-change <= width) {
+		width: .2rem;
+		height: 100%;
+		grid-column: calc(var(--fret-num) + 2) / span 1;
+		grid-row: 1 / -2;
+		justify-self: end;
+	}
+}
+
+
+.string {
+	width: .1rem;
+	height: 100%;
+	align-self: center;
+	justify-self: center;
+
+	background: gray;
+	grid-column: var(--note-string) span 1;
+	grid-row: 3 / -1;
+
+	@media ($orientation-change <= width) {
+		width: 100%;
+		height: .1rem;
+		grid-column: 3 / -1;
+		grid-row: var(--note-string) / span 1;
+	}
+}
+
+
+.note {
+	display: grid;
+	grid-template-areas: "notecenter";
+	grid-template-columns: 100%;
+	grid-template-rows: 100%;
+
+	justify-items: center;
+	align-items: center;
+
+	font-size: 1.2rem;
+	font-weight: bold;
+	
+	color: white;
+	width: 100%;
+	height: 100%;
+
+	
+
+	&:hover {
+		background: rgba(white, .05);
+	}
+
+	&__wrapper {
+		container-type: size;
+		container-name: notewrapper;
+	}
+	&__name, &__degree, &__circle {
+		grid-area: notecenter;
+		text-align: center;
+	}
+
+	&__circle {
+		aspect-ratio: 1 / 1;
+		border-radius: 100%;
+		width: 75%;
+		height: auto;
+		
+		@container notewrapper (orientation: landscape) {
+			height: 75%;
+			width: auto;
+		}
+	}
+
+	&:not(.note--in-scale) &__name {
+		display: none;
+	}
+
+	&--in-scale &__circle {
+		background: var(--note-circle-default-color);
+	}
+
+	&--root &__circle {
+		background: #aaa;
+		background: var(--primary-highlight-color);
+	}
+
+	.fretboard--degrees &__name {
+		display: none;
+	}
+	.fretboard--notes &__degree {
+		display: none;
+	}
+
+	&__wrapper {
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		grid-column: calc(var(--num-strings) + 1 - var(--note-string)) / span 1;
+		grid-row: calc( var(--note-fret) + 2 ) / span 1;
+
+		@media ($orientation-change <= width) {
+			grid-column: calc(var(--note-fret) + 2) / span 1;
+			grid-row: var(--note-string) / span 1;
+		}
+	}
+}
+
+.sharp-flat {
+	&__wrapper {
+		grid-area: notecenter;
+		// width: 100%;
+		// height: 100%;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+
+		--amount: 45%;
+	}
+	&__sharp, &__flat, &__line {
+		grid-column: 1 / -1;
+		grid-row: 1 / -1;
+		font-size: 1rem;
+		font-weight: 800;
+	}
+
+	
+	&__flat {
+		transform: translate(
+			var(--amount), 
+			var(--amount)
+		);
+	}
+	&__sharp {
+		transform: translate(
+			calc(-1 * var(--amount)), 
+			calc(-1 * var(--amount))
+		);
+	}
+	&__line {
+		margin-top: 50%;
+		margin-left: -50%;
+		width: 200%;
+		height: 0;
+		border-bottom: solid .15rem rgba(white, .3);
+		rotate: -50deg;
+	}
+}
