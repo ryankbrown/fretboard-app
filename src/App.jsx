@@ -5,7 +5,7 @@ import { tuning, chromatic_scale, scales, all_notes } from './resources/Data.jsx
 import "./styles/App.scss" 
 import { calcScaleData, calcFretboard } from './resources/Utils.jsx'
 
-
+// Test commit message
 // useState
 // Usage: const [state, setState] = useState(initialState);
 // Purpose: used to manage local component state.
