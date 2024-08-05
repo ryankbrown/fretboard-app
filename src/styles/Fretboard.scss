@@ -1,6 +1,5 @@
 @use './variables.scss' as *;
 
-// $orientation-change: 800px;
 
 .fretboard {
 
@@ -24,15 +23,11 @@
 	justify-content: center;
 	align-items: center;
 
-
-
 	@media (width >= $orientation-change) {
-	
-
 		width: clamp( 20rem, 100%, 400rem);
 		height: clamp( 20rem, 50%, 70rem);
 
-		grid-template-columns: min-content minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
+		grid-template-columns: 5ch minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
 		grid-template-rows: repeat( var(--num-strings), minmax(0, 1fr)) minmax(5rem, min-content);
 
 		@media (orientation: portrait) {

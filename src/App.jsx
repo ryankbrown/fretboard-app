@@ -3,7 +3,7 @@ import Fretboard from './components/Fretboard'
 import ControlPanel from './components/ControlPanel.jsx'
 import { tuning, chromatic_scale, scales, all_notes } from './resources/Data.jsx'
 import "./styles/App.scss" 
-import { calcScaleData, calcFretboard } from './resources/Utils.jsx'
+import { calcScaleData, calcFretboard, calcTuners, getNoteObj } from './resources/Utils.jsx'
 
 // Test commit message
 // useState
@@ -24,17 +24,11 @@ import { calcScaleData, calcFretboard } from './resources/Utils.jsx'
 export default function App() {
 
 	console.clear();
-	// - - - DEFAULT SETTINGS - - - - 
 
 	// * * *  TUNING * * * 
 	const max_tuners = 8;
-	const initialTuning = tuning.map((note, i) => {
-		return	{
-			tunerId: i,
-			displayValue: note,
-			numValue: Object.values(all_notes).find((n) => n.name === note).indx
-		}
-	})
+
+	const initialTuning = calcTuners(tuning);
 
 	// Ids for tuner
 	const [highestTunerId, setHighestTunerId] = useState(initialTuning.length - 1);
@@ -50,7 +44,7 @@ export default function App() {
 	};
 
 	const addTuner = () => {		
-		if (allTuners.length < max_tuners) {
+		if (stringTuning.length < max_tuners) {
 			setTunersUpdate(prevAllTunersState => {
 				const newId = highestTunerId + 1;
 	            setHighestTunerId(newId);
@@ -60,7 +54,7 @@ export default function App() {
 					{
 						tunerId: newId,
 						displayValue: 'C',
-						numValue: Object.values(all_notes).find((n) => n.name === 'C').indx
+						numValue: getNoteObj('C').indx
 					}
 				]
 			})
@@ -118,22 +112,18 @@ export default function App() {
 	const key_list = Object.values(all_notes).map( note_obj => note_obj.name);
 	
 	const app_style_attr = Object.entries(scales).reduce( (acc, [k, v] ) => {
-		acc[`--${k}`] = v.color;
+		acc[`--${v.id}`] = v.color;
 		return acc;
 	}, {})
 
 	app_style_attr["--primary-highlight-color"] =  `var(--${Object.values(scales).find(scale_obj => scale_obj.name === currentScale).id})`
-
+	
 
 	console.log('Render App')
 	return (
 		<>
 			<main 
-				className={`
-					app-main-container
-					${interfaceScheme}
-					${`current-scale--${Object.values(scales).find(scale_obj => scale_obj.name === currentScale).id}`}
-				`}
+				className={`app-main-container ${interfaceScheme} ${`current-scale--${Object.values(scales).find(scale_obj => scale_obj.name === currentScale).id}`}`}
 				style={app_style_attr}
 			>
 				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
@@ -185,7 +175,8 @@ export default function App() {
 					tunerRemoveBtns={tunerRemoveBtns}
 					setTunerRemoveBtns={setTunerRemoveBtns}
 					removeTuner={removeTuner}
-					maxTuner={max_tuners}
+					maxTuners={max_tuners}
+					addTuner={addTuner}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
 					currentScale={currentScale} handleScaleSelection={handleScaleSelection}

@@ -15,19 +15,20 @@ export default function Tuner(props) {
 	return (
 		<div className={`tuner-stepper tuner-stepper--${props.tunerId}`}>
 			<Stepper 
-				id={`stepper-tuning--${props.tunerId}`}
-				key={`stepper-tuning--${props.tunerId}`} 
+				id={`tuner-${props.tunerId}`}
+				key={`tuner-${props.tunerId}`} 
 				value={props.numValue}
 				displayValue={props.displayValue}
-				decreaseString="-"
-				increaseString="+"
+				decreaseString="♭"
+				increaseString="♯"
 				setValue={ updateTuner }	
 			/>
 			{
 				props.stringTuning.length > 1 && props.tunerRemoveBtns && (
 					<button
+						className="tuner-stepper__remove-btn"
 						onClick={ ()=> props.removeTuner(props.tunerId) }
-					>remove</button>
+					>x</button>
 				)
 			}
 		</div>

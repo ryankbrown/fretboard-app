@@ -16,6 +16,8 @@ export default function ControlPanel(props) {
 
 	const note_obj_from_name = name => Object.values(all_notes).find(note => note.name === name);
 
+	const reversedStringTuning = props.stringTuning.slice().reverse();
+
 	return ( 
 		<>
 			<div className="control-panel">
@@ -118,28 +120,33 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 				
-				<FieldGroup selectorName="tuning" legendString="Modify Tuning">{
-					props.stringTuning.map( tuner => (
-							<Tuner
-								key={tuner.tunerId}
-								tunerId={tuner.tunerId}
-								displayValue={tuner.displayValue}
-								numValue={tuner.numValue}
+				<FieldGroup selectorName="tuning" legendString="Modify Tuning">
+					<div className="control-panel__tuning-wrapper">
+						{ props.stringTuning.length < props.maxTuners && (
+							<button onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}>-</button>
+						)}
+						{
+							reversedStringTuning.map( tuner => (
+									<Tuner
+										key={tuner.tunerId}
+										tunerId={tuner.tunerId}
+										displayValue={tuner.displayValue}
+										numValue={tuner.numValue}
 
-								stringTuning={props.stringTuning}
-								onTunerChange={props.handleTunerChange}
-								removeTuner={props.removeTuner}
-								setStringTuning={props.setStringTuning}
-								tunerRemoveBtns={props.tunerRemoveBtns}
-							/>
-						))
-					}
-					
-					{ props.stringTuning.length < props.max_tuners && <button onClick={props.addTuner}>Add</button> }
-					{ props.stringTuning.length > 1 && <button onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}>Remove</button> }
-
-				}</FieldGroup>
-				
+										stringTuning={props.stringTuning}
+										onTunerChange={props.handleTunerChange}
+										removeTuner={props.removeTuner}
+										setStringTuning={props.setStringTuning}
+										tunerRemoveBtns={props.tunerRemoveBtns}
+									/>
+								)
+							)
+						}
+						{ props.stringTuning.length > 1 && (
+							<button onClick={props.addTuner}>+</button>
+						)}
+					</div>
+				</FieldGroup>
 			</div>
 		</>
 	)
