@@ -23,6 +23,7 @@
             grid-template-areas:
                 "toggleleft toggleright"
             ;
+            grid-template-columns: repeat(2, minmax(min-content, 12rem ));
         }
 
         .toggler:first-of-type .toggler__label {
