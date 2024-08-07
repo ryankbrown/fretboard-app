@@ -1,4 +1,5 @@
 .tuner {
+	position: relative;
 	.stepper {
 		grid-template-areas:
 			"increase"
@@ -8,10 +9,15 @@
 		&__value {
 			border-radius: 100%;
 			aspect-ratio: 1 / 1;
+			font-size: var(--note-text-size);
+			padding: unset;
+			width: var(--min-note-size);
+			height: auto;
 		}
 		&__btn {
 			background: transparent;
 			font-weight: bold;
+			padding: 1rem;
 			.scheme-light & {
 				color: var(--primary-dark-text-color);
 			}
@@ -19,6 +25,18 @@
 				color: var(--primary-light-text-color);
 			}
 		}
+	}
+	&__remove-btn {
+		background: black;
+		border-radius: 100%;
+		aspect-ratio: 1 / 1;
+		position: absolute;
+		top: 25%;
+		right: 0;
+		padding: unset;
+		width: 40%;
+		height: auto;
+		border: solid gray .1rem ;
 	}
 }
 

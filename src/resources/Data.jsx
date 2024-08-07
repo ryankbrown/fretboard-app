@@ -112,7 +112,7 @@ const all_notes = {
 
 const scales = {
     ionian : {
-        name 		: "Ionian",
+        name 		: "Ionian (Major)",
         id 			: "ionian",
         steps		: [ 2, 2, 1, 2, 2, 2, 1 ],
         degrees		: ['1', '2', '3', '4', '5', '6', '7'],
@@ -147,7 +147,7 @@ const scales = {
 		color		: '#00B1B0'
     },
     aeolian : {
-        name 		: "Aeolian",
+        name 		: "Aeolian (Minor)",
         id 			: "aeolian",
         steps		: [ 2, 1, 2, 2, 1, 2, 2],
         degrees		: ['1', '2', '♭3', '4', '5', '♭6', '♭7'],

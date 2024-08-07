@@ -1,45 +1,50 @@
 .fieldgroup {
     border: none;
     width: 100%;
-    // padding: 1rem;
     padding: 0;
-    
+    margin: 0;
     display: grid;
+    row-gap: 1rem;
+    grid-template-areas: 
+        "legend" 
+        "content"
+    ;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
 
-    $names: "scale", "key", "notetype", "scheme";
-    @each $s in $names {
-        &--#{$s} {
-            grid-area: #{$s};
-        }
+    &__content {
+        grid-area: content;
     }
+    
     &--boolean-switch {
-        display: flex;
-        // border-radius: var(--toggler-corner-radius);
-        // padding: .2rem;
-        // background: white;
+
+        .fieldgroup__content {
+            display: grid;
+            grid-template-areas:
+                "toggleleft toggleright"
+            ;
+        }
 
         .toggler:first-of-type .toggler__label {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-            // color: blue;
+            grid-area: toggleleft;
         }
         .toggler:last-of-type .toggler__label {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
-            // color: blue;
+            grid-area: toggleright;
         }
     }
+    
 }
 
-
-
 .legend {
+    margin: 0;
+    grid-area: legend;
     font-weight: 600;
     font-size: 1.4rem;
     .scheme-light {
         color: var(--app-text-color);
-    }
-    &--key {
-        grid-area: label;
     }
 }

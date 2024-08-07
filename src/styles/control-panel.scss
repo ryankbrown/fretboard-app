@@ -5,47 +5,71 @@
 	// padding: 2rem var(--side-container-padding);
 	bottom: 0;
 	z-index: 1;
-	
-	@media (width >= 600px) {
-		display: grid;
-		grid-template-areas: 
-			"title    title title"
-			"scale    key   key"
-			"notetype key   key"
-			"scheme   key   key"
-			;
-	}
+	display: grid;
+	gap: 3rem;
+	grid-auto-flow: column;
 
-	@media (width >= 1024px) {
+	
+
+	@media (width >= 600px) {
+		// display: grid;
+		
 		grid-template-areas: 
-			"title title title"
-			"scale scale key"
-			"notetype scheme key"
+			"title       title			title      title"
+			"scale       tuning         key        key"
+			"modifyscale numfrets       scheme     notetype"
 			;
+		grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
 	}
+	&__tuning {
+		grid-area: tuning;
+	}
+	&__title {
+		grid-area: title;
+	}
+	&__key {
+		grid-area: key;
+	}
+	&__scale {
+		grid-area: scale;
+	}
+	&__modify-scale {
+		grid-area: modifyscale;
+	}
+	&__num-frets {
+		grid-area: numfrets;
+	}
+	&__scheme {
+		grid-area: scheme;
+	}
+	&__notetype {
+		grid-area: notetype;
+	}
+	
+
 
 	&__title {
 		font-weight: bold;
 		font-size: 2rem;
 		margin-bottom: 2rem;
 	}
+
  
 	&__key {
         width: 100%;
         grid-template-areas:
-            "label"
+            "legend"
             "keywrapper"
         ;
-        grid-template-columns: 1fr;
-
         container-type: inline-size;
     
         .toggler__label {
             display: grid;
-            grid-area: "keywrapper";
             grid-template-areas: "notecenter";
-            width: 100%;
-            height: 100%;
+            width: auto;
+			min-width: 5ch;
+            height: auto;
+			min-height: 5ch;
             padding: 0;
             margin: 0;
             // min-height: auto;
@@ -53,28 +77,39 @@
             border-radius: 100%;
         }
 
-        @container ( width >= 300px ) {
-            .control-panel__key-wrapper {
-                grid-template-columns: repeat(6, 1fr);
-            }
-        }		
+        // @container ( width >= 420px ) {
+        //     .control-panel__key-wrapper {
+        //         grid-template-columns: repeat(6, min-content);
+        //     }
+        // }		
         @container ( width >= 600px ) {
             .control-panel__key-wrapper {
-                grid-template-columns: repeat(12, 1fr);
+                grid-template-columns: repeat(12, min-content);
             }
         }
     }
-
 	&__key-wrapper {
+		width: 100%;
 		grid-area: keywrapper;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 1.75rem;
+		// grid-template-columns: repeat(auto-fill, minmax(var(--min-note-size), 1fr));
+		grid-template-columns: repeat(auto-fill, var(--min-note-size));
+		grid-template-rows: min-content;
+		gap: var(--control-panel-note-gap);
 	}
-
 	&__tuning-wrapper {
 		width: 100%;
-		display: flex;
+		display: grid;
+		gap: var(--control-panel-note-gap);
+		grid-template-columns: repeat(8, var(--min-note-size));	
+	}
+	&__num-frets {
+		.fieldgroup--num-frets {
+			grid-template-areas: "legend content";
+		}
+		.stepper {
+			width: fit-content;
+		}
 	}
 }
 

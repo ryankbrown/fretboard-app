@@ -1,8 +1,6 @@
 @use './variables.scss' as *;
 
-
 .fretboard {
-
 	--note-circle-default-color: #000;
 	--fret-wire-color: #525252;
 	--fret-wire-highlight-color: white;
@@ -25,7 +23,7 @@
 
 	@media (width >= $orientation-change) {
 		width: clamp( 20rem, 100%, 400rem);
-		height: clamp( 20rem, 50%, 70rem);
+		height: clamp( 35rem, 50%, 70rem);
 
 		grid-template-columns: 5ch minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
 		grid-template-rows: repeat( var(--num-strings), minmax(0, 1fr)) minmax(5rem, min-content);
@@ -142,7 +140,7 @@
 	justify-items: center;
 	align-items: center;
 
-	font-size: 1.2rem;
+	font-size: var(--note-text-size);
 	font-weight: bold;
 	
 	color: white;

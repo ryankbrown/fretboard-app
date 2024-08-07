@@ -9,7 +9,9 @@
 	border: none;
 	transition: all .25s ease-in-out;
 	border-radius: var(--toggler-corner-radius);
-	
+	height: min-content;
+	font-size: 2rem;
+
 	body.scheme--light & {
 		background: #d5d5d5;
 		color: black;

@@ -9,9 +9,6 @@ import '../styles/control-panel.scss'
 import { scales, all_notes } from '../resources/Data'
 
 
-
-
-
 export default function ControlPanel(props) {
 
 	const note_obj_from_name = name => Object.values(all_notes).find(note => note.name === name);
@@ -21,7 +18,7 @@ export default function ControlPanel(props) {
 	return ( 
 		<>
 			<div className="control-panel">
-				<div className="control-panel__title">{`Options`}</div>
+				<h3 className="control-panel__title">{`Options`}</h3>
 				{/* Scale */}
 				<FieldGroup 
 					selectorName="scale" 
@@ -35,41 +32,46 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 
-				
+				{/* Modify Scale */}
+				<FieldGroup 
+					selectorName="modifyscale" 
+					legendString="Modify Scale"
+				>
+					<div style={{ color: 'gray' }}>Modify Scale Content Here</div>
+				</FieldGroup>
+
 
 				{/* Select Key */}
 				<FieldGroup 
 					selectorName="key" 
 					legendString="Select Key"
-				>
-					<div className="control-panel__key-wrapper"> {
-						props.keyList.map( k => (
-								<Toggler 
-									key={k} 
-									id={`key-option--${k}`} 
-									label={k}
-									inputType="radio"
-									checked={ k === "C" ? true : false }
-									value={k}
+					contentWrapperClasses="control-panel__key-wrapper"
+				>{
+					props.keyList.map( k => (
+							<Toggler 
+								key={k} 
+								id={`key-option--${k}`} 
+								label={k}
+								inputType="radio"
+								checked={ k === "C" ? true : false }
+								value={k}
 
-									selectedValue={props.scaleKey}
-									setValue={props.setScaleKey}
-								>{
-									note_obj_from_name(k).sharp ||
-									note_obj_from_name(k).flat ? ( 
-										<SharpFlatText 
-											sharp={note_obj_from_name(k).sharp} 
-											flat={Object.values(all_notes).find(note => note.name === k).flat}
-										/> 
-									) : (
-										props.note_name 
-									)
-								}</Toggler>
-							)
+								selectedValue={props.scaleKey}
+								setValue={props.setScaleKey}
+							>{
+								note_obj_from_name(k).sharp ||
+								note_obj_from_name(k).flat ? ( 
+									<SharpFlatText 
+										sharp={note_obj_from_name(k).sharp} 
+										flat={Object.values(all_notes).find(note => note.name === k).flat}
+									/> 
+								) : (
+									props.note_name 
+								)
+							}</Toggler>
 						)
-					}
-					</div>
-				</FieldGroup>
+					)
+				}</FieldGroup>
 
 				{/* Note Type */}
 				<FieldGroup 
@@ -123,6 +125,7 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 
+				{/* Num Frets */}
 				<FieldGroup 
 					selectorName="num-frets" 
 					legendString="Number of Frets"
@@ -136,35 +139,35 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 				
+				{/* Tuning */}
 				<FieldGroup 
 					selectorName="tuning" 
 					legendString="Modify Tuning"
+					contentWrapperClasses="control-panel__tuning-wrapper"
 				>
-					<div className="control-panel__tuning-wrapper">
-						{ props.stringTuning.length < props.maxTuners && (
-							<button onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}>-</button>
-						)}
-						{
-							reversedStringTuning.map( tuner => (
-									<Tuner
-										key={tuner.tunerId}
-										tunerId={tuner.tunerId}
-										displayValue={tuner.displayValue}
-										numValue={tuner.numValue}
+					{ props.stringTuning.length < props.maxTuners && (
+						<button onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}>-</button>
+					)}
+					{
+						reversedStringTuning.map( tuner => (
+								<Tuner
+									key={tuner.tunerId}
+									tunerId={tuner.tunerId}
+									displayValue={tuner.displayValue}
+									numValue={tuner.numValue}
 
-										stringTuning={props.stringTuning}
-										onTunerChange={props.handleTunerChange}
-										removeTuner={props.removeTuner}
-										setStringTuning={props.setStringTuning}
-										tunerRemoveBtns={props.tunerRemoveBtns}
-									/>
-								)
+									stringTuning={props.stringTuning}
+									onTunerChange={props.handleTunerChange}
+									removeTuner={props.removeTuner}
+									setStringTuning={props.setStringTuning}
+									tunerRemoveBtns={props.tunerRemoveBtns}
+								/>
 							)
-						}
-						{ props.stringTuning.length > 1 && (
-							<button onClick={props.addTuner}>+</button>
-						)}
-					</div>
+						)
+					}
+					{ props.stringTuning.length > 1 && (
+						<button onClick={props.addTuner}>+</button>
+					)}
 				</FieldGroup>
 			</div>
 		</>

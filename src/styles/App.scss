@@ -24,6 +24,7 @@
 	}
 	
 	@media (width >= $orientation-change) { 
+		// --side-container-padding: 2rem;
 		grid-template-areas: 
 			"header       debugging"
 			"fretboard    fretboard"
@@ -42,6 +43,9 @@
 	grid-area: header;
 	color: var(--primary-highlight-color);
 	font-weight: 800;
+	font-size: 7rem;
+	margin: 0;
+
 	text-transform: uppercase;
 	&__white {
 		color: var(--primary-light-text-color);
@@ -69,11 +73,12 @@
 	font-size: 1.2rem;
 	justify-self: end;
 
-	&__title {
+	&__title:where(th) {
 		color: var(--primary-highlight-color);
 		font-size: 2rem;
 		width: 100%;
 	}
+
 	table {
 		border-collapse: collapse;
 	}
@@ -85,6 +90,9 @@
 	}
 	th {
 		width: max-content;
+		&.info-section__title {
+			width: 100%;
+		}
 	}
 	td {
 		// width: 7rem;

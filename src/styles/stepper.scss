@@ -7,16 +7,18 @@
     align-items: center;
     &__btn--decrease {
         grid-area: decrease;
-        // height: 100%;
+        border-radius: var(--toggler-corner-radius) 0 0 var(--toggler-corner-radius) ;
     }
     &__btn--increase {
         grid-area: increase;
-        // height: 100%;
+        border-radius: 0 var(--toggler-corner-radius) var(--toggler-corner-radius) 0;
     }
     &__value {
         grid-area: value;
         padding: 1rem 1rem;
-        width: 5ch;
+        width: 100%;
+        min-width: 5ch;
+
         text-align: center;
         background: var(--primary-highlight-color);
         font-weight: bold;
