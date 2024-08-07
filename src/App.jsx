@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import Fretboard from './components/Fretboard'
 import ControlPanel from './components/ControlPanel.jsx'
 import { tuning, chromatic_scale, scales, all_notes } from './resources/Data.jsx'
-import "./styles/App.scss" 
+import "./styles/app.scss" 
 import { calcScaleData, calcFretboard, calcTuners, getNoteObj } from './resources/Utils.jsx'
 
 // Test commit message

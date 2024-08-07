@@ -1,5 +1,6 @@
 import { all_notes } from "../resources/Data"
 import Stepper from "./Stepper"
+import '../styles/tuner.scss'
 
 export default function Tuner(props) {
 
@@ -13,7 +14,7 @@ export default function Tuner(props) {
 	};
 
 	return (
-		<div className={`tuner-stepper tuner-stepper--${props.tunerId}`}>
+		<div className={`tuner tuner--${props.tunerId}`}>
 			<Stepper 
 				id={`tuner-${props.tunerId}`}
 				key={`tuner-${props.tunerId}`} 
@@ -26,7 +27,7 @@ export default function Tuner(props) {
 			{
 				props.stringTuning.length > 1 && props.tunerRemoveBtns && (
 					<button
-						className="tuner-stepper__remove-btn"
+						className="tuner__remove-btn"
 						onClick={ ()=> props.removeTuner(props.tunerId) }
 					>x</button>
 				)

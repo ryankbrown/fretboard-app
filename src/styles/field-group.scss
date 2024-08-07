@@ -1,0 +1,45 @@
+.fieldgroup {
+    border: none;
+    width: 100%;
+    // padding: 1rem;
+    padding: 0;
+    
+    display: grid;
+
+    $names: "scale", "key", "notetype", "scheme";
+    @each $s in $names {
+        &--#{$s} {
+            grid-area: #{$s};
+        }
+    }
+    &--boolean-switch {
+        display: flex;
+        // border-radius: var(--toggler-corner-radius);
+        // padding: .2rem;
+        // background: white;
+
+        .toggler:first-of-type .toggler__label {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            // color: blue;
+        }
+        .toggler:last-of-type .toggler__label {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            // color: blue;
+        }
+    }
+}
+
+
+
+.legend {
+    font-weight: 600;
+    font-size: 1.4rem;
+    .scheme-light {
+        color: var(--app-text-color);
+    }
+    &--key {
+        grid-area: label;
+    }
+}

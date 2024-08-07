@@ -1,3 +1,4 @@
+import '../styles/sharp-flat-text.scss'
 export default function SharpFlatText(props) {
 	return (
 		<div className="sharp-flat__wrapper">

@@ -1,0 +1,28 @@
+.stepper {
+    width: 100%;
+    display: grid;
+    grid-template-areas: "decrease value increase";
+    grid-template-columns: min-content 1fr min-content;
+    justify-items: center;
+    align-items: center;
+    &__btn--decrease {
+        grid-area: decrease;
+        // height: 100%;
+    }
+    &__btn--increase {
+        grid-area: increase;
+        // height: 100%;
+    }
+    &__value {
+        grid-area: value;
+        padding: 1rem 1rem;
+        width: 5ch;
+        text-align: center;
+        background: var(--primary-highlight-color);
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+}

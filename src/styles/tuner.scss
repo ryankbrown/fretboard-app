@@ -1,0 +1,24 @@
+.tuner {
+	.stepper {
+		grid-template-areas:
+			"increase"
+			"value"
+			"decrease"
+		;
+		&__value {
+			border-radius: 100%;
+			aspect-ratio: 1 / 1;
+		}
+		&__btn {
+			background: transparent;
+			font-weight: bold;
+			.scheme-light & {
+				color: var(--primary-dark-text-color);
+			}
+			.scheme-dark & {
+				color: var(--primary-light-text-color);
+			}
+		}
+	}
+}
+

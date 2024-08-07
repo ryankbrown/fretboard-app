@@ -1,11 +1,11 @@
-import InputGroup from './InputGroup'
-import SelectGroup from './SelectGroup'
+import Toggler from './Toggler'
+import Dropdown from './Dropdown'
 import FieldGroup from './FieldGroup'
 import Stepper from './Stepper'
 import Tuner from './Tuner'
 import SharpFlatText from './SharpFlatText'
 
-import '../styles/ControlPanel.scss'
+import '../styles/control-panel.scss'
 import { scales, all_notes } from '../resources/Data'
 
 
@@ -23,36 +23,19 @@ export default function ControlPanel(props) {
 			<div className="control-panel">
 				<div className="control-panel__title">{`Options`}</div>
 				{/* Scale */}
-				<FieldGroup selectorName="scale" legendString="Scale">
-					<SelectGroup 
+				<FieldGroup 
+					selectorName="scale" 
+					legendString="Scale"
+				>
+					<Dropdown 
 						id="scale-select"
 						options={ Object.values(scales).map(s => s.name) }
 						selectedValue={props.currentScale}
-						setSelectedValue={ props.handleScaleSelection }
+						setValue={ props.handleScaleSelection }
 					/>
 				</FieldGroup>
 
-				{/* Note Type */}
-				<FieldGroup selectorName="notetype" legendString="Note Type">
-					<InputGroup 
-						inputType="radio" 
-						id="notes" 
-						label="Show Notes"
-						value="notes"
-
-						selectedValue={props.noteType}
-						setSelectedValue={props.setNoteType}
-					/>
-					<InputGroup 
-						inputType="radio" 
-						id="degrees" 
-						label="Show Degrees"
-						value="degrees" 
-
-						selectedValue={props.noteType}
-						setSelectedValue={props.setNoteType}
-					/>
-				</FieldGroup>
+				
 
 				{/* Select Key */}
 				<FieldGroup 
@@ -61,7 +44,7 @@ export default function ControlPanel(props) {
 				>
 					<div className="control-panel__key-wrapper"> {
 						props.keyList.map( k => (
-								<InputGroup 
+								<Toggler 
 									key={k} 
 									id={`key-option--${k}`} 
 									label={k}
@@ -70,7 +53,7 @@ export default function ControlPanel(props) {
 									value={k}
 
 									selectedValue={props.scaleKey}
-									setSelectedValue={props.setScaleKey}
+									setValue={props.setScaleKey}
 								>{
 									note_obj_from_name(k).sharp ||
 									note_obj_from_name(k).flat ? ( 
@@ -81,25 +64,55 @@ export default function ControlPanel(props) {
 									) : (
 										props.note_name 
 									)
-								}</InputGroup>
+								}</Toggler>
 							)
 						)
 					}
 					</div>
 				</FieldGroup>
+
+				{/* Note Type */}
+				<FieldGroup 
+					selectorName="notetype" 
+					legendString="Note Type"
+					isBooleanSwitch={true}
+				>
+					<Toggler 
+						inputType="radio" 
+						id="notes" 
+						label="Show Notes"
+						value="notes"
+
+						selectedValue={props.noteType}
+						setValue={props.setNoteType}
+					/>
+					<Toggler 
+						inputType="radio" 
+						id="degrees" 
+						label="Show Degrees"
+						value="degrees"
+
+						selectedValue={props.noteType}
+						setValue={props.setNoteType}
+					/>
+				</FieldGroup>
 				
 				{/* Scheme */}
-				<FieldGroup selectorName="scheme" legendString="Interface Scheme">
-					<InputGroup 
+				<FieldGroup 
+					selectorName="scheme" 
+					legendString="Interface Scheme"
+					isBooleanSwitch={true}
+				>
+					<Toggler 
 						inputType="radio" 
 						id="scheme-light" 
 						label="Light Scheme"
 						value="scheme-light"
 
 						selectedValue={props.interfaceScheme}
-						setSelectedValue={props.setInterfaceScheme}
+						setValue={props.setInterfaceScheme}
 					/>
-					<InputGroup 
+					<Toggler 
 						inputType="radio" 
 						id="scheme-dark" 
 						label="Dark Scheme" 
@@ -110,7 +123,10 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 
-				<FieldGroup selectorName="num-frets" legendString="Number of Frets">
+				<FieldGroup 
+					selectorName="num-frets" 
+					legendString="Number of Frets"
+				>
 					<Stepper
 						id="num-frets"
 						value={props.numFrets}
@@ -120,7 +136,10 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 				
-				<FieldGroup selectorName="tuning" legendString="Modify Tuning">
+				<FieldGroup 
+					selectorName="tuning" 
+					legendString="Modify Tuning"
+				>
 					<div className="control-panel__tuning-wrapper">
 						{ props.stringTuning.length < props.maxTuners && (
 							<button onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}>-</button>

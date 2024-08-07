@@ -1,8 +1,7 @@
 import SharpFlatText from './SharpFlatText';
-import '../styles/Fretboard.scss'
+import '../styles/fretboard.scss'
 
 function Note(props) {
-	
 	return (
 		<div className={`note note--${props.note_name.replace('/', '')} note--s${props.string}f${props.fret} ${ props.isRootNote ? 'note--root' : ''} ${ props.inScale ? 'note--in-scale' : ''}
 		`}>

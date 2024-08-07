@@ -1,14 +1,17 @@
-export default function SelectGroup(props) {
+import '../styles/dropdown.scss'
+
+export default function Dropdown(props) {
 	// console.log(handleClick);
 
 	const handleDropdownChange = (e) => {
 		// console.log('Dropdown', e.target.value);
-		props.setSelectedValue(e.target.value);
+		props.setValue(e.target.value);
 	}
 
 	return (
 		<>
-			<select 
+			<select
+				className={`dropdown dropdown--${props.id}`} 
 				value={props.currentScale}
 				id={props.id} 
 				name={props.id} 

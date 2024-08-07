@@ -1,12 +1,9 @@
-import { useState } from 'react'
-
+import '../styles/field-group.scss';
 export default function FieldGroup(props) {
 	return (
-		<fieldset className={`control-panel__fieldset control-panel__fieldset--${props.selectorName}`}>
-			<legend className={`control-panel__legend control-panel__legend--${props.selectorName}`}>{props.legendString}</legend>
+		<fieldset className={`fieldgroup fieldgroup--${props.selectorName} control-panel__${props.selectorName} ${props.isBooleanSwitch ? 'fieldgroup--boolean-switch' : ''}`}>
+			<legend className={`legend legend--${props.selectorName}`}>{props.legendString}</legend>
 			{props.children}
 		</fieldset>
 	)
 }
-
-
