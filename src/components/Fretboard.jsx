@@ -1,34 +1,16 @@
-import SharpFlatText from './SharpFlatText';
+
+import Note from './Note'
 import '../styles/fretboard.scss'
 
-function Note(props) {
-	return (
-		<div className={`note note--${props.note_name.replace('/', '')} note--s${props.string}f${props.fret} ${ props.isRootNote ? 'note--root' : ''} ${ props.inScale ? 'note--in-scale' : ''}
-		`}>
-			<div className="note__circle"></div>
-			<div className="note__name">{
-				props.note_obj.sharp || props.note_obj.flat ? ( 
-					<SharpFlatText sharp={props.note_obj.sharp} flat={props.note_obj.flat}/> 
-				) : (
-					props.note_name 
-				)
-			}</div>
-			<div className="note__degree">{props.inScale}</div>
-			<div className="note__data">
-				<pre style={{ display: 'none'}}>{JSON.stringify(props, null, 2)}</pre>
-			</div>
-		</div>
-	)
-}
 
 export default function Fretboard(props) {
-
+	
 	return (
 		<>	
 			<div 
 				className={`fretboard fretboard--${props.noteType}`}
 				style={{ 
-					['--num-strings']: props.stringTuning.length, 
+					['--num-strings']: props.allTuners.length, 
 					['--num-frets']: props.numFrets, 
 				}}
 			>
@@ -43,7 +25,7 @@ export default function Fretboard(props) {
 				}</div>
 
 				<div className="tuning-notes-wrapper">{
-					props.stringTuning.map( (str, i) => (
+					props.allTuners.map( (str, i) => (
 						<div 
 							className="tuning-note"
 							key={`tuning-note--${i}`}
@@ -63,11 +45,11 @@ export default function Fretboard(props) {
 				}</div>
 
 				<div className="strings-wrapper">{
-					[...Array(props.stringTuning.length)].map((_, i) => (
+					[...Array(props.allTuners.length)].map((_, i) => (
 						<div 
-							className={`string string--${i}`} 
-							key={`string-num--${i}`}
-							style={{ ['--string-num']: i }}
+							className={`string string--${i + 1}`} 
+							key={`string-num--${i + 1}`}
+							style={{ ['--string-num']: i + 1}}
 						>
 						</div>
 					))
@@ -78,13 +60,10 @@ export default function Fretboard(props) {
 						
 						<div 
 							className={`note__wrapper`}
-							// note__wrapper--${fret_obj.fret} 
-							// note__wrapper-string--${fret_obj.string}
-							// note__wrapper--s${fret_obj.string}f${i}
 							key={`note-wrapper--${i}`}
 							style={{ 
-								['--note-fret']: fret_obj.fret,
-								['--note-string']: fret_obj.string
+								['--fret-num']: fret_obj.fret,
+								['--string-num']: fret_obj.string
 							}}
 						>
 							<Note key={`note--${i}`} {...fret_obj} />

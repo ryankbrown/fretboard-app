@@ -25,7 +25,7 @@ export default function Tuner(props) {
 				setValue={ updateTuner }	
 			/>
 			{
-				props.stringTuning.length > 1 && props.tunerRemoveBtns && (
+				props.allTuners.length > 1 && props.tunerRemoveBtns && (
 					<button
 						className="tuner__remove-btn"
 						onClick={ ()=> props.removeTuner(props.tunerId) }

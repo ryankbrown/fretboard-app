@@ -29,14 +29,16 @@ export default function App() {
 	const max_tuners = 9;
 
 	const initialTuning = calcTuners(tuning);
+	
+	const [currentTuning, setcurrentTuning] = useState(initialTuning);
 
 	// Ids for tuner
 	const [highestTunerId, setHighestTunerId] = useState(initialTuning.length - 1);
 
 	// Array containg all Tuner components
-	const [stringTuning, setTunersUpdate] = useState(initialTuning);
+	const [allTuners, setAllTuners] = useState(currentTuning);
 	const handleTunerChange = (id, newTuning) => {
-		setTunersUpdate( prevAllTunersState => {
+		setAllTuners( prevAllTunersState => {
 			// Loop through the state of all previous tuners
 			// find the target tuner via id and inject the new tuning values
 			return prevAllTunersState.map( tuner => (tuner.tunerId === id ? { ...tuner, ...newTuning } : tuner));
@@ -45,7 +47,7 @@ export default function App() {
 
 
 	const removeTuner = (tunerId) => {
-		setTunersUpdate(prevAllTunersState => {
+		setAllTuners(prevAllTunersState => {
 			handleTunerRemoveBtns();
 			return prevAllTunersState.filter(tuner => tuner.tunerId !== tunerId);
 		});
@@ -55,8 +57,8 @@ export default function App() {
 
 
 	const addTuner = () => {		
-		if (stringTuning.length < max_tuners) {
-			setTunersUpdate(prevAllTunersState => {
+		if (allTuners.length < max_tuners) {
+			setAllTuners(prevAllTunersState => {
 				const newId = highestTunerId + 1;
 	            setHighestTunerId(newId);
 				if (tunerRemoveBtns) {
@@ -102,9 +104,9 @@ export default function App() {
 
 
 	// * * *  CALCULATED DATA  * * *  
-	const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [scaleKey, currentScale, numFrets, stringTuning])
+	const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [scaleKey, currentScale, numFrets, allTuners])
 
-	const fretboardData = useMemo(()=> calcFretboard(stringTuning, numFrets, scaleKey, scaleData), [scaleKey, currentScale, numFrets, stringTuning])
+	const fretboardData = useMemo(()=> calcFretboard(allTuners, numFrets, scaleKey, scaleData), [scaleKey, currentScale, numFrets, allTuners])
 
 
 
@@ -153,7 +155,7 @@ export default function App() {
 				</figure>
 				
 				<Fretboard
-					stringTuning={stringTuning}
+					allTuners={allTuners}
 					numFrets={numFrets} 
 					
 					scaleKey={scaleKey}
@@ -170,7 +172,7 @@ export default function App() {
 					scaleKey={scaleKey} setScaleKey={setScaleKey}
 					noteType={noteType} setNoteType={setNoteType}
 
-					stringTuning={stringTuning}
+					allTuners={allTuners}
 					handleTunerChange={handleTunerChange}
 					
 					tunerRemoveBtns={tunerRemoveBtns}

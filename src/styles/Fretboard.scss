@@ -47,14 +47,15 @@
 
 
 .tuning-note {
-	grid-column: calc(var(--num-strings) - var(--string-num)) / span 1;
+	grid-column: calc(var(--string-num) + 1) / span 1;
 	grid-row: 1 / span 1;
 
 	justify-self: center;
 	align-self: center;
 
 	@media (width >= $orientation-change) {
-		grid-row: calc(var(--string-num) + 1) / span 1;
+		// grid-row: calc(var(--string-num) + 1) / span 1;
+		grid-row: calc(var(--num-strings) - var(--string-num) ) / span 1;
 		grid-column: 1 / span 1;
 	}
 }
@@ -118,7 +119,7 @@
 	justify-self: center;
 
 	background: gray;
-	grid-column: var(--note-string) span 1;
+	grid-column: calc(var(--num-strings) - var(--string-num) + 1) / span 1;
 	grid-row: 3 / -1;
 
 	@media ($orientation-change <= width) {
@@ -130,98 +131,3 @@
 }
 
 
-.note {
-	display: grid;
-	grid-template-areas: "notecenter";
-	grid-template-columns: 100%;
-	grid-template-rows: 100%;
-
-	justify-items: center;
-	align-items: center;
-
-	font-size: var(--note-text-size);
-	font-weight: bold;
-	
-	color: white;
-	width: 100%;
-	height: 100%;
-
-	&:hover {
-		background: rgba(white, .05);
-	}
-
-	&__wrapper {
-		container-type: size;
-		container-name: notewrapper;
-	}
-	&__name, &__degree, &__circle {
-		grid-area: notecenter;
-		text-align: center;
-	}
-
-	&__circle {
-		aspect-ratio: 1 / 1;
-		border-radius: 100%;
-		width: 75%;
-		height: auto;
-		
-		@container notewrapper (orientation: landscape) {
-			height: 75%;
-			width: auto;
-		}
-	}
-
-	
-
-	&--in-scale &__circle {
-		background: var(--note-circle-default-color);
-	}
-
-	&--root &__circle {
-		background: #aaa;
-		background: var(--primary-highlight-color);
-	}
-
-	&:not(.note--in-scale) &__name {
-		display: none;
-	}
-
-	.fretboard--degrees &__name {
-		display: none;
-	}
-	.fretboard--notes &__degree {
-		display: none;
-	}
-
-	
-	
-	// .fretboard--degrees .note__name {
-	// 	display: block;
-	// }
-
-
-	&__wrapper {
-
-		display: flex;
-		justify-content: center;
-		align-items: center;
-
-		grid-column: calc(var(--num-strings) + 1 - var(--note-string)) / span 1;
-		grid-row: calc( var(--note-fret) + 2 ) / span 1;
-
-		@media ($orientation-change <= width) {
-			grid-column: calc(var(--note-fret) + 2) / span 1;
-			grid-row: var(--note-string) / span 1;
-		}
-	}
-}
-
-// show root note name in degree mode
-.fretboard--degrees .note--root { 
-	.note__name {
-		display: block;
-	}
-	.note__degree {
-		display: none;
-	}
-}

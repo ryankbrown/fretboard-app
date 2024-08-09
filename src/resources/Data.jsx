@@ -164,7 +164,7 @@ const scales = {
         name		: "Chromatic",
         id 			: "chromatic",
         steps		: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        degrees 	: ['1', '♭2', '2', '♭3','3', '4', '♭5', '5', '♭6', '6', '♭7', '7'],
+        degrees 	: ['1', '♯1/♭2', '2', '♯2/♭3','3', '4', '♯4/♭5', '5', '♯5/♭6', '6', '♯6/♭7', '7'],
 		color		: '#757575'
     },
     major_triads : {
@@ -204,12 +204,11 @@ const scales = {
     }
 }
 
-// const chromatic_scale = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
 const chromatic_scale = Object.values(all_notes).map(note => note.name);
 
 
 const tuning = ['E', 'A', 'D', 'G', 'B', 'E']
-const tuningOptions = [
+const tuning_options = [
 	{
 		name: 'Standard',
 		notes: ['E', 'A', 'D', 'G', 'B', 'E']
@@ -265,8 +264,4 @@ const tuningOptions = [
 
 ]
 
-
-// const tuning = ['C', 'C', 'C', 'C', 'C', 'C']
-
-
-export { tuning, chromatic_scale, all_notes, scales }
+export { tuning, tuning_options, chromatic_scale, all_notes, scales }

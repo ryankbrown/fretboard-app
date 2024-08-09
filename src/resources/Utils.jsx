@@ -29,15 +29,16 @@ function calcScaleData(targetScaleKey = 'C', targetScale='Ionian') {
 	return scale_vals;
 }
 
-function calcFretboard(stringTuning, numFrets=13, targetScaleKey='C', scaleData) {
+function calcFretboard(allTuners, numFrets=13, targetScaleKey='C', scaleData) {
 	const fretboard_data = [];
+	
 
-	const numStrings = stringTuning.length;
+	const numStrings = allTuners.length;
 	for ( let s = 0; s < numStrings; s++ ) {
 		for (let f = 0; f < numFrets; f++) {
 
 			// Get the string tuning note string and index
-			const string_tuning_note = stringTuning[s];
+			const string_tuning_note = allTuners[s];
 			// console.log(string_tuning_note)
 
 			// const tuning_note_chromatic_indx = chromatic_scale.indexOf(string_tuning_note);

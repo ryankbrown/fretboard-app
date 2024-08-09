@@ -13,9 +13,6 @@ export default function ControlPanel(props) {
 
 	const note_obj_from_name = name => Object.values(all_notes).find(note => note.name === name);
 
-	let reversedStringTuning = props.stringTuning.slice().reverse();
-	
-
 	return ( 
 		<>
 			<div className="control-panel">
@@ -152,36 +149,36 @@ export default function ControlPanel(props) {
 							<button 
 								className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add" 
 								onClick={props.addTuner}
-								disabled={props.stringTuning.length === props.maxTuners}
+								disabled={props.allTuners.length === props.maxTuners}
 							>Add</button>
 						}
 						{ 
 							<button
 								className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove" 
 								onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}
-								disabled={props.stringTuning.length === 1}
+								disabled={props.allTuners.length === 1}
 							>Remove</button>
 						}
 					</div>
 					<div className="control-panel__tuning-wrapper">
 						{
-							reversedStringTuning.map( tuner => (
+							props.allTuners.map( tuner => (
 									<Tuner
 										key={tuner.tunerId}
 										tunerId={tuner.tunerId}
 										displayValue={tuner.displayValue}
 										numValue={tuner.numValue}
 
-										stringTuning={props.stringTuning}
+										allTuners={props.allTuners}
 										onTunerChange={props.handleTunerChange}
 										removeTuner={props.removeTuner}
-										setStringTuning={props.setStringTuning}
+										setallTuners={props.setallTuners}
 										tunerRemoveBtns={props.tunerRemoveBtns}
 									/>
 								)
 							)
 						}{
-							reversedStringTuning.length < 6 && [...Array(6 - reversedStringTuning.length)].map((_, i)=> <div className="tuner tuner--empty"></div>)
+							props.allTuners.length < 6 && [...Array(6 - props.allTuners.length)].map((_, i)=> <div className="tuner tuner--empty"></div>)
 						}
 					</div>
 					<div className="control-panel__tuning-select">
