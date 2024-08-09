@@ -13,7 +13,8 @@ export default function ControlPanel(props) {
 
 	const note_obj_from_name = name => Object.values(all_notes).find(note => note.name === name);
 
-	const reversedStringTuning = props.stringTuning.slice().reverse();
+	let reversedStringTuning = props.stringTuning.slice().reverse();
+	
 
 	return ( 
 		<>
@@ -133,6 +134,7 @@ export default function ControlPanel(props) {
 					<Stepper
 						id="num-frets"
 						value={props.numFrets}
+						displayValue={props.numFrets - 1}
 						decreaseString="-"
 						increaseString="+"
 						setValue={props.handleSetNumFrets}
@@ -143,31 +145,53 @@ export default function ControlPanel(props) {
 				<FieldGroup 
 					selectorName="tuning" 
 					legendString="Modify Tuning"
-					contentWrapperClasses="control-panel__tuning-wrapper"
+					contentWrapperClasses="control-panel__modify-tuning-wrapper"
 				>
-					{ props.stringTuning.length < props.maxTuners && (
-						<button onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}>-</button>
-					)}
-					{
-						reversedStringTuning.map( tuner => (
-								<Tuner
-									key={tuner.tunerId}
-									tunerId={tuner.tunerId}
-									displayValue={tuner.displayValue}
-									numValue={tuner.numValue}
+					<div className="control-panel__tuning-controls">
+						{
+							<button 
+								className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add" 
+								onClick={props.addTuner}
+								disabled={props.stringTuning.length === props.maxTuners}
+							>Add</button>
+						}
+						{ 
+							<button
+								className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove" 
+								onClick={()=> props.setTunerRemoveBtns( prevValue => prevValue ? false : true )}
+								disabled={props.stringTuning.length === 1}
+							>Remove</button>
+						}
+					</div>
+					<div className="control-panel__tuning-wrapper">
+						{
+							reversedStringTuning.map( tuner => (
+									<Tuner
+										key={tuner.tunerId}
+										tunerId={tuner.tunerId}
+										displayValue={tuner.displayValue}
+										numValue={tuner.numValue}
 
-									stringTuning={props.stringTuning}
-									onTunerChange={props.handleTunerChange}
-									removeTuner={props.removeTuner}
-									setStringTuning={props.setStringTuning}
-									tunerRemoveBtns={props.tunerRemoveBtns}
-								/>
+										stringTuning={props.stringTuning}
+										onTunerChange={props.handleTunerChange}
+										removeTuner={props.removeTuner}
+										setStringTuning={props.setStringTuning}
+										tunerRemoveBtns={props.tunerRemoveBtns}
+									/>
+								)
 							)
-						)
-					}
-					{ props.stringTuning.length > 1 && (
-						<button onClick={props.addTuner}>+</button>
-					)}
+						}{
+							reversedStringTuning.length < 6 && [...Array(6 - reversedStringTuning.length)].map((_, i)=> <div className="tuner tuner--empty"></div>)
+						}
+					</div>
+					<div className="control-panel__tuning-select">
+						{/* <Dropdown 
+							id="tuning-select"
+							options={ Object.values(scales).map(s => s.name) }
+							selectedValue={props.currentScale}
+							setValue={ props.handleScaleSelection }
+						/> */}
+					</div>
 				</FieldGroup>
 			</div>
 		</>

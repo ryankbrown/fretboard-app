@@ -26,7 +26,7 @@ export default function App() {
 	console.clear();
 
 	// * * *  TUNING * * * 
-	const max_tuners = 8;
+	const max_tuners = 9;
 
 	const initialTuning = calcTuners(tuning);
 
@@ -43,12 +43,25 @@ export default function App() {
 		});
 	};
 
+
+	const removeTuner = (tunerId) => {
+		setTunersUpdate(prevAllTunersState => {
+			handleTunerRemoveBtns();
+			return prevAllTunersState.filter(tuner => tuner.tunerId !== tunerId);
+		});
+	}
+	const [tunerRemoveBtns, setTunerRemoveBtns] = useState(false)
+	const handleTunerRemoveBtns = ()=> setTunerRemoveBtns( prevValue => prevValue ? false : true )
+
+
 	const addTuner = () => {		
 		if (stringTuning.length < max_tuners) {
 			setTunersUpdate(prevAllTunersState => {
 				const newId = highestTunerId + 1;
 	            setHighestTunerId(newId);
-
+				if (tunerRemoveBtns) {
+					handleTunerRemoveBtns();
+				}
 				return [
 					...prevAllTunersState,
 					{
@@ -60,18 +73,6 @@ export default function App() {
 			})
 		}
 	}
-
-	const removeTuner = (tunerId) => {
-		setTunersUpdate(prevAllTunersState => {
-			handleTunerRemoveBtns();
-			return prevAllTunersState.filter(tuner => tuner.tunerId !== tunerId);
-		});
-	}
-	const [tunerRemoveBtns, setTunerRemoveBtns] = useState(false)
-	const handleTunerRemoveBtns = ()=> {
-		setTunerRemoveBtns( prevValue => prevValue ? false : true )
-	}
-
 
 
 

@@ -1,5 +1,28 @@
 .tuner {
 	position: relative;
+
+	&__remove-btn {
+		background: var(--primary-highlight-color);
+		border-radius: 100%;
+		aspect-ratio: 1 / 1;
+		position: absolute;
+		top: 25%;
+		right: 0;
+		padding: unset;
+		width: 40%;
+		height: auto;
+		// border: solid gray .1rem ; 
+	}
+	&--empty {
+		width: var(--min-note-size);
+		height: auto;
+		border-radius: 100%;
+		aspect-ratio: 1 / 1;
+		border: solid .1rem rgba(white, .25);
+		align-self: center;
+		// background: red;
+	}
+
 	.stepper {
 		grid-template-areas:
 			"increase"
@@ -27,17 +50,6 @@
 			}
 		}
 	}
-	&__remove-btn {
-		background: black;
-		border-radius: 100%;
-		aspect-ratio: 1 / 1;
-		position: absolute;
-		top: 25%;
-		right: 0;
-		padding: unset;
-		width: 40%;
-		height: auto;
-		border: solid gray .1rem ;
-	}
+	
 }
 

@@ -106,9 +106,19 @@ button {
 	&:focus-visible {
 		outline: 4px auto var(--primary-highlight-color);
 	}
+	&:disabled {
+		opacity: .2;
+	}
 }
 
 label {
 	display: block;
 	cursor: pointer;
+}
+
+table, thead, tbody, th, tr, td, th {
+	display: block;
+}
+legend {
+	float: left;
 }

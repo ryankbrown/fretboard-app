@@ -18,8 +18,8 @@ export default function Tuner(props) {
 			<Stepper 
 				id={`tuner-${props.tunerId}`}
 				key={`tuner-${props.tunerId}`} 
-				value={props.numValue}
-				displayValue={props.displayValue}
+				value={ props.numValue }
+				displayValue={ props.displayValue }
 				decreaseString="♭"
 				increaseString="♯"
 				setValue={ updateTuner }	

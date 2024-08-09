@@ -23,7 +23,7 @@
 
 	@media (width >= $orientation-change) {
 		width: clamp( 20rem, 100%, 400rem);
-		height: clamp( 35rem, 50%, 70rem);
+		height: clamp( 35rem, 60%, 80rem);
 
 		grid-template-columns: 5ch minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
 		grid-template-rows: repeat( var(--num-strings), minmax(0, 1fr)) minmax(5rem, min-content);
@@ -192,6 +192,7 @@
 	.fretboard--notes &__degree {
 		display: none;
 	}
+
 	
 	
 	// .fretboard--degrees .note__name {

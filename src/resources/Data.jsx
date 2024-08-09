@@ -208,7 +208,64 @@ const scales = {
 const chromatic_scale = Object.values(all_notes).map(note => note.name);
 
 
-const tuning = ['E', 'B', 'G', 'D', 'A', 'E']
+const tuning = ['E', 'A', 'D', 'G', 'B', 'E']
+const tuningOptions = [
+	{
+		name: 'Standard',
+		notes: ['E', 'A', 'D', 'G', 'B', 'E']
+	}, {
+		name: 'Half Step Down',
+		notes: ['D♯/E♭', 'G♯/A♭', 'C♯/D♭', 'F♯/G♭', 'A♯/B♭', 'D♯/E♭']
+	}, {
+		name: 'Whole Step Down',
+		notes: ['D', 'G', 'C', 'F', 'A', 'D']
+	}, {
+		name: 'Drop D',
+		notes: ['D', 'A', 'D', 'G', 'A', 'D']
+	}, {
+		name: 'Open D',
+		notes: ['D', 'A', 'D', 'F♯/G♭', 'A', 'D']
+	}, {
+		name: 'DADGAD',
+		notes: ['D', 'A', 'D', 'G', 'A', 'D']
+	}, {
+		name: 'Open E',
+		notes: ['E', 'B', 'E', 'G♯/A♭', 'B', 'E']
+	}, {
+		name: 'Open E Alternative',
+		notes: ['E', 'A', 'B', 'E', 'B', 'E']
+	}, {
+		name: 'Open G',
+		notes: ['D', 'G', 'D', 'G', 'B', 'D']
+	}, {
+		name: 'Rain Song',
+		notes: ['D', 'G', 'C', 'G', 'C', 'D']
+	}, {
+		name: 'Rain Song (Live)',
+		notes: ['E', 'A', 'D', 'A', 'D', 'E']
+	}, {
+		name: 'Bass Standard',
+		notes: ['E', 'A', 'D', 'G']
+	}, {
+		name: 'Bass 5-String Standard',
+		notes: ['B', 'E', 'A', 'D', 'G']
+	}, {
+		name: 'Ukulele Standard',
+		notes: ['G', 'C', 'E', 'A']
+	}, {
+		name: 'Ukulele Standard',
+		notes: ['G', 'C', 'E', 'A']
+	}, {
+		name: 'Mandolin Standard',
+		notes: ['G', 'D', 'A', 'E']
+	}, {
+		name: 'Banjo Standard',
+		notes: ['G', 'D', 'G', 'B', 'D']
+	}
+
+]
+
+
 // const tuning = ['C', 'C', 'C', 'C', 'C', 'C']
 
 

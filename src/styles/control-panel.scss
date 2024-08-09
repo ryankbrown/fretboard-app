@@ -1,4 +1,7 @@
+@use './variables.scss' as *;
+
 .control-panel {
+	border-top: solid .1rem gray;
 	grid-area: controlPanel; 
 	width: 100%;
 	font-size: 1.4rem;	
@@ -7,12 +10,12 @@
 	z-index: 1;
 	display: grid;
 	gap: 3rem;
-	grid-auto-flow: column;
 
-	
+	// position: sticky;
 
-	@media (width >= 600px) {
+	@media (width >= $orientation-change) {
 		// display: grid;
+		// position: relative;
 		
 		grid-template-areas: 
 			"title       title			title      title"
@@ -20,30 +23,33 @@
 			"modifyscale numfrets       scheme     notetype"
 			;
 		grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
-	}
-	&__tuning {
-		grid-area: tuning;
-	}
-	&__title {
-		grid-area: title;
-	}
-	&__key {
-		grid-area: key;
-	}
-	&__scale {
-		grid-area: scale;
-	}
-	&__modify-scale {
-		grid-area: modifyscale;
-	}
-	&__num-frets {
-		grid-area: numfrets;
-	}
-	&__scheme {
-		grid-area: scheme;
-	}
-	&__notetype {
-		grid-area: notetype;
+
+		.control-panel {
+			&__tuning {
+				grid-area: tuning;
+			}
+			&__title {
+				grid-area: title;
+			}
+			&__key {
+				grid-area: key;
+			}
+			&__scale {
+				grid-area: scale;
+			}
+			&__modify-scale {
+				grid-area: modifyscale;
+			}
+			&__num-frets {
+				grid-area: numfrets;
+			}
+			&__scheme {
+				grid-area: scheme;
+			}
+			&__notetype {
+				grid-area: notetype;
+			}
+		}
 	}
 	
 
@@ -51,7 +57,8 @@
 	&__title {
 		font-weight: bold;
 		font-size: 2rem;
-		margin-bottom: 2rem;
+		margin: 0;
+		padding-top: 2rem;
 	}
 
  
@@ -97,15 +104,43 @@
 		grid-template-rows: min-content;
 		gap: var(--control-panel-note-gap);
 	}
+	&__modify-tuning-wrapper {
+		display: grid;
+		grid-template-columns: min-content 1fr;
+		gap: 2rem;
+		align-items: center;
+	}
 	&__tuning-wrapper {
 		width: 100%;
 		display: grid;
 		gap: var(--control-panel-note-gap);
-		grid-template-columns: repeat(8, var(--min-note-size));	
+		grid-template-columns: min-content repeat(8, var(--min-note-size));
+	}
+	&__tuning-controls {
+		display: flex;
+		flex-direction: column;
+		// height: 100%;
+		gap: var(--control-panel-note-gap);
+		justify-self: center;
+		align-self: center;
+		padding: 0;
 	}
 	&__num-frets {
-		.fieldgroup--num-frets {
-			grid-template-areas: "legend content";
+		display: grid;
+		grid-template-areas: "legend content";
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		align-items: center;
+		.legend {
+			grid-area: legend;
+			grid-column: 1 / span 1;
+			grid-row: 1 / span 1;
+		}
+		.fieldgroup__content--num-frets {
+			grid-area: content;
+			margin: 0;
+			padding: 0;
+			grid-row: 1 / span 1;
 		}
 		.stepper {
 			width: fit-content;
