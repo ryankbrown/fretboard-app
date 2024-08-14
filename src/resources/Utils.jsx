@@ -1,7 +1,6 @@
-import { all_notes, chromatic_scale, scales } from "./Data";
+import { all_notes, chromatic_scale, scales, tuning_options } from "./Data";
 
-
-const getNoteObj = (name) => Object.values(all_notes).find(note => note.name === name);
+const getNoteObj = (input) => Object.values(all_notes).find(note => note[ typeof input === 'string' ? 'name' : 'indx' ] === input);
 
 function calcScaleData(targetScaleKey = 'C', targetScale='Ionian') {
 	
@@ -29,25 +28,18 @@ function calcScaleData(targetScaleKey = 'C', targetScale='Ionian') {
 	return scale_vals;
 }
 
-function calcFretboard(allTuners, numFrets=13, targetScaleKey='C', scaleData) {
-	const fretboard_data = [];
+function calcFretboard(currentTuning, numFrets=13, targetScaleKey='C', scaleData) {
 	
+	const fretboard_data = [];
 
-	const numStrings = allTuners.length;
-	for ( let s = 0; s < numStrings; s++ ) {
+	for ( let s = 0; s < currentTuning.notes.length; s++ ) {
 		for (let f = 0; f < numFrets; f++) {
 
 			// Get the string tuning note string and index
-			const string_tuning_note = allTuners[s];
-			// console.log(string_tuning_note)
-
-			// const tuning_note_chromatic_indx = chromatic_scale.indexOf(string_tuning_note);
-			const tuning_note_chromatic_indx = string_tuning_note.numValue;
+			const string_tuning_note_idx = getNoteObj(currentTuning.notes[s]).indx ;
 
 			// Get the fret note index
-			const fret_indx = (tuning_note_chromatic_indx + f) % (chromatic_scale.length);
-
-			
+			const fret_indx = (string_tuning_note_idx + f) % (chromatic_scale.length);
 			// Get the fret note name
 			const note_obj = getNoteObj(chromatic_scale[fret_indx])
 			
@@ -70,16 +62,26 @@ function calcFretboard(allTuners, numFrets=13, targetScaleKey='C', scaleData) {
 	return fretboard_data;
 }
 
+// const calcTuners = (tuner_note_arr, id=0) => {
+// 	return tuner_note_arr.map( note => (
+// 		{
+// 			tunerId: id,
+// 			displayValue: note,
+// 			numValue: getNoteObj(note).indx
+// 		}
+// 	))
+// }
+
+// const calcTuningData = (currentTuningName, switchtuning) => {
+
+// 	const tuning_notes = Object.values(tuning_options).find(tuning_obj => tuning_obj.name === currentTuningName).notes;
+
+// 	let new_note_vals = tuning_notes.map((note) => getNoteObj(note).indx);
+// 	if (switchtuning != undefined) {	
+// 		new_note_vals[switchtuning.index] = switchtuning.value;
+// 	}
+// 	return new_note_vals;
+// }
 
 
-
-const calcTuners = (tuner_note_arr) => tuner_note_arr.map((note, i) => (
-	{
-		tunerId: i,
-		displayValue: note,
-		numValue: getNoteObj(note).indx
-	}
-))
-
-
-export { calcScaleData, calcFretboard, calcTuners, getNoteObj }
+export { calcScaleData, calcFretboard, getNoteObj }

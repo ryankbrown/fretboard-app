@@ -2,10 +2,6 @@ import '../styles/toggler.scss'
 
 export default function Toggler(props) {
 
-	const handleInputChange = (e) => {
-		props.setValue(e.target.value);
-	}
-
 	return (
 		<>
 			<div className={`toggler toggler--${props.id} ${props.labelFirst ? "toggler--label-first" : ''}`}>
@@ -21,7 +17,7 @@ export default function Toggler(props) {
 					className={`toggler__input toggler__input--${props.id}`}
 					id={`toggler__input--${props.id}`}
 					
-					onChange={handleInputChange}
+					onChange={ (e) => props.setValue(e.target.value) }
 					checked={props.selectedValue === props.value}
 					value={props.value}
 				/>

@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import Fretboard from './components/Fretboard'
 import ControlPanel from './components/ControlPanel.jsx'
-import { tuning, chromatic_scale, scales, all_notes } from './resources/Data.jsx'
+import { tuning_options, scales, all_notes } from './resources/Data.jsx'
 import "./styles/app.scss" 
-import { calcScaleData, calcFretboard, calcTuners, getNoteObj } from './resources/Utils.jsx'
+import { calcScaleData, calcFretboard, getNoteObj } from './resources/Utils.jsx'
 
 // Test commit message
 // useState
@@ -23,60 +23,11 @@ import { calcScaleData, calcFretboard, calcTuners, getNoteObj } from './resource
 
 export default function App() {
 
-	console.clear();
-
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
 
-	const initialTuning = calcTuners(tuning);
-	
-	const [currentTuning, setcurrentTuning] = useState(initialTuning);
-
-	// Ids for tuner
-	const [highestTunerId, setHighestTunerId] = useState(initialTuning.length - 1);
-
-	// Array containg all Tuner components
-	const [allTuners, setAllTuners] = useState(currentTuning);
-	const handleTunerChange = (id, newTuning) => {
-		setAllTuners( prevAllTunersState => {
-			// Loop through the state of all previous tuners
-			// find the target tuner via id and inject the new tuning values
-			return prevAllTunersState.map( tuner => (tuner.tunerId === id ? { ...tuner, ...newTuning } : tuner));
-		});
-	};
-
-
-	const removeTuner = (tunerId) => {
-		setAllTuners(prevAllTunersState => {
-			handleTunerRemoveBtns();
-			return prevAllTunersState.filter(tuner => tuner.tunerId !== tunerId);
-		});
-	}
-	const [tunerRemoveBtns, setTunerRemoveBtns] = useState(false)
-	const handleTunerRemoveBtns = ()=> setTunerRemoveBtns( prevValue => prevValue ? false : true )
-
-
-	const addTuner = () => {		
-		if (allTuners.length < max_tuners) {
-			setAllTuners(prevAllTunersState => {
-				const newId = highestTunerId + 1;
-	            setHighestTunerId(newId);
-				if (tunerRemoveBtns) {
-					handleTunerRemoveBtns();
-				}
-				return [
-					...prevAllTunersState,
-					{
-						tunerId: newId,
-						displayValue: 'C',
-						numValue: getNoteObj('C').indx
-					}
-				]
-			})
-		}
-	}
-
-
+	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
+	// const handleSetCurrentTuning = (new_tuning) => setCurrentTuning(new_tuning)
 
 	// * * * NUMBER FRETS * * *  
 	const [numFrets, setNumFrets] = useState(13);
@@ -85,7 +36,7 @@ export default function App() {
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [scaleKey, setScaleKey] = useState( chromatic_scale[0] );
+	const [scaleKey, setScaleKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
 	const [currentScale, setCurrentScale] = useState(Object.values(scales)[0].name);
@@ -96,19 +47,25 @@ export default function App() {
 
 	// * * * INTERFACE * * *  
 	const [interfaceScheme, setInterfaceScheme] = useState("scheme-dark");
-	// useEffect(() => {
-	// 	document.documentElement.style.setProperty('--app-background-color', bgColor);
-	// }, [interfaceScheme]);
-
 
 
 
 	// * * *  CALCULATED DATA  * * *  
-	const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [scaleKey, currentScale, numFrets, allTuners])
+	const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [
+		scaleKey, 
+		currentScale, 
+		numFrets,
+		currentTuning
+	])
 
-	const fretboardData = useMemo(()=> calcFretboard(allTuners, numFrets, scaleKey, scaleData), [scaleKey, currentScale, numFrets, allTuners])
+	const fretboardData = useMemo(()=> calcFretboard(currentTuning, numFrets, scaleKey, scaleData), [
+		scaleKey, 
+		currentScale, 
+		numFrets,
+		currentTuning
+	])
 
-
+	
 
 
 	//  * * *  Get Key List * * *  
@@ -123,6 +80,7 @@ export default function App() {
 	
 
 	console.log('Render App')
+	console.log(currentTuning)
 	return (
 		<>
 			<main 
@@ -155,7 +113,8 @@ export default function App() {
 				</figure>
 				
 				<Fretboard
-					allTuners={allTuners}
+					// tuningData={tuningData}
+					currentTuning={currentTuning}
 					numFrets={numFrets} 
 					
 					scaleKey={scaleKey}
@@ -166,24 +125,18 @@ export default function App() {
 					fretboardData={fretboardData}
 				/>
 				<ControlPanel 
-					
 					keyList={key_list}
 					numFrets={numFrets} handleSetNumFrets={handleSetNumFrets}
 					scaleKey={scaleKey} setScaleKey={setScaleKey}
 					noteType={noteType} setNoteType={setNoteType}
 
-					allTuners={allTuners}
-					handleTunerChange={handleTunerChange}
-					
-					tunerRemoveBtns={tunerRemoveBtns}
-					setTunerRemoveBtns={setTunerRemoveBtns}
-					removeTuner={removeTuner}
+					currentTuning={currentTuning}
+					// handleSetCurrentTuning={handleSetCurrentTuning}
+					setCurrentTuning={setCurrentTuning}
 					maxTuners={max_tuners}
-					addTuner={addTuner}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
 					currentScale={currentScale} handleScaleSelection={handleScaleSelection}
-				
 				/>
 			</main>
 		</>

@@ -1,17 +1,37 @@
-import { all_notes } from "../resources/Data"
+import { getNoteObj } from "../resources/Utils";
+import { chromatic_scale } from "../resources/Data";
 import Stepper from "./Stepper"
 import '../styles/tuner.scss'
 
+
+
+
+
 export default function Tuner(props) {
 
-	const updateTuner = (newVal) => {
-		const numValue = (newVal + 12) % 12;
-		const newTuning = {
-			displayValue: Object.values(all_notes).find((note) => note.indx === numValue).name,
-			numValue
-		};
-		props.onTunerChange(props.tunerId, newTuning);
+	const adjustTuner = (new_value) => {
+		const position_idx = (new_value + chromatic_scale.length) % chromatic_scale.length;
+		const new_note = getNoteObj(position_idx).name;
+		props.setCurrentTuning((prevTuning) => {
+			const updated_notes = [...prevTuning.notes];
+			updated_notes[props.tunerId] = new_note;
+			return {
+				...prevTuning,
+				notes: updated_notes,
+			}
+		});
 	};
+
+	const removeTuner = () => {
+		props.setCurrentTuning((prevTuning) => {
+			const updated_notes = [...prevTuning.notes];
+			updated_notes.splice(props.tunerId, 1);
+			return {
+				...prevTuning,
+				notes: updated_notes,
+			}
+		});
+	}
 
 	return (
 		<div className={`tuner tuner--${props.tunerId}`}>
@@ -22,13 +42,14 @@ export default function Tuner(props) {
 				displayValue={ props.displayValue }
 				decreaseString="♭"
 				increaseString="♯"
-				setValue={ updateTuner }	
+				setValue={ adjustTuner }
+				disableStepperBtns={props.tunerRemoverState}
 			/>
 			{
-				props.allTuners.length > 1 && props.tunerRemoveBtns && (
+				props.currentTuning.notes.length > 1 && props.tunerRemoverState && (
 					<button
 						className="tuner__remove-btn"
-						onClick={ ()=> props.removeTuner(props.tunerId) }
+						onClick={ removeTuner }
 					>x</button>
 				)
 			}

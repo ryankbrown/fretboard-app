@@ -1,21 +1,14 @@
 import '../styles/dropdown.scss'
 
 export default function Dropdown(props) {
-	// console.log(handleClick);
-
-	const handleDropdownChange = (e) => {
-		// console.log('Dropdown', e.target.value);
-		props.setValue(e.target.value);
-	}
-
 	return (
 		<>
 			<select
 				className={`dropdown dropdown--${props.id}`} 
-				value={props.currentScale}
 				id={props.id} 
 				name={props.id} 
-				onChange={handleDropdownChange}
+				onChange={ (e) => props.setValue(e.target.value) }
+				value={props.selectedValue}
 			>{
 				props.options.map( (s, i) => (
 					<option 

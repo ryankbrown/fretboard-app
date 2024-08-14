@@ -8,7 +8,7 @@ const all_notes = {
 		indx 	: 0
 	},
 	c_sharp_d_flat :	{
-		name 	: 'C#/D♭',
+		name 	: 'C♯/D♭',
 		note_class :	'note__D-flat',
 		natural : false,
 		sharp : 'C',
@@ -248,9 +248,6 @@ const tuning_options = [
 	}, {
 		name: 'Bass 5-String Standard',
 		notes: ['B', 'E', 'A', 'D', 'G']
-	}, {
-		name: 'Ukulele Standard',
-		notes: ['G', 'C', 'E', 'A']
 	}, {
 		name: 'Ukulele Standard',
 		notes: ['G', 'C', 'E', 'A']
