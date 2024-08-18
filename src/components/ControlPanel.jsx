@@ -1,15 +1,21 @@
 import { useState } from 'react'
+import { Scale } from 'tonal';
+
 import Toggler from "./Toggler";
 import Dropdown from "./Dropdown";
 import FieldGroup from "./FieldGroup";
 import Stepper from "./Stepper";
-import Tuner from "./Tuner";
+// import Tuner from "./Tuner";
 import SharpFlatText from "./SharpFlatText";
+
 import { tuning_options } from "../resources/Data";
 
 import "../styles/control-panel.scss";
-import { scales, all_notes } from "../resources/Data";
-import { getNoteObj } from "../resources/Utils";
+
+// import { scales, all_notes } from "../resources/Data";
+// import { getNoteObj } from "../resources/Utils";
+
+
 
 export default function ControlPanel(props) {
 
@@ -30,9 +36,6 @@ export default function ControlPanel(props) {
 	const min_tuner_spaces = 6;
 
 
-	const note_obj_from_name = (name) =>
-		Object.values(all_notes).find((note) => note.name === name);
-
 	return (
 		<>
 			<div className="control-panel">
@@ -41,7 +44,7 @@ export default function ControlPanel(props) {
 				<FieldGroup selectorName="scale" legendString="Scale">
 					<Dropdown
 						id="scale-select"
-						options={Object.values(scales).map((s) => s.name)}
+						options={Scale.names()}
 						selectedValue={props.currentScale}
 						setValue={props.handleScaleSelection}
 					/>
@@ -180,7 +183,7 @@ export default function ControlPanel(props) {
 						}
 					</div>
 
-					<div 
+					{/* <div 
 						className="control-panel__tuning-wrapper"
 						style={{
 							['--num-tuners']: Math.max(min_tuner_spaces, props.currentTuning.notes.length)
@@ -208,7 +211,7 @@ export default function ControlPanel(props) {
 									className="tuner tuner--empty">
 								</div>
 							))}
-					</div>
+					</div> */}
 
 					<div className="control-panel__tuning-select">
 						<Dropdown

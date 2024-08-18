@@ -1,11 +1,14 @@
 import { useState, useMemo } from 'react'
+import { Note, Scale, Key } from 'tonal'
+import { tuning_options, scale_colors, key_list } from './resources/Data'
+import { str_to_css_selector } from './resources/Utils'
 
-
-import Fretboard from './components/Fretboard'
 import ControlPanel from './components/ControlPanel.jsx'
-import { tuning_options, scales, all_notes } from './resources/Data.jsx'
+// import Fretboard from './components/Fretboard'
+
+
 import "./styles/app.scss" 
-import { calcScaleData, calcFretboard, getNoteObj } from './resources/Utils.jsx'
+// https://tonaljs.github.io/tonal/docs/
 
 // Test commit message
 // useState
@@ -30,7 +33,7 @@ export default function App() {
 
 	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
 
-	// * * * NUMBER FRETS * * *  
+	// // * * * NUMBER FRETS * * *  
 	const [numFrets, setNumFrets] = useState(13);
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
@@ -40,43 +43,38 @@ export default function App() {
 	const [scaleKey, setScaleKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState(Object.values(scales)[0].name);
+	const [currentScale, setCurrentScale] = useState(Scale.names()[0]);
 	const handleScaleSelection = (val) => setCurrentScale( val );
 
-	// * * * NOTE TYPE * * *  
+	// // * * * NOTE TYPE * * *  
 	const [noteType, setNoteType] = useState("degrees");
 
-	// * * * INTERFACE * * *  
+	// // * * * INTERFACE * * *  
 	const [interfaceScheme, setInterfaceScheme] = useState("scheme-dark");
 
 
+	// // * * *  CALCULATED DATA  * * *  
+	// const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [
+	// 	scaleKey, 
+	// 	currentScale, 
+	// 	numFrets,
+	// 	currentTuning
+	// ])
 
-	// * * *  CALCULATED DATA  * * *  
-	const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [
-		scaleKey, 
-		currentScale, 
-		numFrets,
-		currentTuning
-	])
-
-	const fretboardData = useMemo(()=> calcFretboard(currentTuning, numFrets, scaleKey, scaleData), [
-		scaleKey, 
-		currentScale, 
-		numFrets,
-		currentTuning
-	])
+	// const fretboardData = useMemo(()=> calcFretboard(currentTuning, numFrets, scaleKey, scaleData), [
+	// 	scaleKey, 
+	// 	currentScale, 
+	// 	numFrets,
+	// 	currentTuning
+	// ])
 
 
-	//  * * *  Get Key List * * *  
-	const key_list = Object.values(all_notes).map( note_obj => note_obj.name);
-	
-	const app_style_attr = Object.entries(scales).reduce( (acc, [k, v] ) => {
-		acc[`--${v.id}`] = v.color;
+	// //  * * *  Get Key List * * *  
+
+	const app_style_attr = scale_colors.reduce( (acc, { colorname, color } ) => {
+		acc[`--${colorname}`] = color;
 		return acc;
 	}, {})
-
-	app_style_attr["--primary-highlight-color"] =  `var(--${Object.values(scales).find(scale_obj => scale_obj.name === currentScale).id})`
-	
 
 	console.log('Render App')
 
@@ -84,11 +82,19 @@ export default function App() {
 	return (
 		<>
 			<main 
-				className={`app-main-container ${interfaceScheme} ${`current-scale--${Object.values(scales).find(scale_obj => scale_obj.name === currentScale).id}`}`}
-				style={app_style_attr}
+				className={`
+					app-main-container ${interfaceScheme} 
+					current-scale--${ str_to_css_selector(Scale.names().find(name => name === currentScale)) }
+				`}
+				style={
+						scale_colors.reduce( (acc, { colorname, color } ) => {
+						acc[`--${colorname}`] = color;
+						return acc;
+					}, {})
+				}
 			>
 				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
-				<figure className="info-section">
+				{/* <figure className="info-section">
 					<table> 
 						<thead>
 							<tr>
@@ -110,9 +116,9 @@ export default function App() {
 							</tr>
 						</tbody>
 					</table>
-				</figure>
+				</figure> */}
 				
-				<Fretboard
+				{/* <Fretboard
 					// tuningData={tuningData}
 					currentTuning={currentTuning}
 					numFrets={numFrets} 
@@ -123,8 +129,9 @@ export default function App() {
 					interfaceScheme={interfaceScheme}
 
 					fretboardData={fretboardData}
-				/>
-				<ControlPanel 
+				/> */}
+
+				 <ControlPanel 
 					keyList={key_list}
 					numFrets={numFrets} handleSetNumFrets={handleSetNumFrets}
 					scaleKey={scaleKey} setScaleKey={setScaleKey}
