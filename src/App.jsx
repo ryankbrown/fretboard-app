@@ -1,4 +1,6 @@
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo } from 'react'
+
+
 import Fretboard from './components/Fretboard'
 import ControlPanel from './components/ControlPanel.jsx'
 import { tuning_options, scales, all_notes } from './resources/Data.jsx'
@@ -27,7 +29,6 @@ export default function App() {
 	const max_tuners = 9;
 
 	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
-	// const handleSetCurrentTuning = (new_tuning) => setCurrentTuning(new_tuning)
 
 	// * * * NUMBER FRETS * * *  
 	const [numFrets, setNumFrets] = useState(13);
@@ -65,8 +66,6 @@ export default function App() {
 		currentTuning
 	])
 
-	
-
 
 	//  * * *  Get Key List * * *  
 	const key_list = Object.values(all_notes).map( note_obj => note_obj.name);
@@ -80,7 +79,8 @@ export default function App() {
 	
 
 	console.log('Render App')
-	console.log(currentTuning)
+
+
 	return (
 		<>
 			<main 

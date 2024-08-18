@@ -17,12 +17,13 @@ export default function ControlPanel(props) {
 
 	const addTuner = () => {
 		setTunerRemoverState(false);
-		
 		if (props.currentTuning.notes.length < props.maxTuners) {
-			props.setCurrentTuning({
-				name: "Custom Tuning",
-				notes: [...props.currentTuning.notes, "E"],
-			});
+			document.startViewTransition(()=> {
+				props.setCurrentTuning({
+					name: "Custom Tuning",
+					notes: [...props.currentTuning.notes, "E"],
+				});
+			})
 		}
 	};
 
@@ -35,8 +36,7 @@ export default function ControlPanel(props) {
 	return (
 		<>
 			<div className="control-panel">
-				<h3 className="control-panel__title">{`Options`}</h3>
-
+				{/* <h3 className="control-panel__title">{`Options`}</h3> */}
 				{/* Scale */}
 				<FieldGroup selectorName="scale" legendString="Scale">
 					<Dropdown

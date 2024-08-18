@@ -220,7 +220,7 @@ const tuning_options = [
 		notes: ['D', 'G', 'C', 'F', 'A', 'D']
 	}, {
 		name: 'Drop D',
-		notes: ['D', 'A', 'D', 'G', 'A', 'D']
+		notes: ['D', 'A', 'D', 'G', 'B', 'E']
 	}, {
 		name: 'Open D',
 		notes: ['D', 'A', 'D', 'F♯/G♭', 'A', 'D']

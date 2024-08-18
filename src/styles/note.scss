@@ -1,5 +1,6 @@
 @use './variables.scss' as *;
 
+
 .note {
 	display: grid;
 	grid-template-areas: "notecenter";
@@ -15,6 +16,15 @@
 	color: white;
 	width: 100%;
 	height: 100%;
+
+	
+
+	// view-transition-name: note;
+	// animation: pop 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+	// animation-delay: calc(.01s * var(--fret-num) * (var(--num-strings) - var(--string-num)) );
+	// animation-fill-mode: both;
+
+
 
 	&:hover {
 		background: rgba(white, .05);
@@ -35,6 +45,8 @@
 			grid-column: calc(var(--fret-num) + 2) / span 1;
 			grid-row: calc( var(--num-strings) - var(--string-num) + 1) / span 1;
 		}
+
+		// view-transition-class: notewrapper;
 	}
 
 	&__name, &__degree, &__circle {
@@ -75,9 +87,6 @@
 	.fretboard--notes &__degree {
 		display: none;
 	}
-
-
-	
 }
 
 // show root note name in degree mode
@@ -89,3 +98,17 @@
 		display: none;
 	}
 }
+
+
+@keyframes pop {
+	from { scale: 0 }
+	to { scale: 1 }
+}
+
+
+// ::view-transition-old(.notewrapper) {
+// 	animation-duration: 2s;
+// }
+// ::view-transition-new(.notewrapper) {
+// 	animation-duration: 2s;
+// }

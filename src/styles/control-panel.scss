@@ -1,7 +1,11 @@
 @use './variables.scss' as *;
 
+
+
+
+
+
 .control-panel {
-	border-top: solid .1rem gray;
 	grid-area: controlPanel; 
 	width: 100%;
 	font-size: 1.4rem;	
@@ -9,7 +13,7 @@
 	bottom: 0;
 	z-index: 1;
 	display: grid;
-	gap: 3rem;
+	gap: 1rem;
 
 	// position: sticky;
 
@@ -18,19 +22,19 @@
 		// position: relative;
 		
 		grid-template-areas: 
-			"title       title			title      title"
 			"scale       tuning         key        key"
 			"modifyscale numfrets       scheme     notetype"
 			;
 		grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+		grid-template-rows: min-content min-content;
 
 		.control-panel {
 			&__tuning {
 				grid-area: tuning;
 			}
-			&__title {
-				grid-area: title;
-			}
+			// &__title {
+			// 	grid-area: title;
+			// }
 			&__key {
 				grid-area: key;
 			}

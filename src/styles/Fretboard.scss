@@ -21,6 +21,11 @@
 	justify-content: center;
 	align-items: center;
 
+	// view-transition-name: fretboard;
+
+	
+	 
+
 	@media (width >= $orientation-change) {
 		width: clamp( 20rem, 100%, 400rem);
 		height: clamp( 35rem, 60%, 80rem);
@@ -35,6 +40,26 @@
 		}
 	}
 }
+
+// ::view-transition-old(fretboard) {
+// 	animation-duration: .5s;
+// 	animation-name: moveOut;
+// }
+// ::view-transition-new(fretboard) {
+// 	animation-duration: .5s;
+// 	animation-name: moveIn;
+// }
+
+// @keyframes moveIn {
+// 	from { transform: translateX(100%); }
+// 	to	 { transform: translateX(0); }
+// }
+// @keyframes moveOut {
+// 	from { transform: translateX(0); }
+// 	to	 { transform: translateX(-100%); }
+// }
+
+
 
 .frets-wrapper, .fret-numbers-wrapper, .strings-wrapper, .notes-wrapper, .tuning-notes-wrapper {
 	grid-column: 1 / -1;

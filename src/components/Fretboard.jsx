@@ -70,7 +70,8 @@ export default function Fretboard(props) {
 							key={`note-wrapper--${i}`}
 							style={{ 
 								['--fret-num']: fret_obj.fret,
-								['--string-num']: fret_obj.string
+								['--string-num']: fret_obj.string,
+								['--note-wrapper-num']: fret_obj.note_obj.indx,
 							}}
 						>
 							<Note key={`note--${i}`} {...fret_obj} />

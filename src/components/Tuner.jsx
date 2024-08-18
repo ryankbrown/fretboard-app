@@ -1,3 +1,4 @@
+// import { flushSync } from "react-dom";
 import { getNoteObj } from "../resources/Utils";
 import { chromatic_scale } from "../resources/Data";
 import Stepper from "./Stepper"
@@ -12,14 +13,20 @@ export default function Tuner(props) {
 	const adjustTuner = (new_value) => {
 		const position_idx = (new_value + chromatic_scale.length) % chromatic_scale.length;
 		const new_note = getNoteObj(position_idx).name;
-		props.setCurrentTuning((prevTuning) => {
-			const updated_notes = [...prevTuning.notes];
-			updated_notes[props.tunerId] = new_note;
-			return {
-				...prevTuning,
-				notes: updated_notes,
-			}
-		});
+
+
+		document.startViewTransition(()=> {
+			// flushSync(()=> {
+				props.setCurrentTuning((prevTuning) => {
+					const updated_notes = [...prevTuning.notes];
+					updated_notes[props.tunerId] = new_note;
+					return {
+						...prevTuning,
+						notes: updated_notes,
+					}
+				});
+			// })
+		})
 	};
 
 	const removeTuner = () => {
@@ -34,7 +41,7 @@ export default function Tuner(props) {
 	}
 
 	return (
-		<div className={`tuner tuner--${props.tunerId}`}>
+		<div className={`tuner tuner--${props.tunerId}`} style={{ viewTransitionName: `tuner${props.tunerId}` }} >
 			<Stepper 
 				id={`tuner-${props.tunerId}`}
 				key={`tuner-${props.tunerId}`} 
@@ -50,7 +57,8 @@ export default function Tuner(props) {
 					<button
 						className="tuner__remove-btn"
 						onClick={ removeTuner }
-					>x</button>
+						aria-label={`Remove ${props.displayValue} Tuner`}
+					><div className="tuner__remove-btn-circle">X</div></button>
 				)
 			}
 		</div>

@@ -1,7 +1,27 @@
+
 .tuner {
 	position: relative;
+	transform-origin: center center;
+	view-transition-class: tuner;
 
 	&__remove-btn {
+		background: transparent;
+		grid-column: 1 / -1;
+		grid-row: 1 / -1;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		text-align: center;
+		transform-origin: center;
+		animation: scaleIn .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+		&:focus, &:focus-visible {
+			outline: none;
+		}
+	}
+	&__remove-btn-circle {
 		background: var(--primary-highlight-color);
 		border-radius: 100%;
 		aspect-ratio: 1 / 1;
@@ -11,7 +31,6 @@
 		padding: unset;
 		width: 40%;
 		height: auto;
-		// border: solid gray .1rem ; 
 	}
 	&--empty {
 		width: var(--min-note-size);
@@ -20,7 +39,6 @@
 		aspect-ratio: 1 / 1;
 		border: solid .1rem rgba(white, .25);
 		align-self: center;
-		// background: red;
 	}
 
 	.stepper {
@@ -50,6 +68,13 @@
 			}
 		}
 	}
-	
 }
 
+::view-transition-group(.tuner) {
+	animation-duration: .25s;
+}
+
+@keyframes scaleIn {
+	from { scale: 0}
+	to { scale: 1}
+}
