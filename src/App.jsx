@@ -1,16 +1,15 @@
 import { useState, useMemo } from 'react'
-import { Note, Scale, Key } from 'tonal'
+import { Scale } from 'tonal'
 import { tuning_options, scale_colors, key_list } from './resources/Data'
-import { str_to_css_selector } from './resources/Utils'
+import { str_to_css_selector, calc_fretboard_data } from './resources/Utils'
 
 import ControlPanel from './components/ControlPanel.jsx'
-// import Fretboard from './components/Fretboard'
-
+import Fretboard from './components/Fretboard'
 
 import "./styles/app.scss" 
+
 // https://tonaljs.github.io/tonal/docs/
 
-// Test commit message
 // useState
 // Usage: const [state, setState] = useState(initialState);
 // Purpose: used to manage local component state.
@@ -30,54 +29,46 @@ export default function App() {
 
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
-
 	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
 
-	// // * * * NUMBER FRETS * * *  
-	const [numFrets, setNumFrets] = useState(13);
+	// * * * NUMBER FRETS * * *  
+	const [numFrets, setNumFrets] = useState(8);
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [scaleKey, setScaleKey] = useState( 'E' );
+	const [currentKey, setCurrentKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
 	const [currentScale, setCurrentScale] = useState(Scale.names()[0]);
 	const handleScaleSelection = (val) => setCurrentScale( val );
-
-	// // * * * NOTE TYPE * * *  
+	// * * * NOTE TYPE * * *  
 	const [noteType, setNoteType] = useState("degrees");
 
-	// // * * * INTERFACE * * *  
+	// * * * INTERFACE * * *  
 	const [interfaceScheme, setInterfaceScheme] = useState("scheme-dark");
 
+	const fretboardData = useMemo(()=> calc_fretboard_data(currentTuning, numFrets, currentKey, currentScale), [
+		currentKey, 
+		currentScale, 
+		numFrets,
+		currentTuning
+	])
 
-	// // * * *  CALCULATED DATA  * * *  
-	// const scaleData = useMemo(()=> calcScaleData(scaleKey, currentScale), [
-	// 	scaleKey, 
-	// 	currentScale, 
-	// 	numFrets,
-	// 	currentTuning
-	// ])
-
-	// const fretboardData = useMemo(()=> calcFretboard(currentTuning, numFrets, scaleKey, scaleData), [
-	// 	scaleKey, 
-	// 	currentScale, 
-	// 	numFrets,
-	// 	currentTuning
-	// ])
-
-
-	// //  * * *  Get Key List * * *  
-
-	const app_style_attr = scale_colors.reduce( (acc, { colorname, color } ) => {
-		acc[`--${colorname}`] = color;
-		return acc;
-	}, {})
-
+	//  * * *  Color Style Calculations * * *  
+	// We're using useMemo to prevent the list from being recreated on every render
+	const app_style_attr = useMemo(() => {
+		const colors_obj = scale_colors.reduce( (acc, { colorname, color } ) => {
+			acc[`--${colorname}`] = color;
+			return acc;
+		}, {})
+	
+		colors_obj["--primary-highlight-color"] =  `var(--${str_to_css_selector(Scale.names().find(name => name === currentScale))})`
+		return colors_obj
+	})
+	
 	console.log('Render App')
-
 
 	return (
 		<>
@@ -86,19 +77,14 @@ export default function App() {
 					app-main-container ${interfaceScheme} 
 					current-scale--${ str_to_css_selector(Scale.names().find(name => name === currentScale)) }
 				`}
-				style={
-						scale_colors.reduce( (acc, { colorname, color } ) => {
-						acc[`--${colorname}`] = color;
-						return acc;
-					}, {})
-				}
+				style={app_style_attr}
 			>
 				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
 				{/* <figure className="info-section">
 					<table> 
 						<thead>
 							<tr>
-								<th className="info-section__title" >{ scaleKey } {currentScale}</th>
+								<th className="info-section__title" >{ currentKey } {currentScale}</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -118,27 +104,25 @@ export default function App() {
 					</table>
 				</figure> */}
 				
-				{/* <Fretboard
-					// tuningData={tuningData}
+				<Fretboard
+					fretboardData={fretboardData}
 					currentTuning={currentTuning}
 					numFrets={numFrets} 
 					
-					scaleKey={scaleKey}
+					currentKey={currentKey}
 					currentScale={currentScale} 
+
 					noteType={noteType}
 					interfaceScheme={interfaceScheme}
+				/>
 
-					fretboardData={fretboardData}
-				/> */}
-
-				 <ControlPanel 
+				<ControlPanel 
 					keyList={key_list}
 					numFrets={numFrets} handleSetNumFrets={handleSetNumFrets}
-					scaleKey={scaleKey} setScaleKey={setScaleKey}
+					currentKey={currentKey} setCurrentKey={setCurrentKey}
 					noteType={noteType} setNoteType={setNoteType}
 
 					currentTuning={currentTuning}
-					// handleSetCurrentTuning={handleSetCurrentTuning}
 					setCurrentTuning={setCurrentTuning}
 					maxTuners={max_tuners}
 

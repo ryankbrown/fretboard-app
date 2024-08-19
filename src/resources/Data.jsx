@@ -15,6 +15,7 @@ import { str_to_css_selector } from './Utils'
 // 	--augmented-triads: #773275;
 
 
+
 const colors = [
 	'#ED174F',
 	'#F47A20',
@@ -37,60 +38,58 @@ const scale_colors = Scale.names().map( (scale_name, i) => (
 const key_list = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B' ]
 
 
-
 // const chromatic_scale = Object.values(all_notes).map(note => note.name);
 
 const tuning_options = [
 	{
-		name: 'Standard',
-		notes: ['E', 'A', 'D', 'G', 'B', 'E']
+	   name: 'Standard',
+	   notes: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']
 	}, {
-		name: 'Half Step Down',
-		notes: ['D♯/E♭', 'G♯/A♭', 'C♯/D♭', 'F♯/G♭', 'A♯/B♭', 'D♯/E♭']
+	   name: 'Half Step Down',
+	   notes: ['Eb2', 'Ab2', 'Db3', 'Gb3', 'Bb3', 'Eb4']
 	}, {
-		name: 'Whole Step Down',
-		notes: ['D', 'G', 'C', 'F', 'A', 'D']
+	   name: 'Whole Step Down',
+	   notes: ['D2', 'G2', 'C3', 'F3', 'A3', 'D4']
 	}, {
-		name: 'Drop D',
-		notes: ['D', 'A', 'D', 'G', 'B', 'E']
+	   name: 'Drop D',
+	   notes: ['D2', 'A2', 'D3', 'G3', 'B3', 'E4']
 	}, {
-		name: 'Open D',
-		notes: ['D', 'A', 'D', 'F♯/G♭', 'A', 'D']
+	   name: 'Open D',
+	   notes: ['D2', 'A2', 'D3', 'F#3', 'A3', 'D4']
 	}, {
-		name: 'DADGAD',
-		notes: ['D', 'A', 'D', 'G', 'A', 'D']
+	   name: 'DADGAD',
+	   notes: ['D2', 'A2', 'D3', 'G3', 'A3', 'D4']
 	}, {
-		name: 'Open E',
-		notes: ['E', 'B', 'E', 'G♯/A♭', 'B', 'E']
+	   name: 'Open E',
+	   notes: ['E2', 'B2', 'E3', 'G#3', 'B3', 'E4']
 	}, {
-		name: 'Open E Alternative',
-		notes: ['E', 'A', 'B', 'E', 'B', 'E']
+	   name: 'Open E Alternative',
+	   notes: ['E2', 'A2', 'B2', 'E3', 'B3', 'E4']
 	}, {
-		name: 'Open G',
-		notes: ['D', 'G', 'D', 'G', 'B', 'D']
+	   name: 'Open G',
+	   notes: ['D2', 'G2', 'D3', 'G3', 'B3', 'D4']
 	}, {
-		name: 'Rain Song',
-		notes: ['D', 'G', 'C', 'G', 'C', 'D']
+	   name: 'Rain Song',
+	   notes: ['D2', 'G2', 'C3', 'G3', 'C4', 'D4']
 	}, {
-		name: 'Rain Song (Live)',
-		notes: ['E', 'A', 'D', 'A', 'D', 'E']
+	   name: 'Rain Song (Live)',
+	   notes: ['E2', 'A2', 'D3', 'A3', 'D4', 'E4']
 	}, {
-		name: 'Bass Standard',
-		notes: ['E', 'A', 'D', 'G']
+	   name: 'Bass Standard',
+	   notes: ['E1', 'A1', 'D2', 'G2']
 	}, {
-		name: 'Bass 5-String Standard',
-		notes: ['B', 'E', 'A', 'D', 'G']
+	   name: 'Bass 5-String Standard',
+	   notes: ['B0', 'E1', 'A1', 'D2', 'G2']
 	}, {
-		name: 'Ukulele Standard',
-		notes: ['G', 'C', 'E', 'A']
+	   name: 'Ukulele Standard',
+	   notes: ['G4', 'C4', 'E4', 'A4']
 	}, {
-		name: 'Mandolin Standard',
-		notes: ['G', 'D', 'A', 'E']
+	   name: 'Mandolin Standard',
+	   notes: ['G3', 'D4', 'A4', 'E5']
 	}, {
-		name: 'Banjo Standard',
-		notes: ['G', 'D', 'G', 'B', 'D']
+	   name: 'Banjo Standard',
+	   notes: ['G4', 'D3', 'G3', 'B3', 'D4']
 	}
-
 ]
 
 export { tuning_options, scale_colors, key_list }

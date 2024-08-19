@@ -1,32 +1,28 @@
-// import { flushSync } from "react-dom";
-import { getNoteObj } from "../resources/Utils";
-import { chromatic_scale } from "../resources/Data";
+import { Note, Interval } from 'tonal'
+
 import Stepper from "./Stepper"
 import '../styles/tuner.scss'
-
-
-
 
 
 export default function Tuner(props) {
 
 	const adjustTuner = (new_value) => {
-		const position_idx = (new_value + chromatic_scale.length) % chromatic_scale.length;
-		const new_note = getNoteObj(position_idx).name;
-
-
-		document.startViewTransition(()=> {
-			// flushSync(()=> {
-				props.setCurrentTuning((prevTuning) => {
-					const updated_notes = [...prevTuning.notes];
-					updated_notes[props.tunerId] = new_note;
-					return {
-						...prevTuning,
-						notes: updated_notes,
-					}
-				});
-			// })
-		})
+		let new_note = Note.transpose(
+			props.tunerValue, // Current note string
+			Interval.fromSemitones(new_value) // Interval change
+		)
+		// Convert to enharmonic equivalent, or else it renders like so (C####)
+		new_note = Note.enharmonic(new_note)
+		// document.startViewTransition(()=> {
+			props.setCurrentTuning((prevTuning) => {
+				const updated_notes = [...prevTuning.notes];
+				updated_notes[props.tunerId] = new_note
+				return {
+					...prevTuning,
+					notes: updated_notes,
+				}
+			});
+		// })
 	};
 
 	const removeTuner = () => {
@@ -45,8 +41,8 @@ export default function Tuner(props) {
 			<Stepper 
 				id={`tuner-${props.tunerId}`}
 				key={`tuner-${props.tunerId}`} 
-				value={ props.numValue }
-				displayValue={ props.displayValue }
+				value={ 0 } // setting this to 0 so that we can determine incrementing or decrementing, via -1 or 1.
+				displayValue={ Note.get(props.tunerValue).pc.replace('b', '♭').replace('#', '♯') }
 				decreaseString="♭"
 				increaseString="♯"
 				setValue={ adjustTuner }

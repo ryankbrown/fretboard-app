@@ -14,7 +14,7 @@ export default function Dropdown(props) {
 					<option 
 						key={i}
 						value={s}
-					>{ s }
+					>{s}
 					</option>
 				))
 			}</select>

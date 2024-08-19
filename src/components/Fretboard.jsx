@@ -1,14 +1,16 @@
+import { Note } from 'tonal'
 
-import Note from './Note'
+import NoteComponent from './NoteComponent'
+
 import '../styles/fretboard.scss'
-import { getNoteObj } from '../resources/Utils'
+// import { getNoteObj } from '../resources/Utils'
 
 
 export default function Fretboard(props) {
 	
 	return (
 		<>	
-			{/* MAIN WRAPPER */}
+			
 			<div 
 				className={`fretboard fretboard--${props.noteType}`}
 				style={{ 
@@ -16,7 +18,7 @@ export default function Fretboard(props) {
 					['--num-frets']: props.numFrets, 
 				}} 
 			>
-				{/* FRETS WRAPPER */}
+				
 				<div className="frets-wrapper">{
 					[...Array(props.numFrets)].map((_, i) => (
 						<div 
@@ -27,18 +29,18 @@ export default function Fretboard(props) {
 					))
 				}</div>
 
-				{/* TUNING NOTES WRAPPER */}
+				
 				<div className="tuning-notes-wrapper">{
-					props.currentTuning.notes.map( (note_idx, i) => (
+					props.currentTuning.notes.map( (tuning_note, i) => (
 						<div 
 							className="tuning-note"
 							key={`tuning-note--${i}`}
 							style={{ ['--string-num']: i }}
-						>{ getNoteObj(note_idx).name }</div>
+						>{ Note.get(tuning_note).name.replace('b', '♭').replace('#', '♯') }</div>
 					))
 				}</div>
 
-				{/* FRET NUMBERS WRAPPER */}
+				
 				<div className="fret-numbers-wrapper">{
 					[...Array(props.numFrets)].map((_, i) => (	
 						<div 
@@ -49,7 +51,7 @@ export default function Fretboard(props) {
 					))
 				}</div>
 
-				{/* STRINGS WRAPPER */}
+				
 				<div className="strings-wrapper">{
 					[...Array(props.currentTuning.notes.length)].map((_, i) => (
 						<div 
@@ -61,7 +63,7 @@ export default function Fretboard(props) {
 					))
 				}</div>
 
-				{/* NOTES WRAPPER */}
+				
 				<div className="notes-wrapper">{
 					props.fretboardData.map((fret_obj, i) => (
 						
@@ -71,10 +73,10 @@ export default function Fretboard(props) {
 							style={{ 
 								['--fret-num']: fret_obj.fret,
 								['--string-num']: fret_obj.string,
-								['--note-wrapper-num']: fret_obj.note_obj.indx,
+								// ['--note-wrapper-num']: fret_obj.note_obj.indx,
 							}}
-						>
-							<Note key={`note--${i}`} {...fret_obj} />
+						>	
+							<NoteComponent key={`note--${i}`} {...fret_obj} />
 						</div>
 					))
 				}</div>

@@ -1,20 +1,15 @@
 import { useState } from 'react'
-import { Scale } from 'tonal';
+import { Scale, Note } from 'tonal';
 
 import Toggler from "./Toggler";
 import Dropdown from "./Dropdown";
 import FieldGroup from "./FieldGroup";
 import Stepper from "./Stepper";
-// import Tuner from "./Tuner";
-import SharpFlatText from "./SharpFlatText";
+import Tuner from "./Tuner";
 
 import { tuning_options } from "../resources/Data";
 
 import "../styles/control-panel.scss";
-
-// import { scales, all_notes } from "../resources/Data";
-// import { getNoteObj } from "../resources/Utils";
-
 
 
 export default function ControlPanel(props) {
@@ -24,17 +19,16 @@ export default function ControlPanel(props) {
 	const addTuner = () => {
 		setTunerRemoverState(false);
 		if (props.currentTuning.notes.length < props.maxTuners) {
-			document.startViewTransition(()=> {
+			// document.startViewTransition(()=> {
 				props.setCurrentTuning({
 					name: "Custom Tuning",
-					notes: [...props.currentTuning.notes, "E"],
+					notes: [...props.currentTuning.notes, "E2"],
 				});
-			})
+			// })
 		}
 	};
 
 	const min_tuner_spaces = 6;
-
 
 	return (
 		<>
@@ -44,9 +38,9 @@ export default function ControlPanel(props) {
 				<FieldGroup selectorName="scale" legendString="Scale">
 					<Dropdown
 						id="scale-select"
-						options={Scale.names()}
-						selectedValue={props.currentScale}
-						setValue={props.handleScaleSelection}
+						options={ Scale.names() }
+						selectedValue={ props.currentScale }
+						setValue={ props.handleScaleSelection }
 					/>
 				</FieldGroup>
 
@@ -70,26 +64,13 @@ export default function ControlPanel(props) {
 						<Toggler
 							key={k}
 							id={`key-option--${k}`}
-							label={k}
+							label={ Note.get(k).name.replace('b', '♭').replace('#', '♯') }
 							inputType="radio"
 							checked={k === "C" ? true : false}
 							value={k}
-							selectedValue={props.scaleKey}
-							setValue={props.setScaleKey}
+							selectedValue={props.currentKey}
+							setValue={props.setCurrentKey}
 						>
-							{note_obj_from_name(k).sharp ||
-							note_obj_from_name(k).flat ? (
-								<SharpFlatText
-									sharp={note_obj_from_name(k).sharp}
-									flat={
-										Object.values(all_notes).find(
-											(note) => note.name === k
-										).flat
-									}
-								/>
-							) : (
-								props.note_name
-							)}
 						</Toggler>
 					))}
 				</FieldGroup>
@@ -183,7 +164,7 @@ export default function ControlPanel(props) {
 						}
 					</div>
 
-					{/* <div 
+					<div 
 						className="control-panel__tuning-wrapper"
 						style={{
 							['--num-tuners']: Math.max(min_tuner_spaces, props.currentTuning.notes.length)
@@ -195,8 +176,8 @@ export default function ControlPanel(props) {
 								tunerId={idx}
 								
 								currentTuning={props.currentTuning}
-								displayValue={getNoteObj(tuner_val).name}
-								numValue={getNoteObj(tuner_val).indx}
+								tunerValue={tuner_val}
+
 
 								setCurrentTuning={props.setCurrentTuning}
 								tunerRemoverState={tunerRemoverState}
@@ -211,7 +192,7 @@ export default function ControlPanel(props) {
 									className="tuner tuner--empty">
 								</div>
 							))}
-					</div> */}
+					</div>
 
 					<div className="control-panel__tuning-select">
 						<Dropdown
