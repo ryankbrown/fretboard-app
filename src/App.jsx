@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { Scale } from 'tonal'
 import { tuning_options, scale_colors, key_list } from './resources/Data'
 import { str_to_css_selector, calc_fretboard_data } from './resources/Utils'
+import { Note } from 'tonal'
 
 import ControlPanel from './components/ControlPanel.jsx'
 import Fretboard from './components/Fretboard'
@@ -26,25 +27,31 @@ import "./styles/app.scss"
 // Behavior: returns a memoized value that is only recalculated if any of the dependencies change. It helps to prevent unnecessary calculations in each render cycle.
 
 export default function App() {
+	
+	// console.log(Note.get('Db4'))
+	// console.log(Note.get('C#4'))
+
+	
 
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
 	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
 
 	// * * * NUMBER FRETS * * *  
-	const [numFrets, setNumFrets] = useState(8);
+	const [numFrets, setNumFrets] = useState(5);
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [currentKey, setCurrentKey] = useState( 'E' );
+	const [currentKey, setCurrentKey] = useState( 'D#' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState(Scale.names()[0]);
+	const [currentScale, setCurrentScale] = useState('major');
 	const handleScaleSelection = (val) => setCurrentScale( val );
+
 	// * * * NOTE TYPE * * *  
-	const [noteType, setNoteType] = useState("degrees");
+	const [noteType, setNoteType] = useState("notes");
 
 	// * * * INTERFACE * * *  
 	const [interfaceScheme, setInterfaceScheme] = useState("scheme-dark");
@@ -64,11 +71,12 @@ export default function App() {
 			return acc;
 		}, {})
 	
-		colors_obj["--primary-highlight-color"] =  `var(--${str_to_css_selector(Scale.names().find(name => name === currentScale))})`
+		colors_obj["--primary-highlight-color"] = `var(--${str_to_css_selector(Scale.names().find(name => name === currentScale))})`
 		return colors_obj
 	})
 	
 	console.log('Render App')
+	
 
 	return (
 		<>

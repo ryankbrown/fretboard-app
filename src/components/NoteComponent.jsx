@@ -12,7 +12,7 @@ export default function NoteComponent(props) {
 		`}>
 			<div className="note__circle"></div>
 			<div className="note__name">{
-				Note.enharmonic(Note.get(props.note_obj).pc)
+				Note.get(props.note_obj).pc
 			}</div>
 			<div className="note__degree">{props.inScale}</div>
 			{/* <div className="note__data">
