@@ -3,7 +3,7 @@ import { Note, Scale, Interval } from 'tonal';
 
 function calc_fretboard_data(currentTuning, numFrets=13, currentKey='E', currentScale) {
 
-	console.log('currentKey', currentKey);
+	// console.log('currentKey', currentKey);
 	const sharp_flat_type = Note.get(currentKey).acc;
 	// console.log('starting tuning notes');
 	const tuning_notes = currentTuning.notes.map(note => {
@@ -19,7 +19,10 @@ function calc_fretboard_data(currentTuning, numFrets=13, currentKey='E', current
 
 	// console.log('adjusted tuning notes', tuning_notes);
 	const scale_data = Scale.get(`${currentKey} ${currentScale}`);
-	const scale_pitch_classes = scale_data.notes.map(note => Note.pitchClass(note));
+	const scale_pitch_classes = scale_data.notes.map(note => {
+		const pitch_class = Note.pitchClass(note)
+		return Note.simplify(pitch_class)
+	});
 
 	// console.log('scale pitch classes', scale_pitch_classes);
 	// console.log('intervals', scale_data.intervals)
@@ -43,24 +46,21 @@ function calc_fretboard_data(currentTuning, numFrets=13, currentKey='E', current
 			} else {
 				note_obj = Note.get(fret_note_name);
 			}
+			console.log(note_obj.name);
 
 			// Determine if the note is in scale
 			const is_note_in_scale = scale_pitch_classes.includes(note_obj.pc);
 			// console.log(`string-${s} fret-${f}: ${note_obj.pc}`)
-			// console.log({ is_note_in_scale });
+			console.log({ is_note_in_scale });
 
             const notes_scale_degree = scale_pitch_classes.indexOf(note_obj.pc);
-			
-
-			const is_root = note_obj.pc === Note.get(currentKey).pc
-			console.log(is_root);
-
+		
 			const fret_obj = {
 				string: s + 1, // we add 1 because we dont have a String 0
 				fret: f,
 				note_obj,
 				inScale: is_note_in_scale ? scale_data.intervals[notes_scale_degree] : false,
-				isRootNote: is_root
+				isRootNote: note_obj.pc === Note.get(currentKey).pc
 			}
 			fretboard_data.push(fret_obj)
 		}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Scale } from 'tonal'
 import { tuning_options, scale_colors, key_list } from './resources/Data'
 import { str_to_css_selector, calc_fretboard_data } from './resources/Utils'
@@ -28,17 +28,12 @@ import "./styles/app.scss"
 
 export default function App() {
 	
-	// console.log(Note.get('Db4'))
-	// console.log(Note.get('C#4'))
-
-	
-
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
 	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
 
 	// * * * NUMBER FRETS * * *  
-	const [numFrets, setNumFrets] = useState(5);
+	const [numFrets, setNumFrets] = useState(13);
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
@@ -75,7 +70,15 @@ export default function App() {
 		return colors_obj
 	})
 	
-	console.log('Render App')
+	useEffect(()=> {
+		// console.clear();
+		console.log('Render App')
+		console.table({
+			'key': currentKey,
+			'scale': Scale.get(`${currentKey} ${currentScale}`).notes,
+			'tuning': currentTuning.notes
+		})		
+	})
 	
 
 	return (
