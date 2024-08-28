@@ -77,6 +77,16 @@ export default function Fretboard(props) {
 							}}
 						>	
 							<NoteComponent key={`note--${i}`} {...fret_obj} />
+							<div 
+								className="note--debug" 
+								style={{
+									fontWeight: 'bold',
+									justifySelf: 'center',
+									fontSize: '1.2rem',
+									color: 'red',
+								}}>
+									{fret_obj.inScale}
+							</div>
 						</div>
 					))
 				}</div>

@@ -15,6 +15,7 @@
 		justify-content: center;
 		align-items: center;
 		border-radius: var(--toggler-corner-radius);
+		cursor: pointer;
 	}
 	&:has(input:not(:checked))	&__label {
 		// color: red;

@@ -2,10 +2,10 @@ import { useState, useMemo, useEffect } from 'react'
 import { Scale } from 'tonal'
 import { tuning_options, scale_colors, key_list } from './resources/Data'
 import { str_to_css_selector, calc_fretboard_data } from './resources/Utils'
-import { Note } from 'tonal'
 
 import ControlPanel from './components/ControlPanel.jsx'
 import Fretboard from './components/Fretboard'
+import ScaleTable from './components/ScaleTable'
 
 import "./styles/app.scss" 
 
@@ -30,7 +30,7 @@ export default function App() {
 	
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
-	const [currentTuning, setCurrentTuning] = useState(tuning_options[0]);
+	const [currentTuning, setCurrentTuning] = useState(tuning_options.find(tuning => tuning.name === 'Half Step Down'));
 
 	// * * * NUMBER FRETS * * *  
 	const [numFrets, setNumFrets] = useState(13);
@@ -39,7 +39,7 @@ export default function App() {
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [currentKey, setCurrentKey] = useState( 'D#' );
+	const [currentKey, setCurrentKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
 	const [currentScale, setCurrentScale] = useState('major');
@@ -69,17 +69,22 @@ export default function App() {
 		colors_obj["--primary-highlight-color"] = `var(--${str_to_css_selector(Scale.names().find(name => name === currentScale))})`
 		return colors_obj
 	})
+
 	
 	useEffect(()=> {
 		// console.clear();
 		console.log('Render App')
-		console.table({
-			'key': currentKey,
-			'scale': Scale.get(`${currentKey} ${currentScale}`).notes,
-			'tuning': currentTuning.notes
-		})		
+
+		// console.table({
+		// 	'key': currentKey,
+		// 	'scale_name': currentScale,
+		// 	'scale': Scale.get(`${currentKey} ${currentScale}`).notes,
+		// 	'tuning': currentTuning.notes
+		// })		
+		// console.log(is_note_in_scale('Abb', 'B#5 minor'))
 	})
 	
+
 
 	return (
 		<>
@@ -91,29 +96,11 @@ export default function App() {
 				style={app_style_attr}
 			>
 				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
-				{/* <figure className="info-section">
-					<table> 
-						<thead>
-							<tr>
-								<th className="info-section__title" >{ currentKey } {currentScale}</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th scope="row" className="info-section__header">Scale Notes</th>
-								{
-									Object.values(scaleData).map((n, i) => <td key={`info-section__note-${i}`}>{n.note}</td>)
-								}
-							</tr>
-							<tr>
-								<th scope="row" className="info-section__header">Scale Degrees</th>
-								{
-									Object.values(scaleData).map((n, i) => <td key={`info-section__degree-${i}`}>{n.degree}</td>)
-								}
-							</tr>
-						</tbody>
-					</table>
-				</figure> */}
+
+				<ScaleTable 
+					currentKey={currentKey} 
+					currentScale={currentScale} 
+				/>
 				
 				<Fretboard
 					fretboardData={fretboardData}
