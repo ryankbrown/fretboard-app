@@ -66,7 +66,6 @@ export default function Fretboard(props) {
 				
 				<div className="notes-wrapper">{
 					props.fretboardData.map((fret_obj, i) => (
-						
 						<div 
 							className={`note__wrapper`}
 							key={`note-wrapper--${i}`}
@@ -77,7 +76,8 @@ export default function Fretboard(props) {
 							}}
 						>	
 							<NoteComponent key={`note--${i}`} {...fret_obj} />
-							<div 
+
+							{/* <div 
 								className="note--debug" 
 								style={{
 									fontWeight: 'bold',
@@ -86,7 +86,7 @@ export default function Fretboard(props) {
 									color: 'red',
 								}}>
 									{fret_obj.inScale}
-							</div>
+							</div> */}
 						</div>
 					))
 				}</div>

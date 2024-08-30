@@ -69,6 +69,21 @@ const tuning_options = [
 	   name: 'Open G',
 	   notes: ['D2', 'G2', 'D3', 'G3', 'B3', 'D4']
 	}, {
+		name: 'Double Drop D',
+		notes: ['D2', 'A2', 'D3', 'G3', 'B3', 'D4']
+	}, {
+		name: 'Drop C',
+		notes: ['C2', 'G2', 'C3', 'F3', 'A3', 'D4']
+	}, {
+		name: 'C Standard',
+		notes: ['C2', 'F2', 'Bb2', 'Eb3', 'G3', 'C4']
+	}, {
+		name: 'Drop B',
+		notes: ['B1', 'F#2', 'B2', 'E3', 'G#3', 'C#4']
+	}, {
+		name: 'Open C',
+		notes: ['C2', 'G2', 'C3', 'G3', 'C4', 'E4']
+	}, {
 	   name: 'Rain Song',
 	   notes: ['D2', 'G2', 'C3', 'G3', 'C4', 'D4']
 	}, {

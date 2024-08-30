@@ -39,7 +39,7 @@ export default function App() {
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [currentKey, setCurrentKey] = useState( 'E' );
+	const [currentKey, setCurrentKey] = useState( 'D#' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
 	const [currentScale, setCurrentScale] = useState('major');

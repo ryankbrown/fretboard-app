@@ -12,12 +12,9 @@ export default function NoteComponent(props) {
 		`}>
 			<div className="note__circle"></div>
 			<div className="note__name">{
-				Note.get(props.note_obj).pc.replace('b', '♭').replace('#', '♯')
+				props.note_obj.pc.replace('b', '♭').replace('#', '♯')
 			}</div>
-			<div className="note__degree">{props.inScale}</div>
-			{/* <div className="note__data">
-				<pre style={{ display: 'none'}}>{JSON.stringify(props, null, 2)}</pre>
-			</div> */}
+			<div className="note__degree">{ props.degree }</div>
 		</div>
 	)
 }
