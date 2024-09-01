@@ -17,16 +17,14 @@ import { str_to_css_selector } from './Utils'
 
 
 const colors = [
-	'#ED174F',
-	'#F47A20',
-	'#cda600',
-	'#7BD32F',
-	'#00B1B0',
-	'#0081C1',
-	'#8522B2',
-	'#ED174F',
-	'#00B1B0',
-]
+	'#ED174F', // Bright Red
+	'#F47A20', // Orange
+	'#cda600', // Gold
+	'#7BD32F', // Lime Green
+	'#00B1B0', // Teal
+	'#0081C1', // Azure Blue
+	'#8522B2', // Purple
+];
 
 const scale_colors = Scale.names().map( (scale_name, i) => ( 
 	{ 
