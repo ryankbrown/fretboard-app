@@ -141,10 +141,11 @@ export default function ControlPanel(props) {
                 {/* Tuning */}
                 <FieldGroup
                     selectorName="tuning"
-                    legendString="Modify Tuning"
+                    legendString="Tuning Controls"
                     contentWrapperClasses="control-panel__modify-tuning-wrapper"
                 >
                     <TabPanel
+                        selectorName="tuning"
                         contentWrapperClasses="control-panel__tuning-wrapper"
                         tabData={[
                             
@@ -152,6 +153,7 @@ export default function ControlPanel(props) {
                             {
                                 title: "Tuning Select",
                                 selectorName: "tuning-select",
+                                addedClasses: "control-panel__tuning-select-panel",
                                 content: (
                                     <Dropdown
                                         id="tuning-select"
@@ -170,33 +172,34 @@ export default function ControlPanel(props) {
                             {
                                 title: "Modify Tuning",
                                 selectorName: "modify-tuning",
+                                addedClasses: "control-panel__modify-tuning-wrapper",
                                 content: (
                                     <>
                                         <div className="control-panel__tuning-controls">
-                                            {
-                                                <button
-                                                    className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add"
-                                                    onClick={addTuner}
-                                                    disabled={props.currentTuning.notes.length === props.maxTuners}
-                                                >Add</button>
-                                            }
-                                            {
-                                                <button
-                                                    className={`control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove ${ tunerRemoverState ? "--active" : "" }`}
-                                                    onClick={() => setTunerRemoverState((prevValue) => prevValue ? false : true )
-                                                    }
-                                                    disabled={props.currentTuning.notes.length === 1}
-                                                >Remove</button>
-                                            }
+                                            <button
+                                                className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add"
+                                                onClick={addTuner}
+                                                disabled={props.currentTuning.notes.length === props.maxTuners}
+                                            >
+                                                {/* Add Icon */}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" stroke-width="2"/><path stroke="#fff" stroke-width="2" d="M15 7.5v15m7.5-7.5h-15"/></svg>
+                                                <span>Add</span>
+                                            </button>
+                                            <button
+                                                className={`control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove ${ tunerRemoverState ? "--active" : "" }`}
+                                                onClick={() => setTunerRemoverState((prevValue) => prevValue ? false : true )
+                                                }
+                                                disabled={props.currentTuning.notes.length === 1}
+                                            >
+                                                {/* Remove Icon */}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" stroke-width="2"/><path stroke="#fff" stroke-width="2" d="M22.5 15h-15"/></svg>
+                                                <span>Remove</span>
+                                            </button>
                                         </div>
                                         <div
                                             className="control-panel__tuning-wrapper"
                                             style={{
-                                                ["--num-tuners"]: Math.max(
-                                                    min_tuner_spaces,
-                                                    props.currentTuning.notes
-                                                        .length
-                                                ),
+                                                ["--num-tuners"]: Math.max(min_tuner_spaces, props.currentTuning.notes.length)
                                             }}
                                         >
                                             {props.currentTuning.notes.map(

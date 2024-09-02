@@ -42,7 +42,7 @@ export default function App() {
 	const [currentKey, setCurrentKey] = useState( 'D#' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState('major');
+	const [currentScale, setCurrentScale] = useState('major pentatonic');
 	const handleScaleSelection = (val) => setCurrentScale( val );
 
 	// * * * NOTE TYPE * * *  

@@ -119,6 +119,13 @@
 		align-self: center;
 		padding: 0;
 	}
+	&__tuner-ctrl-btn {
+		padding: 0;
+		background: none;
+		span {
+			display: none;
+		}
+	}
 	&__num-frets {
 		display: grid;
 		grid-template-areas: "legend content";

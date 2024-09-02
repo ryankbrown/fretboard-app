@@ -31,7 +31,7 @@ const TabPanel = (props) => {
                             activeTab === index
                                 ? "tabpanel__panel--active"
                                 : ""
-                        }`}
+                        } ${tab.addedClasses}`}
                     >
                         { tab.content }
                     </div>
