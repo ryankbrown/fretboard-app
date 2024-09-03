@@ -1,8 +1,10 @@
-# React + Vite
+# Guitar Fretboard in React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An app to help find notes on the fretboard within various musical scales.
 
-Currently, two official plugins are available:
+- Select from various stringed instrument tunings.
+- Change instrument tuning or number of strings.
+- Select and view various musical scales.
+- View scale degrees or note names.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Music data provided by [tonal.js](https://tonaljs.github.io/tonal/docs/).
