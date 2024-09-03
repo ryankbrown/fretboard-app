@@ -38,8 +38,11 @@ export default function App() {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
 
+	// * * * SOUND SETTINGS * * *  
+	const [soundOn, setSoundOn] = useState(true);
+
 	// * * * SCALE KEY - set to first key in all_notes
-	const [currentKey, setCurrentKey] = useState( 'D#' );
+	const [currentKey, setCurrentKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
 	const [currentScale, setCurrentScale] = useState('major pentatonic');

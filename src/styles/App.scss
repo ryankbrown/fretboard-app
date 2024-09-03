@@ -18,6 +18,8 @@
     overflow: hidden;
     padding: var(--side-container-padding);
 
+    
+
     @media (480px <= width) {
         --side-container-padding: 5rem;
     }

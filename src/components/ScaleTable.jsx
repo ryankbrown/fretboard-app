@@ -15,7 +15,7 @@ const ScaleTable = ({ currentKey, currentScale }) => {
                         className="info-section__title"
                         colSpan={scale_data.notes.length + 1}
                     >
-                        {currentKey} {
+                        {currentKey.replace('#', '♯').replace('b', '♭')} {
 							currentScale.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 						}
                     </th>
