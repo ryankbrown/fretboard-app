@@ -102,13 +102,19 @@
 		display: grid;
 		grid-template-columns: min-content 1fr;
 		gap: 2rem;
-		align-items: center;
+		align-items: center;	
 	}
 	&__tuning-wrapper {
-		width: 100%;
+		// width: 100%;
 		display: grid;
 		gap: var(--control-panel-note-gap);
 		grid-template-columns: repeat(var(--num-tuners), var(--min-note-size));
+	}
+
+	&__tuning-select-panel {
+		display: flex;
+		justify-items: center;
+		align-items: center;
 	}
 	&__tuning-controls {
 		display: flex;

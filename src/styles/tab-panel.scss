@@ -1,9 +1,11 @@
 .tabpanel {
-    // width: 100%;
-	grid-column: 1 / 3;
-	overflow: hidden;
+
+	&__nav {
+		display: flex;
+	}
 	&__content {
-        width:100%;
+        // width: 100%;
+		width: fit-content;
 		display: grid;
 		grid-template-areas: "content"
 	}
@@ -11,11 +13,13 @@
 	&__panel {
 		position: relative;
 		grid-area: content;
-		visibility: hidden;
+		// visibility: hidden;
+		opacity: 0;
 		z-index: 1;
 		pointer-events: none;
+		
 		&--active {
-			visibility: visible;
+			opacity: 1;
 			z-index: 2;
 			pointer-events: auto;
 		}
@@ -30,7 +34,6 @@
 		border-right: .05rem solid rgba(255, 255, 255, 0.2);
 		&:focus, &:focus-visible {
 			outline: none;
-			
 		}
 		&--active {
 			color: white;

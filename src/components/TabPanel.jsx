@@ -5,7 +5,7 @@ const TabPanel = (props) => {
     const [activeTab, setActiveTab] = useState(0);
 
     return (
-        <div className={`tabpanel ${props.contentWrapperClasses}`}>
+        <div className={`tabpanel ${props.contentWrapperClasses ?? ''}`}>
             <div className="tabpanel__nav">
                 {props.tabData.map((tab, index) => (
                     <button

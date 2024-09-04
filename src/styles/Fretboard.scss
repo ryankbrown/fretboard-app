@@ -88,7 +88,11 @@
 .fret-number, .tuning-note {
 	font-weight: 600;
 	font-size: 1.3rem;
-	color: var(--fret-number-color);
+	.scheme-dark & {
+		mix-blend-mode: hard-light;
+		// color: white;
+		color: rgba(white, .5);
+	}
 }
 
 .fret-number {
