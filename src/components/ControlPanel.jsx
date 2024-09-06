@@ -182,7 +182,7 @@ export default function ControlPanel(props) {
                                                 disabled={props.currentTuning.notes.length === props.maxTuners}
                                             >
                                                 {/* Add Icon */}
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" stroke-width="1"/><path stroke="#fff" stroke-width="1" d="M15 7.5v15m7.5-7.5h-15"/></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1"/><path stroke="#fff" strokeWidth="1" d="M15 7.5v15m7.5-7.5h-15"/></svg>
                                                 <span>Add</span>
                                             </button>
                                             <button
@@ -192,7 +192,7 @@ export default function ControlPanel(props) {
                                                 disabled={props.currentTuning.notes.length === 1}
                                             >
                                                 {/* Remove Icon */}
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" stroke-width="1"/><path stroke="#fff" stroke-width="1" d="M22.5 15h-15"/></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1"/><path stroke="#fff" strokeWidth="1" d="M22.5 15h-15"/></svg>
                                                 <span>Remove</span>
                                             </button>
                                         </div>

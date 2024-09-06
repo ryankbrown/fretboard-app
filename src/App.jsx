@@ -1,5 +1,8 @@
-import { useState, useMemo, useEffect } from 'react'
 import { Scale } from 'tonal'
+import * as Tone from 'tone';
+
+import { useState, useMemo, useEffect } from 'react'
+
 import { tuning_options, scale_colors, key_list } from './resources/Data'
 import { str_to_css_selector, calc_fretboard_data } from './resources/Utils'
 
@@ -28,6 +31,14 @@ import "./styles/app.scss"
 
 export default function App() {
 	
+	// * * * SOUND SETTINGS * * *  
+	const [soundState, setSoundState] = useState(true);
+	const toggleSound = () => soundState(prevVal => !prevVal);
+
+	// * * * SYNTH * * * 
+	const synth = new Tone.Synth().toDestination();
+
+
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
 	const [currentTuning, setCurrentTuning] = useState(tuning_options.find(tuning => tuning.name === 'Half Step Down'));
@@ -37,9 +48,6 @@ export default function App() {
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
-
-	// * * * SOUND SETTINGS * * *  
-	const [soundOn, setSoundOn] = useState(true);
 
 	// * * * SCALE KEY - set to first key in all_notes
 	const [currentKey, setCurrentKey] = useState( 'E' );
@@ -106,6 +114,7 @@ export default function App() {
 				/>
 				
 				<Fretboard
+					soundState
 					fretboardData={fretboardData}
 					currentTuning={currentTuning}
 					numFrets={numFrets} 
@@ -115,6 +124,8 @@ export default function App() {
 
 					noteType={noteType}
 					interfaceScheme={interfaceScheme}
+
+					synth={synth}
 				/>
 
 				<ControlPanel 

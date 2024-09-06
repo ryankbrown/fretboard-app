@@ -75,7 +75,12 @@ export default function Fretboard(props) {
 								// ['--note-wrapper-num']: fret_obj.note_obj.indx,
 							}}
 						>	
-							<NoteComponent key={`note--${i}`} {...fret_obj} />
+							<NoteComponent 
+								key={`note--${i}`} 
+								{...fret_obj} 
+								synth={props.synth}
+								soundState={props.soundState}
+							/>
 
 							{/* <div 
 								className="note--debug" 
