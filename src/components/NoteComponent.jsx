@@ -23,7 +23,8 @@ export default function NoteComponent(props) {
 		>
 			<div className="note__circle"></div>
 			<div className="note__name">{
-				props.note_obj.pc.replace('b', '♭').replace('#', '♯')
+				// props.note_obj.pc.replace('b', '♭').replace('#', '♯')
+				props.note_obj.name
 			}</div>
 			<div className="note__degree">{ props.degree }</div>
 		</div>

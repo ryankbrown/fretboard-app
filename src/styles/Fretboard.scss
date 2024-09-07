@@ -1,6 +1,8 @@
 @use './variables.scss' as *;
 
 .fretboard {
+	user-select: none;
+	
 	--note-circle-default-color: #000;
 	--fret-wire-color: #525252;
 	--fret-wire-highlight-color: white;

@@ -37,26 +37,26 @@ const interval_to_degree = (interval) => {
 
 
 const note_acc_to_scale = (note_name, scale_name, current_key) => {
+
+	const octave = Note.octave(note_name);
 	// Get the note object and the enharmonic note object
 	const simple_note_name = Note.simplify(note_name);
-	const octave = Note.octave(note_name);
 	const enharmonic_name = Note.simplify(Note.enharmonic(note_name));
 
 	// Get the scale object and the scale pitch classes
 	const scale_obj = Scale.get(scale_name);
 	const scale_pitch_classes = scale_obj.notes.map(n => Note.simplify(Note.pitchClass(n)))
-	
-	// // If the note or scale object is invalid throw an error
-	// if ( !note_obj || !scale_obj ) {
-	//   throw new Error("Invalid note or scale name");
-	// }
 
 	// use a Set object to remove duplicate posibilities (natural notes)
-	const note_options = [...new Set([ Note.pitchClass(simple_note_name), Note.pitchClass(enharmonic_name) ])];
+	const note_options = [...new Set([ simple_note_name, enharmonic_name ])];
 
-	const in_scale_note_name = note_options.filter( note => scale_pitch_classes.includes(note) )[0] ?? false;
-	const in_scale_idx = scale_pitch_classes.findIndex(n => n === in_scale_note_name);
-	const parsed_note = Note.get(in_scale_note_name + octave);
+	// Take the note options and find the one in scale. ?? if not in scale, return the original note name 
+	const scale_correct_name = note_options.filter( note => scale_pitch_classes.includes(Note.pitchClass(note)))[0] ?? note_name;
+	const scale_correct_note_obj = Note.get( Note.simplify(scale_correct_name) );
+	
+	// Find the index of the note in the scale
+	const in_scale_idx = scale_pitch_classes.findIndex(n => n === Note.pitchClass(scale_correct_name));
+	// Find the interval; If not in scale, return false
 	const in_scale_val = scale_obj.intervals[in_scale_idx] ? scale_obj.intervals[in_scale_idx] : false;
 
 	// Interval Quality Notation
@@ -65,18 +65,18 @@ const note_acc_to_scale = (note_name, scale_name, current_key) => {
 	const degree = in_scale_val ? interval_to_degree(in_scale_val).replace('#', '♯').replace('b', '♭') : false
 	
 	return { 
-		note_obj : parsed_note, 
-		noteName : parsed_note.name,
+		note_obj : scale_correct_note_obj, 
+		noteName : scale_correct_note_obj.name,
 		interval,
 		degree,
 		inScale : interval || degree ? true : false,
-		scaleAcc : parsed_note.acc,
-		isRootNote : parsed_note.pc === Note.get(current_key).pc
+		scaleAcc : scale_correct_note_obj.acc,
+		isRootNote : scale_correct_note_obj.pc === Note.get(current_key).pc
 	}
 }
 
 
-const calc_fretboard_data = (currentTuning, numFrets=13, currentKey='E', currentScale) => {
+const calc_fretboard_data = (currentTuning, numFrets=13, currentKey, currentScale) => {
 
 	const curr_key_scale = `${currentKey} ${currentScale}`;
 	
@@ -90,8 +90,9 @@ const calc_fretboard_data = (currentTuning, numFrets=13, currentKey='E', current
 			// Transpose the string note according to the fret number
 			const fret_note_name = Note.transpose(starting_string_note, Interval.fromSemitones(f) )
 			// Parse the note to get the note object, note name, if it is in the scale, the scale's accidental type, and if it is the root note
-			const parsed_note = note_acc_to_scale(fret_note_name, curr_key_scale, currentKey);
+			const parsed_note = note_acc_to_scale(fret_note_name, curr_key_scale, currentKey );
 
+			// Take the parsed note and add the string and fret data, and push it to the fretboard_data array
 			fretboard_data.push({
 				...parsed_note,
 				string: s + 1,

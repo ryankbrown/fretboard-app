@@ -53,7 +53,7 @@ export default function App() {
 	const [currentKey, setCurrentKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState('major pentatonic');
+	const [currentScale, setCurrentScale] = useState('major');
 	const handleScaleSelection = (val) => setCurrentScale( val );
 
 	// * * * NOTE TYPE * * *  
@@ -85,14 +85,8 @@ export default function App() {
 	useEffect(()=> {
 		// console.clear();
 		console.log('Render App')
-
-		// console.table({
-		// 	'key': currentKey,
-		// 	'scale_name': currentScale,
-		// 	'scale': Scale.get(`${currentKey} ${currentScale}`).notes,
-		// 	'tuning': currentTuning.notes
-		// })		
-		// console.log(is_note_in_scale('Abb', 'B#5 minor'))
+		// console.log(Scale.get('Eb2 Major').notes)
+		// console.log(Scale.get('Bb2 Major.').notes)
 	})
 	
 
