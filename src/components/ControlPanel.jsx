@@ -29,6 +29,7 @@ export default function ControlPanel(props) {
 
     const min_tuner_spaces = 6;
 
+
     return (
         <>
             <div className="control-panel">
@@ -37,7 +38,7 @@ export default function ControlPanel(props) {
                 <FieldGroup selectorName="scale" legendString="Scale">
                     <Dropdown
                         id="scale-select"
-                        options={Scale.names()}
+                        options={ Scale.names() }
                         selectedValue={props.currentScale}
                         setValue={props.handleScaleSelection}
                     />

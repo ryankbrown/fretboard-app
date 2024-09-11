@@ -66,33 +66,38 @@ export default function Fretboard(props) {
 				
 				<div className="notes-wrapper">{
 					props.fretboardData.map((fret_obj, i) => (
-						<div 
-							className={`note__wrapper`}
-							key={`note-wrapper--${i}`}
-							style={{ 
-								['--fret-num']: fret_obj.fret,
-								['--string-num']: fret_obj.string,
-								// ['--note-wrapper-num']: fret_obj.note_obj.indx,
-							}}
-						>	
-							<NoteComponent 
-								key={`note--${i}`} 
-								{...fret_obj} 
-								synth={props.synth}
-								soundState={props.soundState}
-							/>
 
-							{/* <div 
-								className="note--debug" 
-								style={{
-									fontWeight: 'bold',
-									justifySelf: 'center',
-									fontSize: '1.2rem',
-									color: 'red',
-								}}>
-									{fret_obj.inScale}
-							</div> */}
-						</div>
+						fret_obj.inScale && (
+							<div 
+								className={`note__wrapper`}
+								key={`note-wrapper--${i}`}
+								style={{ 
+									['--fret-num']: fret_obj.fret,
+									['--string-num']: fret_obj.string,
+									// ['--note-wrapper-num']: fret_obj.note_obj.indx,
+								}}
+							>	
+								<NoteComponent 
+									key={`note--${i}`} 
+									{...fret_obj} 
+									synth={props.synth}
+									soundState={props.soundState}
+
+									noteType={props.noteType}
+								/>
+
+								{/* <div 
+									className="note--debug" 
+									style={{
+										fontWeight: 'bold',
+										justifySelf: 'center',
+										fontSize: '1.2rem',
+										color: 'red',
+									}}>
+										{fret_obj.inScale}
+								</div> */}
+							</div>
+						)
 					))
 				}</div>
 			</div>

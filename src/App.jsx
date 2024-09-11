@@ -3,8 +3,8 @@ import * as Tone from 'tone';
 
 import { useState, useMemo, useEffect } from 'react'
 
-import { tuning_options, scale_colors, key_list } from './resources/Data'
-import { str_to_css_selector, calc_fretboard_data } from './resources/Utils'
+import { tuning_options, key_list } from './resources/Data'
+import { str_to_css_selector, calc_fretboard_data, calc_color } from './resources/Utils'
 
 import ControlPanel from './components/ControlPanel.jsx'
 import Fretboard from './components/Fretboard'
@@ -38,7 +38,6 @@ export default function App() {
 	// * * * SYNTH * * * 
 	const synth = new Tone.Synth().toDestination();
 
-
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
 	const [currentTuning, setCurrentTuning] = useState(tuning_options.find(tuning => tuning.name === 'Half Step Down'));
@@ -69,28 +68,15 @@ export default function App() {
 		currentTuning
 	])
 
-	//  * * *  Color Style Calculations * * *  
-	// We're using useMemo to prevent the list from being recreated on every render
-	const app_style_attr = useMemo(() => {
-		const colors_obj = scale_colors.reduce( (acc, { colorname, color } ) => {
-			acc[`--${colorname}`] = color;
-			return acc;
-		}, {})
-	
-		colors_obj["--primary-highlight-color"] = `var(--${str_to_css_selector(Scale.names().find(name => name === currentScale))})`
-		return colors_obj
-	})
-
-	
 	useEffect(()=> {
 		// console.clear();
 		console.log('Render App')
 		// console.log(Scale.get('Eb2 Major').notes)
 		// console.log(Scale.get('Bb2 Major.').notes)
 	})
+
 	
-
-
+	
 	return (
 		<>
 			<main 
@@ -98,13 +84,17 @@ export default function App() {
 					app-main-container ${interfaceScheme} 
 					current-scale--${ str_to_css_selector(Scale.names().find(name => name === currentScale)) }
 				`}
-				style={app_style_attr}
+				style={{ 
+					['--primary-highlight-color'] : calc_color(currentScale).main,
+					['--primary-highlight-dark-color'] : calc_color(currentScale).dark
+				}}
 			>
 				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
 
 				<ScaleTable 
 					currentKey={currentKey} 
 					currentScale={currentScale} 
+					synth={synth}
 				/>
 				
 				<Fretboard

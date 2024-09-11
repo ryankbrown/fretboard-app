@@ -1,4 +1,5 @@
 import { Note, Scale, Interval } from 'tonal';
+import { color_data } from './Data';
 
 
 
@@ -75,7 +76,6 @@ const note_acc_to_scale = (note_name, scale_name, current_key) => {
 	}
 }
 
-
 const calc_fretboard_data = (currentTuning, numFrets=13, currentKey, currentScale) => {
 
 	const curr_key_scale = `${currentKey} ${currentScale}`;
@@ -112,4 +112,12 @@ const str_to_css_selector = (str) => {
 }
 
 
-export { str_to_css_selector, calc_fretboard_data, interval_to_degree, get_core_note }
+
+const calc_color = (currentScale) => {
+	const scale_idx = Scale.names().indexOf(currentScale);
+	const color_data_arr = Object.values(color_data);
+	return color_data_arr[ scale_idx % color_data_arr.length ]
+}
+
+
+export { str_to_css_selector, calc_fretboard_data, interval_to_degree, get_core_note, calc_color }

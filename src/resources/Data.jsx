@@ -16,22 +16,63 @@ import { str_to_css_selector } from './Utils'
 
 
 
-const colors = [
-	'#ED174F', // Bright Red
-	'#F47A20', // Orange
-	'#cda600', // Gold
-	'#7BD32F', // Lime Green
-	'#00B1B0', // Teal
-	'#0081C1', // Azure Blue
-	'#8522B2', // Purple
-];
+// const colors = [
+// 	'#ED174F', // Bright Red
+// 	'#F47A20', // Orange
+// 	'#cda600', // Gold
+// 	'#7BD32F', // Lime Green
+// 	'#00B1B0', // Teal
+// 	'#0081C1', // Azure Blue
+// 	'#8522B2', // Purple
+// ];
 
-const scale_colors = Scale.names().map( (scale_name, i) => ( 
-	{ 
-		colorname: str_to_css_selector(scale_name), 
-		color: colors[i % (colors.length - 1)] 
-	} 
-))
+
+
+
+const color_data = {
+	red: {
+		main: "#ff275f",
+		dark: "#cb1846",
+	},
+	orange: {
+		main: "#fe8e26",
+		dark: "#BD6A1D",
+	},
+	gold: {
+		main: "#f2bf0a",
+		dark: "#AE8D16",
+	},
+	green: {
+		main: "#29d985",
+		dark: "#018C62",
+	},
+	teal: {
+		main: "#00e2e1",
+		dark: "#008d8d",
+	},
+	blue: {
+		main: "#2288ff",
+		dark: "#0959a2",
+	},
+	purple: {
+		main: "#ba2aff",
+		dark: "#6d278d",
+	},
+	violet: {
+		main: "#6a45ff",
+		dark: "#310099",
+	}
+}
+
+
+
+
+// const scale_colors = Scale.names().map( (scale_name, i) => ( 
+// 	{ 
+// 		colorname: str_to_css_selector(scale_name), 
+// 		color: colors[i % (colors.length - 1)] 
+// 	} 
+// ))
 
 const key_list = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B' ]
 
@@ -105,4 +146,6 @@ const tuning_options = [
 	}
 ]
 
-export { tuning_options, scale_colors, key_list }
+
+
+export { tuning_options, color_data, key_list }

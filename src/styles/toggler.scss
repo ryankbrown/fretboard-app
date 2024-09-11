@@ -24,7 +24,7 @@
 		// color: blue;
 	}
 	&:has(input:checked) &__label {
-		background: var(--primary-highlight-color);
+		background: var(--primary-highlight-dark-color);
 	}
 
 	&__input[type="radio"] {

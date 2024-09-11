@@ -12,6 +12,14 @@ export default function NoteComponent(props) {
 		props.synth.triggerAttackRelease(props.note_obj.name, "8n", Tone.now());
 	}
 
+	const noteName = (
+		<div className="note__name">{
+			props.note_obj.pc.replace('b', '♭').replace('#', '♯')
+		}{
+			<span className="note__oct">{props.note_obj.oct}</span>
+		}</div>
+	)
+
 	return (
 		<div className={`
 			note note--${ Note.get(props.note_obj).name } 
@@ -21,12 +29,18 @@ export default function NoteComponent(props) {
 		`} 
 			onClick={ ()=> props.soundState && props.inScale ? handleNoteClick() : null }
 		>
+			{/* Note Circle */}
 			<div className="note__circle"></div>
-			<div className="note__name">{
-				// props.note_obj.pc.replace('b', '♭').replace('#', '♯')
-				props.note_obj.name
-			}</div>
-			<div className="note__degree">{ props.degree }</div>
+
+			{/* Note Content */}
+			{
+				props.inScale && (
+					props.noteType === 'notes' ? noteName : (
+						props.isRootNote ? noteName :
+						<div className="note__degree">{ props.degree }</div>
+					)	
+				)
+			}
 		</div>
 	)
 }
