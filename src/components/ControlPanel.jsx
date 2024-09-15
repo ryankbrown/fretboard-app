@@ -8,7 +8,8 @@ import Stepper from "./Stepper";
 import Tuner from "./Tuner";
 import TabPanel from "./TabPanel";
 
-import { tuning_options } from "../resources/Data";
+import { change_str_case } from "../resources/Utils";
+import { tuning_options, custom_ordered_scale_names } from "../resources/Data";
 
 import "../styles/control-panel.scss";
 
@@ -28,7 +29,8 @@ export default function ControlPanel(props) {
     };
 
     const min_tuner_spaces = 6;
-
+    //uppercased scale names
+    const scale_names = custom_ordered_scale_names.map((s) => change_str_case(s, 'upper'));
 
     return (
         <>
@@ -38,9 +40,9 @@ export default function ControlPanel(props) {
                 <FieldGroup selectorName="scale" legendString="Scale">
                     <Dropdown
                         id="scale-select"
-                        options={ Scale.names() }
+                        options={ scale_names }
                         selectedValue={props.currentScale}
-                        setValue={props.handleScaleSelection}
+                        setValue={props.setCurrentScale}
                     />
                 </FieldGroup>
 

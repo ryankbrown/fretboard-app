@@ -7,7 +7,6 @@ import '../styles/fretboard.scss'
 
 
 export default function Fretboard(props) {
-	
 	return (
 		<>	
 			

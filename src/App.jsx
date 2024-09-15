@@ -4,7 +4,7 @@ import * as Tone from 'tone';
 import { useState, useMemo, useEffect } from 'react'
 
 import { tuning_options, key_list } from './resources/Data'
-import { str_to_css_selector, calc_fretboard_data, calc_color } from './resources/Utils'
+import { change_str_case, calc_fretboard_data, calc_color } from './resources/Utils'
 
 import ControlPanel from './components/ControlPanel.jsx'
 import Fretboard from './components/Fretboard'
@@ -53,7 +53,6 @@ export default function App() {
 
 	// * * * CURRENT SCALE - set to first scale in scale data
 	const [currentScale, setCurrentScale] = useState('major');
-	const handleScaleSelection = (val) => setCurrentScale( val );
 
 	// * * * NOTE TYPE * * *  
 	const [noteType, setNoteType] = useState("notes");
@@ -68,13 +67,18 @@ export default function App() {
 		currentTuning
 	])
 
-	useEffect(()=> {
-		// console.clear();
-		console.log('Render App')
-		// console.log(Scale.get('Eb2 Major').notes)
-		// console.log(Scale.get('Bb2 Major.').notes)
-	})
+	// console.log(currentKey);
+	// console.log(currentScale);
 
+	// useEffect(()=> {
+	// 	// console.clear();
+	// 	console.log('Render App')
+	// 	console.log(Scale.get(currentScale).name)
+	// 	// console.log(Scale.get('Eb major').notes)
+	// 	// console.log(Scale.get('Bb Major').notes)
+	// })
+
+	const color_scheme = calc_color( currentScale );
 	
 	
 	return (
@@ -82,11 +86,11 @@ export default function App() {
 			<main 
 				className={`
 					app-main-container ${interfaceScheme} 
-					current-scale--${ str_to_css_selector(Scale.names().find(name => name === currentScale)) }
+					current-scale--${ change_str_case( currentScale, 'css' ) }
 				`}
 				style={{ 
-					['--primary-highlight-color'] : calc_color(currentScale).main,
-					['--primary-highlight-dark-color'] : calc_color(currentScale).dark
+					['--primary-highlight-color'] : color_scheme.main,
+					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
 			>
 				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
@@ -95,6 +99,7 @@ export default function App() {
 					currentKey={currentKey} 
 					currentScale={currentScale} 
 					synth={synth}
+
 				/>
 				
 				<Fretboard
@@ -110,6 +115,7 @@ export default function App() {
 					interfaceScheme={interfaceScheme}
 
 					synth={synth}
+
 				/>
 
 				<ControlPanel 
@@ -123,7 +129,7 @@ export default function App() {
 					maxTuners={max_tuners}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
-					currentScale={currentScale} handleScaleSelection={handleScaleSelection}
+					currentScale={currentScale} setCurrentScale={setCurrentScale}
 				/>
 			</main>
 		</>

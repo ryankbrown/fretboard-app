@@ -1,19 +1,4 @@
-import { Scale } from 'tonal'
-import { str_to_css_selector } from './Utils'
-
-// --ionian: #ED174F;
-// 	--dorian: #F47A20;
-// 	--phrygian: #cda600;
-// 	--lydian: #7BD32F;
-// 	--mixolydian: #00B1B0;
-// 	--aeolian: #0081C1;
-// 	--locrian: #8522B2;
-// 	--major-triad: #ED174F;
-// 	--minor-triad: #00B1B0;
-// 	--chromatic: #757575;
-// 	--diminished-triads: #e94d76;
-// 	--augmented-triads: #773275;
-
+import { Scale } from 'tonal';
 
 
 // const colors = [
@@ -28,8 +13,34 @@ import { str_to_css_selector } from './Utils'
 
 
 
+const composite_scale_names = (original, reordered) => {
+	const unique_reordered = [...new Set(reordered)];
+	const remaining_names = original.filter(name => !unique_reordered.includes(name));
+	return [...unique_reordered, ...remaining_names];
+}
 
-const color_data = {
+const custom_ordered_scale_names = composite_scale_names(Scale.names(), [
+	'major',
+	'major pentatonic',
+	'minor pentatonic',
+	'major blues',
+	'minor blues',
+	'minor',
+	'harmonic minor',
+	'melodic minor',
+	'ionian',
+	'dorian',
+	'phrygian',
+	'lydian',
+	'mixolydian',
+	'aeolian',
+	'locrian',
+	'bebop'
+]);
+
+
+
+let color_data = {
 	red: {
 		main: "#ff275f",
 		dark: "#cb1846",
@@ -38,10 +49,10 @@ const color_data = {
 		main: "#fe8e26",
 		dark: "#BD6A1D",
 	},
-	gold: {
-		main: "#f2bf0a",
-		dark: "#AE8D16",
-	},
+	// gold: {
+	// 	main: "#f2bf0a",
+	// 	dark: "#AE8D16",
+	// },
 	green: {
 		main: "#29d985",
 		dark: "#018C62",
@@ -66,13 +77,6 @@ const color_data = {
 
 
 
-
-// const scale_colors = Scale.names().map( (scale_name, i) => ( 
-// 	{ 
-// 		colorname: str_to_css_selector(scale_name), 
-// 		color: colors[i % (colors.length - 1)] 
-// 	} 
-// ))
 
 const key_list = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B' ]
 
@@ -148,4 +152,4 @@ const tuning_options = [
 
 
 
-export { tuning_options, color_data, key_list }
+export { tuning_options, color_data, key_list, custom_ordered_scale_names }

@@ -1,6 +1,14 @@
 import { Note, Scale, Interval } from 'tonal';
-import { color_data } from './Data';
+import { color_data, custom_ordered_scale_names } from './Data';
 
+
+const shuffle_array = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 
 // Removes pitchClass and simplifies
@@ -104,20 +112,52 @@ const calc_fretboard_data = (currentTuning, numFrets=13, currentKey, currentScal
 	return fretboard_data;
 }
 
-const str_to_css_selector = (str) => {
-	return str
-	  .replace(/\s+/g, '-')  // Replace spaces with hyphens
-	  .replace(/#/g, 'sharp')  // Replace '#' with 'sharp'
-	  .replace(/'/g, '')  // Remove apostrophes
+
+
+const change_str_case = (str, opt = 'upper') => {
+	let new_str;
+  
+	if (opt === 'upper') {
+	  new_str = str
+		.split(' ')
+		.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(' ');
+	} else if (opt === 'lower') {
+	  new_str = str
+		.split(' ')
+		.map(word => word.charAt(0).toLowerCase() + word.slice(1))
+		.join(' ');
+	} else if (opt === 'css') {
+	  new_str = str
+		.replace(/\s+/g, '-') // Replace spaces with hyphens
+		.replace(/#/g, 'sharp') // Replace '#' with 'sharp'
+		.replace(/'/g, '') // Remove apostrophes
+		.toLowerCase(); // Convert the entire string to lowercase
+	} else {
+	  throw new Error('Invalid option. Use "upper", "lower", or "css".');
+	}
+  
+	return new_str;
 }
 
 
-
 const calc_color = (currentScale) => {
-	const scale_idx = Scale.names().indexOf(currentScale);
-	const color_data_arr = Object.values(color_data);
+	let scale_str = change_str_case( currentScale, 'lower' )
+	const scale_idx = custom_ordered_scale_names.indexOf(scale_str);
+	let color_data_arr = Object.values(color_data);
+
+	// Randomize Colors
+	//color_data_arr = shuffle_array(color_data_arr);
+
 	return color_data_arr[ scale_idx % color_data_arr.length ]
 }
 
 
-export { str_to_css_selector, calc_fretboard_data, interval_to_degree, get_core_note, calc_color }
+export { 
+	change_str_case, 
+	calc_fretboard_data, 
+	interval_to_degree, 
+	get_core_note, 
+	calc_color, 
+	shuffle_array 
+}
