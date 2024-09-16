@@ -31,8 +31,6 @@
 	--min-note-size: 4rem;
 	--control-panel-note-gap: 1.2rem;
 }
-
-
 a {
 	font-weight: 500;
 	color: #646cff;
@@ -44,18 +42,13 @@ a:hover {
 
 html {
 	view-transition-name: none;
-	
 	font-size: 62.5%;
 	font-family: 'Helvetica', 'Arial', san-serif;
-
-	// color-scheme: light dark;
 }
 
 html:has(.app-main-container.scheme-dark) {
 	--app-bg-color: var(--primary-dark-bg-color);
 	--app-text-color: var(--primary-light-text-color);
-
-	
 }
 html:has(.app-main-container.scheme-light) {
 	--app-bg-color: var(--primary-light-bg-color);
@@ -119,7 +112,7 @@ button {
 	}
 	&:focus,
 	&:focus-visible {
-		outline: 4px auto var(--primary-highlight-color);
+		// outline: 4px auto var(--primary-highlight-color);
 	}
 	&:disabled {
 		opacity: .2;

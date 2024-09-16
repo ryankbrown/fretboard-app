@@ -1,10 +1,7 @@
 
 .play-pause__svg {
-	width: 100%;
+	width: 60%;
 	height: auto;
-	// background: rgba(red, .1);
-	border-radius: 5%;
-	margin-bottom: 20px;
 	transition: transform .25s ease-in-out;
 }
 
@@ -19,7 +16,7 @@ $time: .25s;
 		transition: transform $time ease-in-out, fill $time ease-in-out;
 		transform-origin: center center;
 		tranform-box: fill-box;
-		fill: #888;
+		fill: var(--primary-dark-bg-color);
 		&--left {
 			transform: scale(1, 1) translateX(0%);
 		}

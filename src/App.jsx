@@ -55,10 +55,10 @@ export default function App() {
 	const [currentScale, setCurrentScale] = useState('major');
 
 	// * * * NOTE TYPE * * *  
-	const [noteType, setNoteType] = useState("notes");
+	const [noteType, setNoteType] = useState('degrees');
 
 	// * * * INTERFACE * * *  
-	const [interfaceScheme, setInterfaceScheme] = useState("scheme-dark");
+	const [interfaceScheme, setInterfaceScheme] = useState('scheme-dark');
 
 	const fretboardData = useMemo(()=> calc_fretboard_data(currentTuning, numFrets, currentKey, currentScale), [
 		currentKey, 
