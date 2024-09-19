@@ -28,7 +28,7 @@
 	// animation-fill-mode: both;
 
 	&:hover  {
-		scale: 1.1;	
+		scale: 1.2;	
 	}
 	
 	&:active  {
@@ -87,12 +87,20 @@
 		background: #aaa;
 		background: var(--primary-highlight-dark-color);
 	}
+	&--highlighted .note__circle {
+		// scale: 1.2;
+		border: .1rem solid color-mix(in srgb, var(--primary-highlight-color), white 25%);
+		box-shadow: 0 0 2rem var(--primary-highlight-color);
+
+		
+	}
 
 	&__oct {
 		font-weight: 500;
 		opacity: .7;
 	}
 
+	
 }
 
 @keyframes pop {

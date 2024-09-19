@@ -71,7 +71,7 @@ const note_acc_to_scale = (note_name, scale_name, current_key) => {
 	// Interval Quality Notation
 	const interval = scale_obj.intervals[in_scale_idx] ?? false
 	// Scale Degree Notation
-	const degree = in_scale_val ? interval_to_degree(in_scale_val).replace('#', '♯').replace('b', '♭') : false
+	const degree = in_scale_val ? interval_to_degree(in_scale_val) : false
 	
 	return { 
 		note_obj : scale_correct_note_obj, 

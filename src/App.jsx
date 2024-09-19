@@ -52,13 +52,18 @@ export default function App() {
 	const [currentKey, setCurrentKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState('major');
+	const [currentScale, setCurrentScale] = useState('minor');
 
 	// * * * NOTE TYPE * * *  
 	const [noteType, setNoteType] = useState('degrees');
 
 	// * * * INTERFACE * * *  
 	const [interfaceScheme, setInterfaceScheme] = useState('scheme-dark');
+
+
+	const [ highlightNotes, setHighlightNotes ] = useState([]);
+
+
 
 	const fretboardData = useMemo(()=> calc_fretboard_data(currentTuning, numFrets, currentKey, currentScale), [
 		currentKey, 
@@ -100,7 +105,17 @@ export default function App() {
 					currentScale={currentScale} 
 					synth={synth}
 
+					highlightNotes={highlightNotes}
+					setHighlightNotes={setHighlightNotes}
 				/>
+
+				{/* <div className="highlight-notes-container">
+					<h3>Highlighted Notes</h3>
+					{
+					highlightNotes && highlightNotes.map((note, index) => (
+						<div key={index} className="highlight-note">{note}</div>
+					))}
+				</div> */}
 				
 				<Fretboard
 					soundState
@@ -116,6 +131,8 @@ export default function App() {
 
 					synth={synth}
 
+					highlightNotes={highlightNotes}
+					setHighlightNotes={setHighlightNotes}
 				/>
 
 				<ControlPanel 
@@ -129,7 +146,7 @@ export default function App() {
 					maxTuners={max_tuners}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
-					currentScale={currentScale} setCurrentScale={setCurrentScale}
+					currentScale={currentScale} setCurrentScale={setCurrentScale}					
 				/>
 			</main>
 		</>

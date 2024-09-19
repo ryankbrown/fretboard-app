@@ -12,10 +12,16 @@ const ScaleTable = (props) => {
 	Tone.Transport.bpm.value = bpm;
 	
 	const scale_data = Scale.get(`${props.currentKey} ${props.currentScale}`);
-	const scale_degrees = scale_data.intervals.map((interval) => interval);
+	const scale_degrees_notes = scale_data.notes.map((n, i) => {
+		return {
+			note: n,
+			degree: interval_to_degree(scale_data.intervals[i])
+		}
+	});
 
 	// Playing
 	const [isPlaying, setIsPlaying] = useState(false);
+
 
 	const playScale = async ()=> {
 		await Tone.start();
@@ -27,22 +33,31 @@ const ScaleTable = (props) => {
 			Note.transpose(scale_notes[0], '8P'), // Start down with the root octave
 			...scale_notes.reverse() // Play down the scale
 		]
+		// const play_notes = ['E3']
 
 		// Create a sequence with the scale notes
 		let tone_sequence = new Tone.Sequence((time, note) => {
 			props.synth.triggerAttackRelease(note, '4n', time);
 
+			// console.log(`${note} start`);
+			props.setHighlightNotes(()=> [note]);
+
+			// Tone.Transport.scheduleOnce(()=> {
+			// 	console.log(`${note} end`);
+			// 	props.setHighlightNotes(()=> []);
+			// }, '+2w')
 
 		}, play_notes, '4n');
 
 		if (!isPlaying) {
-			console.log('playing scale');
+			// console.log('playing scale');
 			setIsPlaying(true);
 
 			tone_sequence.start();
 			Tone.Transport.start();
 		} 
 		else {
+			props.setHighlightNotes(()=> []);
 			Tone.Transport.stop();
 			Tone.Transport.cancel();
 			tone_sequence.stop();
@@ -50,7 +65,7 @@ const ScaleTable = (props) => {
 			tone_sequence = null;
 
 			setIsPlaying(false);
-			console.log('scale stopped')
+			// console.log('scale stopped')
 		}
 	}
 
@@ -81,16 +96,28 @@ const ScaleTable = (props) => {
 					<tr>
 						<th className="info-section__header">Scale Degrees</th>
 						{
-							scale_degrees.map((d, i) => (
-								<td key={i} className="scale-degree">{interval_to_degree(d).replace('#', '♯').replace('b', '♭')}</td>
+							scale_degrees_notes.map((n, i) => (
+								<td 
+									key={i} 
+									className={`scale-degree ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
+									data-scale-degree={n.degree}
+								>{
+									n.degree.replace('#', '♯').replace('b', '♭')
+								}</td>
 							))
 						}
 					</tr>
 					<tr>
 						<th className="info-section__header">Scale Notes</th>
 						{
-							scale_data.notes.map((n, i) => (
-								<td key={i} className="scale-note">{Note.simplify(n).replace('#', '♯').replace('b', '♭')}</td>
+							scale_degrees_notes.map((n, i) => (
+								<td 
+									key={i} 
+									className={`scale-note ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
+									data-note-pc={n.note}
+								>{
+									Note.simplify(n.note).replace('#', '♯').replace('b', '♭')
+								}</td>
 							))
 						}
 					</tr>

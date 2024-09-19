@@ -17,7 +17,7 @@ export default function Fretboard(props) {
 					['--num-frets']: props.numFrets, 
 				}} 
 			>
-				
+
 				<div className="frets-wrapper">{
 					[...Array(props.numFrets)].map((_, i) => (
 						<div 
@@ -83,6 +83,9 @@ export default function Fretboard(props) {
 									soundState={props.soundState}
 
 									noteType={props.noteType}
+
+									highlightNotes={props.highlightNotes}
+									setHighlightNotes={props.setHighlightNotes}
 								/>
 
 								{/* <div 
