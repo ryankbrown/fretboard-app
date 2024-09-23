@@ -35,6 +35,7 @@ export default function ControlPanel(props) {
 	return (
 		<>
 			<div className="control-panel">
+				
 				{/* <h3 className="control-panel__title">{`Options`}</h3> */}
 				{/* Scale */}
 				<FieldGroup selectorName="scale" legendString="Scale">

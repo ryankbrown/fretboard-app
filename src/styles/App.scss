@@ -2,33 +2,40 @@
 
 .app-main-container {
 	--disabled-input-color: #252525;
-	--side-container-padding: 3.2rem;
+	--side-container-padding: 0;
 
 	width: 100%;
 	// height: 100%;
 	// background: blue;
 	display: grid;
-	grid-template-areas:
-		"header"
-		"debugging"
-		"fretboard"
-		"controlPanel";
+	height: 100%;
+	
 	gap: 2rem;
-	grid-template-rows: auto auto 100vh auto;
+	grid-template-columns: min-content 1fr;
+	grid-template-rows: min-content 1fr;
+	grid-template-areas:
+		"header header"
+		"scaletable fretboard";
 	overflow: hidden;
 	padding: var(--side-container-padding);
 
-	@media (480px <= width) {
-		--side-container-padding: 5rem;
-	}
+	// @media (480px <= width) {
+	// 	// --side-container-padding: 5rem;
+	// 	grid-template-areas:
+	// 		"header		controlPanel"
+	// 		"scaletable	controlPanel"
+	// 		"fretboard	controlPanel";
+	// }
 
 	@media (width >= $orientation-change) {
+		--side-container-padding: 5rem;
 		height: 100%;
 		// --side-container-padding: 2rem;
 		grid-template-areas:
-			"header       debugging"
+			"header       scaletable"
 			"fretboard    fretboard"
 			"controlPanel controlPanel";
+		grid-template-columns: 1.2fr .8fr;
 		grid-template-rows: auto 1fr min-content;
 	}
 	@media (width >= 1500px) {
@@ -44,6 +51,7 @@
 	font-weight: 800;
 	font-size: 3rem;
 	margin: 0;
+	// display: none;
 
 	text-transform: uppercase;
 	&__white {
@@ -56,14 +64,17 @@
 			color: var(--primary-light-text-color);
 		}
 	}
+	@media (width >= 600px) {
+		display: block;
+	}
 	@media (width >= $orientation-change) {
 		font-size: 7rem;
 	}
 }
-.debugging {
-	grid-area: debugging;
-	font-size: 1.2rem;
-	@media (width <= $orientation-change) {
-		display: none;
-	}
-}
+// .debugging {
+// 	grid-area: debugging;
+// 	font-size: 1.2rem;
+// 	@media (width <= $orientation-change) {
+// 		display: none;
+// 	}
+// }

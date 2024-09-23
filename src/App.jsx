@@ -6,9 +6,11 @@ import { useState, useMemo, useEffect } from 'react'
 import { tuning_options, key_list } from './resources/Data'
 import { change_str_case, calc_fretboard_data, calc_color } from './resources/Utils'
 
-import ControlPanel from './components/ControlPanel.jsx'
+import ControlPanel from './components/ControlPanel'
+import ControlPanelIcon from "./components/ControlPanelIcon";
 import Fretboard from './components/Fretboard'
 import ScaleTable from './components/ScaleTable'
+
 
 import "./styles/app.scss" 
 
@@ -98,7 +100,7 @@ export default function App() {
 					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
 			>
-				<h1 className="app-title">Fret<span className="app-title__white">Getter</span></h1>
+				<h1 className="app-title">Fret<span className="app-title__white">Get</span></h1>
 
 				<ScaleTable 
 					currentKey={currentKey} 
@@ -108,6 +110,7 @@ export default function App() {
 					highlightNotes={highlightNotes}
 					setHighlightNotes={setHighlightNotes}
 				/>
+				<ControlPanelIcon />
 
 				{/* <div className="highlight-notes-container">
 					<h3>Highlighted Notes</h3>

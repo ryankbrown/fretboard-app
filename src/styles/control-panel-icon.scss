@@ -1,0 +1,127 @@
+@use './variables.scss' as *;
+
+.control-panel__btn {
+	position: relative;
+	justify-self: end;
+	z-index: 5;
+	grid-area: header;
+	padding: unset;
+	background: transparent;
+	cursor: pointer;
+
+	@media (width >= $orientation-change) {
+		display: none;
+		grid-area: controlpanelicon;
+	}
+}
+
+.cp-icon {
+	width: 3.5rem;
+	cursor: pointer;
+	@media screen and (min-width: 1920px) {
+		width: 4.5rem;
+	}
+	
+
+	&__circle-background {
+		fill: rgba(#555, .9);
+		transition: all .15s ease-in-out;
+		filter: drop-shadow(0rem 2rem .5rem rgba(#000, .2));
+		.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {
+			fill: #666;
+			transform: scale(.95);
+		}
+	}
+	
+	$y-disp: 18.5;
+	&__circle-background, &__line-group, &__line, &__input-group, &__input-line {
+		transform-origin: 50% 50%;
+		transition: all .25s ease-in-out;
+	}
+	
+	&__line-group {
+		transition-delay: 0s;
+		.active & {
+			transition-delay: .1s;	
+		}
+		&--top {
+			transform: translateY($y-disp * -1%) rotate(0deg) scale(1);
+			.active & {
+				transform: translateY(0) rotate(45deg) scale(1.2);
+			}
+		}
+		&--mid {
+			transform: all .05s ease-in-out;
+			$length: 16.779;
+			transform-box: fill-box;
+			transform-origin: center left;
+			transform: scaleX(1);
+			.active & {
+				transform: scaleX(0);
+				transition-delay: 0s;
+			}
+		}
+		&--bot {
+			transform: translateY($y-disp * 1%) rotate(0deg) scale(1);
+			.active & {
+				transform: translateY(0) rotate(-45deg) scale(1.2);
+			}
+		}
+	}
+	
+	$x-disp: 14;
+	$x-disp-hover: 8;
+
+	&__input-group {
+		&--top {
+			transform: translateX($x-disp * -1%);
+			.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {
+				transform: translateX($x-disp-hover * -1%);
+			}
+		}
+		&--mid {
+			transform: translateX($x-disp * 1%);
+			.active & {
+				transform: translateY(0) rotate(45deg) scale(1.2);
+			}
+			.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {	
+				transform: translateX($x-disp-hover * 1%);
+			}
+		} 
+		&--bot {
+			transform: translateX(0);
+			transition-delay: .2s;
+			.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {
+				transform: translateX($x-disp * -1%);
+			}
+		} 
+	}
+
+	&__input-line {
+		transform-origin: 50% 50%;
+		// stroke-dasharray: 0 20 3.5 20;
+		// stroke-dashoffset: 20;
+		transform: scaleY(1);
+
+		.active & {
+			transform-origin: 50% 50%;
+			// stroke-dasharray: 0 20 0 20;
+			// stroke-dashoffset: 18.25;
+			transform: scaleY(0);
+			transition-delay: 0s;
+		}
+		&--top {
+			transition-delay: .25s;
+		}
+		&--mid {
+			transform-origin: 50% 50%;
+			transition-delay: .15s;
+			.active & {
+				transition-delay: 0s;
+			}
+		}
+		&--bot {
+			transition-delay: .25s;
+		}
+	}
+}

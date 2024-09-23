@@ -1,18 +1,30 @@
 @use './variables.scss' as *;
 
+.app-main-container:has(.control-panel__btn.active) .control-panel {
+	display: grid;
+}
 .control-panel {
-	grid-area: controlPanel; 
+	grid-row: 1 / -1;
+	grid-column: 1 / -1;
+	background: var(--primary-dark-bg-color);
+	
 	width: 100%;
-	font-size: 1.4rem;	
-	// padding: 2rem var(--side-container-padding);
+	height: 100%;
+	overflow: scroll;
+	font-size: 1.4rem;
+
 	bottom: 0;
 	z-index: 1;
-	display: grid;
+	
 	gap: 1rem;
+	display: none;
 
 	@media (width >= $orientation-change) {
-		// display: grid;
-		// position: relative;
+		display: grid;
+		grid-area: controlPanel;
+		background: transparent;
+
+		overflow: unset;
 		
 		grid-template-areas: 
 			"scale       tuning         key        key"
@@ -160,3 +172,5 @@
 	grid-column: 1 / -1;
 	grid-row: 1 / 2;
 }
+
+

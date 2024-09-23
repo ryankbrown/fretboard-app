@@ -71,59 +71,113 @@ const ScaleTable = (props) => {
 
 
 	return (
-		<>
-			<table className="info-section">
-				<thead>
-					<tr>
-						<th
-							className="info-section__title"
-							colSpan={scale_data.notes.length + 1}
+		<div className="scale-table">
+			<div className="scale-table__header">
+				<button
+					className="scale-table__btn scale-table__btn--play-scale"
+					onClick={ playScale }
+				>
+					<PlayPauseIcon isPlaying={isPlaying}/>
+				</button>
+				
+				<h2 className="scale-table__title">
+					{`
+						${props.currentKey.replace('#', '♯').replace('b', '♭')} 
+						${change_str_case(props.currentScale, 'upper')}
+					`}
+				</h2>
+			</div>
+			<div className="scale-table__body">
+				<h3 className="scale-table__group-heading scale-table__group-heading--degrees">Degrees</h3>
+				{
+					scale_degrees_notes.map((n, i) => (
+						<div 
+							key={i} 
+							className={`scale-table__degree ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
+							style={{['--degree-num']: i}}
 						>
-							{`
-								${props.currentKey.replace('#', '♯').replace('b', '♭')} 
-								${change_str_case(props.currentScale, 'upper')}
-							`}
-							<button
-								className="info-section__btn info-section__btn--play-scale"
-								onClick={ playScale }
-							>{
-								<PlayPauseIcon isPlaying={isPlaying}/>
-							}</button>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th className="info-section__header">Scale Degrees</th>
-						{
-							scale_degrees_notes.map((n, i) => (
-								<td 
-									key={i} 
-									className={`scale-degree ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
-									data-scale-degree={n.degree}
-								>{
+							<div className="scale-table__degree-inner">	
+								{
 									n.degree.replace('#', '♯').replace('b', '♭')
-								}</td>
-							))
-						}
-					</tr>
-					<tr>
-						<th className="info-section__header">Scale Notes</th>
-						{
-							scale_degrees_notes.map((n, i) => (
-								<td 
-									key={i} 
-									className={`scale-note ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
-									data-note-pc={n.note}
-								>{
+								}
+							</div>
+						</div>
+					))
+				}
+				<h3 className="scale-table__group-heading scale-table__group-heading--notes">Notes</h3>
+				{
+					scale_degrees_notes.map((n, i) => (
+						<div 
+							key={i} 
+							className={`scale-table__note ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
+							style={{['--degree-num']: i}}
+						>
+							<div className="scale-table__note-inner">	
+								{
 									Note.simplify(n.note).replace('#', '♯').replace('b', '♭')
-								}</td>
-							))
-						}
-					</tr>
-				</tbody>
-			</table>
-		</>
+								}
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+
+
+		// <>
+		// 	<table className="info-section">
+		// 		<thead>
+		// 			<tr>
+		// 				<th
+		// 					className="info-section__title"
+		// 					colSpan={scale_data.notes.length + 1}
+		// 				>
+		// 					{`
+		// 						${props.currentKey.replace('#', '♯').replace('b', '♭')} 
+		// 						${change_str_case(props.currentScale, 'upper')}
+		// 					`}
+		// 					<button
+		// 						className="info-section__btn info-section__btn--play-scale"
+		// 						onClick={ playScale }
+		// 					>{
+		// 						<PlayPauseIcon isPlaying={isPlaying}/>
+		// 					}</button>
+		// 				</th>
+		// 			</tr>
+		// 		</thead>
+		// 		<tbody>
+		// 			<tr>
+		// 				<th className="info-section__header">Scale Degrees</th>
+		// 				{
+		// 					scale_degrees_notes.map((n, i) => (
+		// 						<td 
+		// 							key={i} 
+		// 							className={`scale-degree ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
+		// 							data-scale-degree={n.degree}
+		// 						>{
+		// 							n.degree.replace('#', '♯').replace('b', '♭')
+		// 						}</td>
+		// 					))
+		// 				}
+		// 			</tr>
+		// 			<tr>
+		// 				<th className="info-section__header">Scale Notes</th>
+		// 				{
+		// 					scale_degrees_notes.map((n, i) => (
+		// 						<td 
+		// 							key={i} 
+		// 							className={`scale-note ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
+		// 							data-note-pc={n.note}
+		// 						>{
+		// 							Note.simplify(n.note).replace('#', '♯').replace('b', '♭')
+		// 						}</td>
+		// 					))
+		// 				}
+		// 			</tr>
+		// 		</tbody>
+		// 	</table>
+		// </>
 	);
 };
 
