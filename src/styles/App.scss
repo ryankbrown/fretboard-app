@@ -19,13 +19,13 @@
 	overflow: hidden;
 	padding: var(--side-container-padding);
 
-	// @media (480px <= width) {
-	// 	// --side-container-padding: 5rem;
-	// 	grid-template-areas:
-	// 		"header		controlPanel"
-	// 		"scaletable	controlPanel"
-	// 		"fretboard	controlPanel";
-	// }
+	@media (width >= 600px) {
+		grid-template-columns: min-content 1fr 1fr;
+		grid-template-areas:
+			"header header controlPanel"
+			"scaletable fretboard controlPanel";
+	}
+
 
 	@media (width >= $orientation-change) {
 		--side-container-padding: 5rem;
@@ -51,10 +51,10 @@
 	font-weight: 800;
 	font-size: 3rem;
 	margin: 0;
-	// display: none;
-
 	text-transform: uppercase;
+
 	&__white {
+
 		color: var(--primary-light-text-color);
 
 		.scheme-light & {
@@ -71,10 +71,3 @@
 		font-size: 7rem;
 	}
 }
-// .debugging {
-// 	grid-area: debugging;
-// 	font-size: 1.2rem;
-// 	@media (width <= $orientation-change) {
-// 		display: none;
-// 	}
-// }

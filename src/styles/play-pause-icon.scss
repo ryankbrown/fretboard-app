@@ -1,6 +1,6 @@
 
 .play-pause__svg {
-	width: 60%;
+	width: 100%;
 	height: auto;
 	transition: transform .25s ease-in-out;
 }
@@ -15,8 +15,10 @@ $time: .25s;
 	&__bar {
 		transition: transform $time ease-in-out, fill $time ease-in-out;
 		transform-origin: center center;
-		tranform-box: fill-box;
-		fill: var(--primary-dark-bg-color);
+		transform-box: fill-box;
+		// fill: var(--primary-dark-bg-color);
+
+		fill: white;
 		&--left {
 			transform: scale(1, 1) translateX(0%);
 		}

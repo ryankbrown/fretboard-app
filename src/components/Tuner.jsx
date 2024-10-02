@@ -6,6 +6,11 @@ import '../styles/tuner.scss'
 
 export default function Tuner(props) {
 
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+		<path stroke="#fff" stroke-width="1.441" d="m4.726 4.448 7 7m0-7-7 7"/>
+	</svg>
+
+
 	const adjustTuner = (new_value) => {
 		let new_note = Note.transpose(
 			props.tunerValue, // Current note string
@@ -54,7 +59,13 @@ export default function Tuner(props) {
 						className="tuner__remove-btn"
 						onClick={ removeTuner }
 						aria-label={`Remove ${props.displayValue} Tuner`}
-					><div className="tuner__remove-btn-circle">X</div></button>
+					>
+						<div className="tuner__remove-btn-circle">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+								<path stroke="#fff" strokeWidth="1.5" d="m4.726 4.448 7 7m0-7-7 7"/>
+							</svg>
+						</div>
+					</button>
 				)
 			}
 		</div>
