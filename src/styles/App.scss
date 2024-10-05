@@ -1,43 +1,46 @@
-@use './variables.scss' as *;
+@use "./variables.scss" as *;
 
 .app-main-container {
 	--disabled-input-color: #252525;
-	--side-container-padding: 3.2rem;
-	
+	--side-container-padding: 0;
+
 	width: 100%;
 	// height: 100%;
 	// background: blue;
 	display: grid;
-	grid-template-areas: 
-		"header"
-		"debugging"
-		"fretboard"
-		"controlPanel"
-	;
+	height: 100%;
+	
 	gap: 2rem;
-	grid-template-rows: auto auto 100vh auto;
+	grid-template-columns: min-content 1fr;
+	grid-template-rows: min-content 1fr;
+	grid-template-areas:
+		"header header"
+		"scaletable fretboard";
 	overflow: hidden;
 	padding: var(--side-container-padding);
-	
 
-	@media ( 480px <= width ) {
-		--side-container-padding: 5rem;
+	@media (width >= 600px) {
+		grid-template-columns: min-content 1fr 1fr;
+		grid-template-areas:
+			"header header controlPanel"
+			"scaletable fretboard controlPanel";
 	}
-	
-	@media (width >= $orientation-change) { 
+
+	@media (width >= $orientation-change) {
+		--side-container-padding: 5rem;
 		height: 100%;
 		// --side-container-padding: 2rem;
-		grid-template-areas: 
-			"header       debugging"
+		grid-template-areas:
+			"header       scaletable"
 			"fretboard    fretboard"
-			"controlPanel controlPanel"
-		;
+			"controlPanel controlPanel";
+		grid-template-columns: 1.2fr .8fr;
 		grid-template-rows: auto 1fr min-content;
 	}
 	@media (width >= 1500px) {
 		--side-container-padding: 10vh;
-		padding-top: calc(var(--side-container-padding) * .5); 
-		padding-bottom: calc(var(--side-container-padding) * .5);
+		padding-top: calc(var(--side-container-padding) * 0.5);
+		padding-bottom: calc(var(--side-container-padding) * 0.5);
 	}
 }
 
@@ -47,9 +50,10 @@
 	font-weight: 800;
 	font-size: 3rem;
 	margin: 0;
-
 	text-transform: uppercase;
+
 	&__white {
+
 		color: var(--primary-light-text-color);
 
 		.scheme-light & {
@@ -59,62 +63,10 @@
 			color: var(--primary-light-text-color);
 		}
 	}
+	@media (width >= 600px) {
+		display: block;
+	}
 	@media (width >= $orientation-change) {
 		font-size: 7rem;
 	}
 }
-.debugging {
-	grid-area: debugging;
-	font-size: 1.2rem;
-	@media (width <= $orientation-change) {
-		display: none;
-	}
-}
-
-.info-section {
-	border: solid .1rem var(--fret-wire-color);
-	// padding: 2rem;
-	margin: 0;
-	font-size: 1.2rem;
-	justify-self: end;
-	width: 100%;
-
-	&__title {
-		color: var(--primary-highlight-color);
-		font-size: 2rem;
-		width: 100%;
-		display: block;
-		grid-column: 1 / -1;
-		
-	}
-	table {
-		width: 100%;
-		display: grid;
-		grid-template-columns: auto;
-		grid-template-rows: repeat( 3, auto);
-	}
-
-	thead, tbody {
-		display: contents;
-	}
-	tbody {
-		display: grid;
-		grid-auto-flow: column;
-		// grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
-		grid-template-rows: minmax(1ch, 1fr);
-	}
-	tr {
-		display: grid;
-		grid-column: 1 / -1;
-		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
-	}
-	th {
-		grid-column: 1 / span 1;
-		width: max-content;
-	}
-	td {
-		font-weight: 600;
-	}
-}
-

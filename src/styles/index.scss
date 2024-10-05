@@ -15,6 +15,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
+	--primary-highlight-color: white;
+	--primary-highlight-dark-color: gray;
+
 	--primary-light-text-color: white;
 	--primary-dark-text-color: #111;
 
@@ -28,8 +31,6 @@
 	--min-note-size: 4rem;
 	--control-panel-note-gap: 1.2rem;
 }
-
-
 a {
 	font-weight: 500;
 	color: #646cff;
@@ -41,30 +42,35 @@ a:hover {
 
 html {
 	view-transition-name: none;
-	
 	font-size: 62.5%;
 	font-family: 'Helvetica', 'Arial', san-serif;
-	// color-scheme: light dark;
 }
 
 html:has(.app-main-container.scheme-dark) {
 	--app-bg-color: var(--primary-dark-bg-color);
 	--app-text-color: var(--primary-light-text-color);
-
-	
 }
 html:has(.app-main-container.scheme-light) {
 	--app-bg-color: var(--primary-light-bg-color);
 	--app-text-color: var(--primary-dark-text-color);
 }
 html:has(.app-main-container.scheme-dark), .scheme-dark {
-	background: var(--app-bg-color);
+	// background: var(--app-bg-color);
 	color: var(--app-text-color);
+
+	background: radial-gradient(
+		circle at 60% 60%, 
+		var(--app-bg-color) 30%, 
+		var(--primary-highlight-color) 100%
+		);
+	background-size: 200% 200%;
+	background-position: center;
 }
 
 html:has(.app-main-container.scheme-light), .scheme-light {
 	color: var(--app-text-color);
 	background: var(--app-bg-color);
+	
 }
 
 
@@ -106,7 +112,7 @@ button {
 	}
 	&:focus,
 	&:focus-visible {
-		outline: 4px auto var(--primary-highlight-color);
+		// outline: 4px auto var(--primary-highlight-color);
 	}
 	&:disabled {
 		opacity: .2;
@@ -118,9 +124,6 @@ label {
 	cursor: pointer;
 }
 
-table, thead, tbody, th, tr, td, th {
-	display: block;
-}
 legend {
 	float: left;
 }

@@ -1,0 +1,47 @@
+.tabpanel {
+
+	&__nav {
+		display: flex;
+	}
+	&__content {
+		// width: 100%;
+		width: fit-content;
+		display: grid;
+		grid-template-areas: "content"
+	}
+
+	&__panel {
+		position: relative;
+		grid-area: content;
+		// visibility: hidden;
+		opacity: 0;
+		z-index: 1;
+		pointer-events: none;
+		
+		&--active {
+			opacity: 1;
+			z-index: 2;
+			pointer-events: auto;
+		}
+	}	
+	&__nav-btn {
+		background: none;
+		// color: color-mix(in sRGB, var(--primary-text-color), transparent 10%);
+		color: gray;
+
+		border-top: .05rem solid rgba(255, 255, 255, 0.2);
+		border-left: .05rem solid rgba(255, 255, 255, 0.2);
+		border-right: .05rem solid rgba(255, 255, 255, 0.2);
+		&:focus, &:focus-visible {
+			outline: none;
+		}
+		&--active {
+			color: white;
+			border-top: 2px solid var(--primary-highlight-color);
+			outline: none;
+		}
+		// &:last-of-type {
+		// 	border-right: none;
+		// }
+	}
+}

@@ -1,6 +1,8 @@
 @use './variables.scss' as *;
 
 .fretboard {
+	user-select: none;
+	
 	--note-circle-default-color: #000;
 	--fret-wire-color: #525252;
 	--fret-wire-highlight-color: white;
@@ -22,9 +24,6 @@
 	align-items: center;
 
 	// view-transition-name: fretboard;
-
-	
-	 
 
 	@media (width >= $orientation-change) {
 		width: clamp( 20rem, 100%, 400rem);
@@ -88,7 +87,11 @@
 .fret-number, .tuning-note {
 	font-weight: 600;
 	font-size: 1.3rem;
-	color: var(--fret-number-color);
+	.scheme-dark & {
+		mix-blend-mode: hard-light;
+		// color: white;
+		color: rgba(white, .5);
+	}
 }
 
 .fret-number {

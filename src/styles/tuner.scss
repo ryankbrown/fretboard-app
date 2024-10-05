@@ -1,4 +1,3 @@
-
 .tuner {
 	position: relative;
 	transform-origin: center center;
@@ -22,15 +21,16 @@
 		}
 	}
 	&__remove-btn-circle {
-		background: var(--primary-highlight-color);
+		background: var(--primary-highlight-dark-color);
 		border-radius: 100%;
-		aspect-ratio: 1 / 1;
+		// aspect-ratio: 1 / 1;
 		position: absolute;
 		top: 25%;
 		right: 0;
 		padding: unset;
-		width: 40%;
-		height: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	&--empty {
 		width: var(--min-note-size);

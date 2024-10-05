@@ -16,19 +16,30 @@
 	color: white;
 	width: 100%;
 	height: 100%;
+	cursor: pointer;
 
-	
+	transition: scale .25s ease-in-out;
+	scale: 1;
+
 
 	// view-transition-name: note;
 	// animation: pop 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
 	// animation-delay: calc(.01s * var(--fret-num) * (var(--num-strings) - var(--string-num)) );
 	// animation-fill-mode: both;
 
-
-
-	&:hover {
-		background: rgba(white, .05);
+	&:hover  {
+		scale: 1.2;	
 	}
+	
+	&:active  {
+		scale: .9;
+		transition: scale .1s ease-in-out;
+		.note__circle {
+			transition: filter .1s ease-in-out;
+			filter: saturate(110%) brightness(1.25);
+		}
+	}
+
 
 	&__wrapper {
 		container-type: size;
@@ -45,8 +56,11 @@
 			grid-column: calc(var(--fret-num) + 2) / span 1;
 			grid-row: calc( var(--num-strings) - var(--string-num) + 1) / span 1;
 		}
+	}
 
-		// view-transition-class: notewrapper;
+
+	&__name, &__degree {
+		z-index: 2;
 	}
 
 	&__name, &__degree, &__circle {
@@ -57,16 +71,13 @@
 	&__circle {
 		aspect-ratio: 1 / 1;
 		border-radius: 100%;
-		width: 75%;
+		width: 70%;
 		height: auto;
-		
 		@container notewrapper (orientation: landscape) {
-			height: 75%;
+			height: 70%;
 			width: auto;
 		}
 	}
-
-	
 
 	&--in-scale &__circle {
 		background: var(--note-circle-default-color);
@@ -74,31 +85,23 @@
 
 	&--root &__circle {
 		background: #aaa;
-		background: var(--primary-highlight-color);
+		background: var(--primary-highlight-dark-color);
+	}
+	&--highlighted .note__circle {
+		// scale: 1.2;
+		border: .1rem solid color-mix(in srgb, var(--primary-highlight-color), white 25%);
+		box-shadow: 0 0 2rem var(--primary-highlight-color);
+
+		
 	}
 
-	&:not(.note--in-scale) &__name {
-		display: none;
+	&__oct {
+		font-weight: 500;
+		opacity: .7;
 	}
 
-	.fretboard--degrees &__name {
-		display: none;
-	}
-	.fretboard--notes &__degree {
-		display: none;
-	}
+	
 }
-
-// show root note name in degree mode
-.fretboard--degrees .note--root { 
-	.note__name {
-		display: block;
-	}
-	.note__degree {
-		display: none;
-	}
-}
-
 
 @keyframes pop {
 	from { scale: 0 }

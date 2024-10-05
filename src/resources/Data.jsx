@@ -1,264 +1,155 @@
-const all_notes = {
-	c_ntrl 	:	{
-		name 	: 'C',
-		note_class :	'note__C',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 0
-	},
-	c_sharp_d_flat :	{
-		name 	: 'C♯/D♭',
-		note_class :	'note__D-flat',
-		natural : false,
-		sharp : 'C',
-		flat 	: 'D',
-		indx 	: 1
-	},
-	d_ntrl :	{
-		name 	: 'D',
-		note_class :	'note__D',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 2
-	},
-	d_sharp_e_flat :	{
-		name 	: 'D♯/E♭',
-		note_class :	'note__E-flat',
-		natural : false,
-		sharp : 'D',
-		flat 	: 'E',
-		indx 	: 3
-	},
-	e_ntrl :	{
-		name 	: 'E',
-		note_class :	'note__E',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 4
-	},
-	f_ntrl :	{
-		name 	: 'F',
-		note_class :	'note__F',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 5
-	},
-	f_sharp_g_flat :	{
-		name 	: 'F♯/G♭',
-		note_class :	'note__G-flat',
-		natural : false,
-		sharp : 'F',
-		flat 	: 'G',
-		indx 	: 6
-	},
-	g_ntrl :	{
-		name 	: 'G',
-		note_class :	'note__G',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 7
-	},
-	g_sharp_a_flat :	{
-		name 	: 'G♯/A♭',
-		note_class :	'note__A-flat',
-		natural : false,
-		sharp : 'G',
-		flat 	: 'A',
-		indx 	: 8
-	},
-	a_ntrl :	{
-		name 	: 'A',
-		note_class :	'note__A',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 9
-	},
-	a_sharp_b_flat :	{
-		name 	: 'A♯/B♭',
-		note_class :	'note__B-flat',
-		natural : false,
-		sharp : 'A',
-		flat 	: 'B',
-		indx 	: 10
-	},
-	b_ntrl :	{
-		name 	: 'B',
-		note_class :	'note__B',
-		natural : true,
-		sharp : false,
-		flat 	: false,
-		indx 	: 11
-	}
-};
+import { Scale } from 'tonal';
 
-// --ionian: #ED174F;
-// 	--dorian: #F47A20;
-// 	--phrygian: #cda600;
-// 	--lydian: #7BD32F;
-// 	--mixolydian: #00B1B0;
-// 	--aeolian: #0081C1;
-// 	--locrian: #8522B2;
-// 	--major-triad: #ED174F;
-// 	--minor-triad: #00B1B0;
-// 	--chromatic: #757575;
-// 	--diminished-triads: #e94d76;
-// 	--augmented-triads: #773275;
 
-const scales = {
-    ionian : {
-        name 		: "Ionian (Major)",
-        id 			: "ionian",
-        steps		: [ 2, 2, 1, 2, 2, 2, 1 ],
-        degrees		: ['1', '2', '3', '4', '5', '6', '7'],
-		color		: '#ED174F'
-    }, 
-    dorian : {
-        name 		: "Dorian",
-        id 			: "dorian",
-        steps		: [ 2, 1, 2, 2, 2, 1, 2 ],
-        degrees		: ['1', '2', '♭3', '4', '5', '6', '♭7'],
-		color		: '#F47A20'
-    },
-    phrygian : {
-        name 		: "Phrygian",
-        id 			: "phrygian",
-        steps		: [ 1, 2, 2, 2, 1, 2, 2 ],
-        degrees		: ['1', '♭2', '♭3', '4', '5', '♭6', '♭7'],
-		color		: '#cda600'
-    },
-    lydian : {
-        name 		: "Lydian",
-        id 			: "lydian",
-        steps		: [ 2, 2, 2, 1, 2, 2, 1 ],
-        degrees		: ['1', '2', '3', '♯4', '5', '6', '7'],
-		color		: '#7BD32F'
-    },
-    mixolydian : {
-        name 		: "Mixolydian",
-        id 			: "mixolydian",
-        steps		: [ 2, 2, 1, 2, 2, 1, 2 ],
-        degrees		: ['1', '2', '3', '4', '5', '6', '♭7'],
-		color		: '#00B1B0'
-    },
-    aeolian : {
-        name 		: "Aeolian (Minor)",
-        id 			: "aeolian",
-        steps		: [ 2, 1, 2, 2, 1, 2, 2],
-        degrees		: ['1', '2', '♭3', '4', '5', '♭6', '♭7'],
-		color		: '#0081C1'
-    },
-    locrian : {
-        name 		: "Locrian",
-        id 			: "locrian",
-        steps		: [ 1, 2, 2, 1, 2, 2, 2 ],
-        degrees		: ['1', '♭2', '♭3', '4', '♭5', '♭6', '♭7'],
-		color		: '#8522B2'
-    },
-    chromatic : {
-        name		: "Chromatic",
-        id 			: "chromatic",
-        steps		: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        degrees 	: ['1', '♯1/♭2', '2', '♯2/♭3','3', '4', '♯4/♭5', '5', '♯5/♭6', '6', '♯6/♭7', '7'],
-		color		: '#757575'
-    },
-    major_triads : {
-        name		: "Major Triads",
-        id 			: "major-triads",
-        steps		: [4, 3, 5],
-        degrees 	: ['1', '3', '5'],
-		color		: '#e94d76'
-    },
-    minor_triads : {
-        name		: "Minor Triads",
-        id 			: "minor-triads",
-        steps		: [3, 4, 5],
-        degrees		: ['1', '♭3', '5'],
-		color		: '#773275'
-    },
-    diminished_triads : {
-        name		: "Diminished Triads",
-        id 			: "diminished-triads",
-        steps		: [3, 3, 4],
-        degrees		: ['1', '♭3', '♭5'],
-		color		: '#e94d76'
-    },
-    augmented_triads : {
-        name		: "Augmented Triads",
-        id 			: "augmented-triads",
-        steps		: [3, 4, 5],
-        degrees		: ['1', '3', '♯5'],
-		color		: '#773275'
-    },
-    dominant_triads : {
-        name		: "Dominant Triads",
-        id 			: "dominant-triads",
-        steps		: [3, 4, 5],
-        degrees		: ['1', '3', '♯5'],
-		color		: '#773275'
-    }
+// const colors = [
+// 	'#ED174F', // Bright Red
+// 	'#F47A20', // Orange
+// 	'#cda600', // Gold
+// 	'#7BD32F', // Lime Green
+// 	'#00B1B0', // Teal
+// 	'#0081C1', // Azure Blue
+// 	'#8522B2', // Purple
+// ];
+
+
+
+const composite_scale_names = (original, reordered) => {
+	const unique_reordered = [...new Set(reordered)];
+	const remaining_names = original.filter(name => !unique_reordered.includes(name));
+	return [...unique_reordered, ...remaining_names];
 }
 
-const chromatic_scale = Object.values(all_notes).map(note => note.name);
+const custom_ordered_scale_names = composite_scale_names(Scale.names(), [
+	'major',
+	'major pentatonic',
+	'minor pentatonic',
+	'major blues',
+	'minor blues',
+	'minor',
+	'harmonic minor',
+	'melodic minor',
+	'ionian',
+	'dorian',
+	'phrygian',
+	'lydian',
+	'mixolydian',
+	'aeolian',
+	'locrian',
+	'bebop'
+]);
 
 
-const tuning = ['E', 'A', 'D', 'G', 'B', 'E']
+
+let color_data = {
+	red: {
+		main: "#ff275f",
+		dark: "#cb1846",
+	},
+	orange: {
+		main: "#fe8e26",
+		dark: "#BD6A1D",
+	},
+	// gold: {
+	// 	main: "#f2bf0a",
+	// 	dark: "#AE8D16",
+	// },
+	green: {
+		main: "#29d985",
+		dark: "#018C62",
+	},
+	teal: {
+		main: "#00e2e1",
+		dark: "#008d8d",
+	},
+	blue: {
+		main: "#2288ff",
+		dark: "#0959a2",
+	},
+	purple: {
+		main: "#ba2aff",
+		dark: "#6d278d",
+	},
+	violet: {
+		main: "#6a45ff",
+		dark: "#310099",
+	}
+}
+
+
+
+
+const key_list = ['C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B' ]
+
+
+// const chromatic_scale = Object.values(all_notes).map(note => note.name);
+
 const tuning_options = [
 	{
-		name: 'Standard',
-		notes: ['E', 'A', 'D', 'G', 'B', 'E']
+	   name: 'Standard',
+	   notes: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']
 	}, {
-		name: 'Half Step Down',
-		notes: ['D♯/E♭', 'G♯/A♭', 'C♯/D♭', 'F♯/G♭', 'A♯/B♭', 'D♯/E♭']
+	   name: 'Half Step Down',
+	   notes: ['Eb2', 'Ab2', 'Db3', 'Gb3', 'Bb3', 'Eb4']
 	}, {
-		name: 'Whole Step Down',
-		notes: ['D', 'G', 'C', 'F', 'A', 'D']
+	   name: 'Whole Step Down',
+	   notes: ['D2', 'G2', 'C3', 'F3', 'A3', 'D4']
 	}, {
-		name: 'Drop D',
-		notes: ['D', 'A', 'D', 'G', 'B', 'E']
+	   name: 'Drop D',
+	   notes: ['D2', 'A2', 'D3', 'G3', 'B3', 'E4']
 	}, {
-		name: 'Open D',
-		notes: ['D', 'A', 'D', 'F♯/G♭', 'A', 'D']
+	   name: 'Open D',
+	   notes: ['D2', 'A2', 'D3', 'F#3', 'A3', 'D4']
 	}, {
-		name: 'DADGAD',
-		notes: ['D', 'A', 'D', 'G', 'A', 'D']
+	   name: 'DADGAD',
+	   notes: ['D2', 'A2', 'D3', 'G3', 'A3', 'D4']
 	}, {
-		name: 'Open E',
-		notes: ['E', 'B', 'E', 'G♯/A♭', 'B', 'E']
+	   name: 'Open E',
+	   notes: ['E2', 'B2', 'E3', 'G#3', 'B3', 'E4']
 	}, {
-		name: 'Open E Alternative',
-		notes: ['E', 'A', 'B', 'E', 'B', 'E']
+	   name: 'Open E Alternative',
+	   notes: ['E2', 'A2', 'B2', 'E3', 'B3', 'E4']
 	}, {
-		name: 'Open G',
-		notes: ['D', 'G', 'D', 'G', 'B', 'D']
+	   name: 'Open G',
+	   notes: ['D2', 'G2', 'D3', 'G3', 'B3', 'D4']
 	}, {
-		name: 'Rain Song',
-		notes: ['D', 'G', 'C', 'G', 'C', 'D']
+		name: 'Double Drop D',
+		notes: ['D2', 'A2', 'D3', 'G3', 'B3', 'D4']
 	}, {
-		name: 'Rain Song (Live)',
-		notes: ['E', 'A', 'D', 'A', 'D', 'E']
+		name: 'Drop C',
+		notes: ['C2', 'G2', 'C3', 'F3', 'A3', 'D4']
 	}, {
-		name: 'Bass Standard',
-		notes: ['E', 'A', 'D', 'G']
+		name: 'C Standard',
+		notes: ['C2', 'F2', 'Bb2', 'Eb3', 'G3', 'C4']
 	}, {
-		name: 'Bass 5-String Standard',
-		notes: ['B', 'E', 'A', 'D', 'G']
+		name: 'Drop B',
+		notes: ['B1', 'F#2', 'B2', 'E3', 'G#3', 'C#4']
 	}, {
-		name: 'Ukulele Standard',
-		notes: ['G', 'C', 'E', 'A']
+		name: 'Open C',
+		notes: ['C2', 'G2', 'C3', 'G3', 'C4', 'E4']
 	}, {
-		name: 'Mandolin Standard',
-		notes: ['G', 'D', 'A', 'E']
+	   name: 'Rain Song',
+	   notes: ['D2', 'G2', 'C3', 'G3', 'C4', 'D4']
 	}, {
-		name: 'Banjo Standard',
-		notes: ['G', 'D', 'G', 'B', 'D']
+	   name: 'Rain Song (Live)',
+	   notes: ['E2', 'A2', 'D3', 'A3', 'D4', 'E4']
+	}, {
+	   name: 'Bass Standard',
+	   notes: ['E1', 'A1', 'D2', 'G2']
+	}, {
+	   name: 'Bass 5-String Standard',
+	   notes: ['B0', 'E1', 'A1', 'D2', 'G2']
+	}, {
+	   name: 'Ukulele Standard',
+	   notes: ['G4', 'C4', 'E4', 'A4']
+	}, {
+	   name: 'Mandolin Standard',
+	   notes: ['G3', 'D4', 'A4', 'E5']
+	}, {
+	   name: 'Banjo Standard',
+	   notes: ['G4', 'D3', 'G3', 'B3', 'D4']
 	}
-
 ]
 
-export { tuning, tuning_options, chromatic_scale, all_notes, scales }
+
+
+export { tuning_options, color_data, key_list, custom_ordered_scale_names }

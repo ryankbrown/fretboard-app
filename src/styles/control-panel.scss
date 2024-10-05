@@ -1,26 +1,58 @@
 @use './variables.scss' as *;
 
 
-
-
-
+@media (width <= 600px) {
+	.app-main-container:has(.control-panel__btn.active) .control-panel {
+		// pointer-events: none;
+		transform: translateX(0);
+	}
+	.app-main-container:not(:has(.control-panel__btn.active)) .control-panel {
+		// pointer-events: auto;
+		transform: translateX(100%);
+	}
+}
 
 .control-panel {
-	grid-area: controlPanel; 
+	transition: transform .35s ease-in-out;
+	grid-row: 1 / -1;
+	grid-column: 1 / -1;
+	background: var(--primary-dark-bg-color);
+	
 	width: 100%;
-	font-size: 1.4rem;	
-	// padding: 2rem var(--side-container-padding);
+	height: 100%;
+	overflow: scroll;
+	font-size: 1.4rem;
+
 	bottom: 0;
 	z-index: 1;
-	display: grid;
+	
 	gap: 1rem;
+	display: grid;
 
-	// position: sticky;
+	grid-template-areas: 
+		"key"	
+		"tuning"
+		"scale"
+		"numfrets"
+		"notetype"
+		"scheme"
+		"modifyscale"
+	;
+
+	@media (width >= 600px) {
+		display: grid;
+		grid-area: controlPanel;
+		background: transparent;
+	}
+	// @media (width >= $orientation-change) {
+	// 	grid-template-areas:
+	// 		"scale tuning"
+	// 		"key key"
+	// 		"numfrets scheme"
+	// 	;
+	// }
 
 	@media (width >= $orientation-change) {
-		// display: grid;
-		// position: relative;
-		
 		grid-template-areas: 
 			"scale       tuning         key        key"
 			"modifyscale numfrets       scheme     notetype"
@@ -35,28 +67,38 @@
 			// &__title {
 			// 	grid-area: title;
 			// }
-			&__key {
-				grid-area: key;
-			}
-			&__scale {
-				grid-area: scale;
-			}
-			&__modify-scale {
-				grid-area: modifyscale;
-			}
-			&__num-frets {
-				grid-area: numfrets;
-			}
-			&__scheme {
-				grid-area: scheme;
-			}
-			&__notetype {
-				grid-area: notetype;
-			}
+			
 		}
 	}
-	
 
+	&__scheme {
+		grid-area: scheme;
+	}
+
+	&__tuning {
+		grid-area: tuning;
+	}
+	&__key {
+		grid-area: key;
+	}
+	&__scale {
+		grid-area: scale;
+	}
+	&__modifyscale {
+		grid-area: modifyscale;
+	}
+	&__num-frets {
+		grid-area: numfrets;
+	}
+	&__scheme {
+		grid-area: scheme;
+	}
+	&__notetype {
+		grid-area: notetype;
+	}
+	&__modifyscale {
+		grid-area: modifyscale;
+	}
 
 	&__title {
 		font-weight: bold;
@@ -65,40 +107,39 @@
 		padding-top: 2rem;
 	}
 
- 
 	&__key {
-        width: 100%;
-        grid-template-areas:
-            "legend"
-            "keywrapper"
-        ;
-        container-type: inline-size;
-    
-        .toggler__label {
-            display: grid;
-            grid-template-areas: "notecenter";
-            width: auto;
+		width: 100%;
+		grid-template-areas:
+			"legend"
+			"keywrapper"
+		;
+		container-type: inline-size;
+	
+		.toggler__label {
+			display: grid;
+			grid-template-areas: "notecenter";
+			width: auto;
 			min-width: 5ch;
-            height: auto;
+			height: auto;
 			min-height: 5ch;
-            padding: 0;
-            margin: 0;
-            // min-height: auto;
-            aspect-ratio: 1 / 1;
-            border-radius: 100%;
-        }
+			padding: 0;
+			margin: 0;
+			// min-height: auto;
+			aspect-ratio: 1 / 1;
+			border-radius: 100%;
+		}
 
-        // @container ( width >= 420px ) {
-        //     .control-panel__key-wrapper {
-        //         grid-template-columns: repeat(6, min-content);
-        //     }
-        // }		
-        @container ( width >= 600px ) {
-            .control-panel__key-wrapper {
-                grid-template-columns: repeat(12, min-content);
-            }
-        }
-    }
+		// @container ( width >= 420px ) {
+		//     .control-panel__key-wrapper {
+		//         grid-template-columns: repeat(6, min-content);
+		//     }
+		// }
+		@container ( width >= 600px ) {
+			.control-panel__key-wrapper {
+				grid-template-columns: repeat(12, min-content);
+			}
+		}
+	}
 	&__key-wrapper {
 		width: 100%;
 		grid-area: keywrapper;
@@ -113,12 +154,20 @@
 		grid-template-columns: min-content 1fr;
 		gap: 2rem;
 		align-items: center;
+		// display: none;
 	}
+	
 	&__tuning-wrapper {
-		width: 100%;
+		// width: 100%;
 		display: grid;
 		gap: var(--control-panel-note-gap);
 		grid-template-columns: repeat(var(--num-tuners), var(--min-note-size));
+	}
+
+	&__tuning-select-panel {
+		display: flex;
+		justify-items: center;
+		align-items: center;
 	}
 	&__tuning-controls {
 		display: flex;
@@ -129,12 +178,28 @@
 		align-self: center;
 		padding: 0;
 	}
+	&__tuner-ctrl-btn {
+		padding: 0;
+		background: none;
+		span {
+			display: none;
+		}
+	}
 	&__num-frets {
-		display: grid;
-		grid-template-areas: "legend content";
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 1fr;
-		align-items: center;
+		// display: grid;
+		// grid-template-areas: 
+		// 	"legend"
+		// 	"content"
+		// ;
+		// grid-template-columns: 1fr 1fr;
+		// grid-template-rows: 1fr;
+		// align-items: center;
+
+		@media (width >= 600px) {
+			grid-template-areas: "legend content";
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr;
+		}
 		.legend {
 			grid-area: legend;
 			grid-column: 1 / span 1;
@@ -157,7 +222,5 @@
 	grid-column: 1 / -1;
 	grid-row: 1 / 2;
 }
-
-
 
 
