@@ -36,15 +36,21 @@
 		"numfrets"
 		"notetype"
 		"scheme"
-		
+		"modifyscale"
 	;
 
 	@media (width >= 600px) {
 		display: grid;
 		grid-area: controlPanel;
 		background: transparent;
-		// overflow: unset;
 	}
+	// @media (width >= $orientation-change) {
+	// 	grid-template-areas:
+	// 		"scale tuning"
+	// 		"key key"
+	// 		"numfrets scheme"
+	// 	;
+	// }
 
 	@media (width >= $orientation-change) {
 		grid-template-areas: 
@@ -78,7 +84,7 @@
 	&__scale {
 		grid-area: scale;
 	}
-	&__modify-scale {
+	&__modifyscale {
 		grid-area: modifyscale;
 	}
 	&__num-frets {
@@ -89,6 +95,9 @@
 	}
 	&__notetype {
 		grid-area: notetype;
+	}
+	&__modifyscale {
+		grid-area: modifyscale;
 	}
 
 	&__title {
