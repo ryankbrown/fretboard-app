@@ -1,27 +1,21 @@
-import '../styles/toggler.scss'
+
+
+// import '../styles/toggler.scss'
 
 export default function Toggler(props) {
 
+	const buttonStyles = `flex justify-center items-center text-center font-semibold px-4 py-2 text-[var(--primary-light-text-color)] text-sm`;
+
+	const toggleStyles = props.value === props.currentValue ? 'bg-[--primary-highlight-dark-color]' : 'bg-[var(--disabled-input-color)]'
+
 	return (
 		<>
-			<div className={`toggler toggler--${props.id} ${props.labelFirst ? "toggler--label-first" : ''}`}>
-				
-				{/* Label */}
-				<label htmlFor={`toggler__input--${props.id}`} className={`toggler__label toggler__label--${props.id}`}>{
-					props.children ? props.children : props.label
-				}</label>
-
-				{/* Input */}
-				<input 
-					type={props.inputType}
-					className={`toggler__input toggler__input--${props.id}`}
-					id={`toggler__input--${props.id}`}
-					
-					onChange={ (e) => props.setValue(e.target.value) }
-					checked={props.selectedValue === props.value}
-					value={props.value}
-				/>
-			</div>
+			<button
+				className={ `${buttonStyles} ${toggleStyles} ${ props.injectedClasses || '' }` }
+				onClick={ ()=> props.setValue(props.value) }
+			>
+				{ props.children ? props.children : props.displayValue }
+			</button>
 		</>
 	)
 }

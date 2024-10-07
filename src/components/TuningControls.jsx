@@ -54,7 +54,7 @@ export default function TuningControls(props) {
 	return (
 		<TabPanel
 			selectorName="tuning"
-			// contentWrapperClasses="control-panel__tuning-wrapper"
+			// injectedClassesContent="control-panel__tuning-wrapper"
 			tabData={[
 				//* Tuning Select Panel
 				{

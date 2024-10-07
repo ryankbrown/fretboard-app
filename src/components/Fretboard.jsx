@@ -5,8 +5,66 @@ import NoteComponent from './NoteComponent'
 import '../styles/fretboard.scss'
 // import { getNoteObj } from '../resources/Utils'
 
-
 export default function Fretboard(props) {
+
+	const wrapper_styles = 
+		`col-span-full
+		row-span-full
+		grid
+		grid-cols-subgrid
+		grid-rows-subgrid
+		`
+
+	const string_styles = 
+		`w-[.1rem] 
+		h-full
+		self-center
+		justify-self-center	
+		bg-gray-500
+		[grid-column:calc(var(--num-strings)-var(--string-num)+1)_/_span_1]
+		row-start-3
+		row-span-full
+		or-ch:w-full
+		or-ch:h-[.1rem]
+		or-ch:col-start-3
+		or-ch:col-span-full
+		or-ch:row-[var(--note-string)_/_span_1]`
+
+	const fret_styles = 
+		`self-end
+		[grid-row:calc(var(--fret-num)+2)_/_span_1]
+		[grid-column:1_/_-2]
+		w-full
+		h-[.2rem]
+		or-ch:w-[.2rem]
+		or-ch:h-full
+		or-ch:[grid-column:calc(var(--fret-num)+2)_/_span_1]
+		or-ch:[grid-row:1_/_-2]
+		or-ch:justify-self-end`
+
+	const fret_number_styles = 
+		`[grid-row:calc(var(--fret-num)+2)_/_span_1]
+		[grid-column:-1_/_span_1]
+		self-center
+		justify-self-center
+		or-ch:[grid-column:calc(var(--fret-num)+2)_/_span_1]
+		or-ch:[grid-row:-2_/_span_1]
+		or-ch:pt-[1.5rem]`
+
+	const number_tuning_styles = 
+		`mix-blend-hard-light
+		text-white/50
+		text-sm`
+	
+	const tuning_note_styles = 
+		`[grid-column:calc(var(--string-num)+1)_/_span_1]
+		[grid-row:1_/_span_1]
+		justify-self-center
+		self-center
+		or-ch:[grid-column:calc(var(--num-strings)-var(--string-num))_/_span_1]
+		or-ch:[grid-column:1_/_span_1]`
+
+
 	return (
 		<>	
 			
@@ -18,10 +76,14 @@ export default function Fretboard(props) {
 				}} 
 			>
 
-				<div className="frets-wrapper">{
+				<div className={`frets-wrapper ${wrapper_styles}`}>{
 					[...Array(props.numFrets)].map((_, i) => (
 						<div 
-							className={`fret fret--${i}`} 
+							className={
+								`fret fret--${i} 
+								${fret_styles} 
+								${(i === 0 || i === 12 || i === 24) ? `bg-[var(--primary-light-text-color)]` : `bg-[var(--fret-wire-color)]`}`
+							} 
 							key={`fret--${i}`}
 							style={{ ['--fret-num']: i }}
 						></div>
@@ -29,10 +91,10 @@ export default function Fretboard(props) {
 				}</div>
 
 				
-				<div className="tuning-notes-wrapper">{
+				<div className={`tuning-notes-wrapper ${wrapper_styles}`}>{
 					props.currentTuning.notes.map( (tuning_note, i) => (
 						<div 
-							className="tuning-note"
+							className={`tuning-note ${number_tuning_styles} ${tuning_note_styles}`}
 							key={`tuning-note--${i}`}
 							style={{ ['--string-num']: i }}
 						>{ Note.get(tuning_note).name.replace('b', '♭').replace('#', '♯') }</div>
@@ -40,10 +102,10 @@ export default function Fretboard(props) {
 				}</div>
 
 				
-				<div className="fret-numbers-wrapper">{
+				<div className={`fret-numbers-wrapper ${wrapper_styles}`}>{
 					[...Array(props.numFrets)].map((_, i) => (	
 						<div 
-							className={`fret-number fret-number--${i}`}
+							className={`fret-number fret-number--${i} ${fret_number_styles} ${number_tuning_styles}`}
 							key={`fret-number--${i}`}
 							style={{ ['--fret-num']: i }}
 						>{i}</div>
@@ -51,10 +113,10 @@ export default function Fretboard(props) {
 				}</div>
 
 				
-				<div className="strings-wrapper">{
+				<div className={`strings-wrapper ${wrapper_styles}`}>{
 					[...Array(props.currentTuning.notes.length)].map((_, i) => (
 						<div 
-							className={`string string--${i + 1}`} 
+							className={`string string--${i + 1} ${string_styles}`}
 							key={`string-num--${i + 1}`}
 							style={{ ['--string-num']: i + 1}}
 						>
@@ -63,42 +125,18 @@ export default function Fretboard(props) {
 				}</div>
 
 				
-				<div className="notes-wrapper">{
+				<div className={`notes-wrapper ${wrapper_styles}`}>{
 					props.fretboardData.map((fret_obj, i) => (
-
 						fret_obj.inScale && (
-							<div 
-								className={`note__wrapper`}
-								key={`note-wrapper--${i}`}
-								style={{ 
-									['--fret-num']: fret_obj.fret,
-									['--string-num']: fret_obj.string,
-									// ['--note-wrapper-num']: fret_obj.note_obj.indx,
-								}}
-							>	
-								<NoteComponent 
-									key={`note--${i}`} 
-									{...fret_obj} 
-									synth={props.synth}
-									soundState={props.soundState}
-
-									noteType={props.noteType}
-
-									highlightNotes={props.highlightNotes}
-									setHighlightNotes={props.setHighlightNotes}
-								/>
-
-								{/* <div 
-									className="note--debug" 
-									style={{
-										fontWeight: 'bold',
-										justifySelf: 'center',
-										fontSize: '1.2rem',
-										color: 'red',
-									}}>
-										{fret_obj.inScale}
-								</div> */}
-							</div>
+							<NoteComponent 
+								key={`note--${i}`} 
+								{...fret_obj} 
+								synth={props.synth}
+								soundState={props.soundState}
+								noteType={props.noteType}
+								highlightNotes={props.highlightNotes}
+								setHighlightNotes={props.setHighlightNotes}
+							/>
 						)
 					))
 				}</div>

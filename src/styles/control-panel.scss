@@ -28,6 +28,8 @@
 	
 	gap: 1rem;
 	display: grid;
+	
+	opacity: .1;
 
 	grid-template-areas: 
 		"key"	
@@ -146,7 +148,7 @@
 		display: grid;
 		// grid-template-columns: repeat(auto-fill, minmax(var(--min-note-size), 1fr));
 		grid-template-columns: repeat(auto-fill, var(--min-note-size));
-		grid-template-rows: min-content;
+		// grid-template-rows: min-content;
 		gap: var(--control-panel-note-gap);
 	}
 	&__modify-tuning-wrapper {

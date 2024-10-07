@@ -49,20 +49,20 @@ export default function ControlPanel(props) {
 				<FieldGroup
 					selectorName="key"
 					legendString="Select Key"
-					contentWrapperClasses="control-panel__key-wrapper"
+					injectedClassesContent="control-panel__key-wrapper"
+
 				>
 					{props.keyList.map((k) => (
 						<Toggler
 							key={k}
 							id={`key-option--${k}`}
-							label={Note.get(k)
-								.name.replace("b", "♭")
-								.replace("#", "♯")}
-							inputType="radio"
-							checked={k === "C" ? true : false}
 							value={k}
-							selectedValue={props.currentKey}
-							setValue={props.setCurrentKey}
+							currentValue={ props.currentKey }
+							displayValue={ Note.get(k)
+								.name.replace("b", "♭")
+								.replace("#", "♯") }
+							setValue={ props.setCurrentKey }
+							injectedClasses="rounded-full !p-[unset]"
 						></Toggler>
 					))}
 				</FieldGroup>
@@ -72,22 +72,21 @@ export default function ControlPanel(props) {
 					selectorName="notetype"
 					legendString="Note Type"
 					isBooleanSwitch={true}
+					injectedClassesContent="flex flex-row"
 				>
 					<Toggler
-						inputType="radio"
-						id="notes"
-						label="Show Notes"
-						value="notes"
-						selectedValue={props.noteType}
+						value={"notes"}
+						currentValue={props.noteType}
+						displayValue="Show Notes"
 						setValue={props.setNoteType}
+						injectedClasses={`rounded-e-none`}
 					/>
 					<Toggler
-						inputType="radio"
-						id="degrees"
-						label="Show Degrees"
-						value="degrees"
-						selectedValue={props.noteType}
+						value={"degrees"}
+						currentValue={props.noteType}
+						displayValue="Show Degrees"
 						setValue={props.setNoteType}
+						injectedClasses={`rounded-s-none`}
 					/>
 				</FieldGroup>
 
@@ -96,22 +95,21 @@ export default function ControlPanel(props) {
 					selectorName="scheme"
 					legendString="Interface Scheme"
 					isBooleanSwitch={true}
+					injectedClassesContent="flex flex-row"
 				>
 					<Toggler
-						inputType="radio"
-						id="scheme-light"
-						label="Light Scheme"
-						value="scheme-light"
-						selectedValue={props.interfaceScheme}
+						value={"scheme-light"}
+						currentValue={props.interfaceScheme}
+						displayValue="Light Scheme"
 						setValue={props.setInterfaceScheme}
+						injectedClasses={`rounded-e-none`}
 					/>
 					<Toggler
-						inputType="radio"
-						id="scheme-dark"
-						label="Dark Scheme"
-						value="scheme-dark"
-						selectedValue={props.interfaceScheme}
+						value={"scheme-dark"}
+						currentValue={props.interfaceScheme}
+						displayValue="Dark Scheme"
 						setValue={props.setInterfaceScheme}
+						injectedClasses={`rounded-s-none`}
 					/>
 				</FieldGroup>
 
@@ -134,7 +132,7 @@ export default function ControlPanel(props) {
 				<FieldGroup
 					selectorName="tuning"
 					legendString="Tuning Controls"
-					contentWrapperClasses="control-panel__modify-tuning-wrapper"
+					injectedClassesContent="control-panel__modify-tuning-wrapper"
 				>
 					<TuningControls
 						currentTuning={props.currentTuning}

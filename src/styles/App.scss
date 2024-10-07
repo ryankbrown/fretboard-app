@@ -46,27 +46,27 @@
 
 .app-title {
 	grid-area: header;
-	color: var(--primary-highlight-color);
-	font-weight: 800;
-	font-size: 3rem;
-	margin: 0;
-	text-transform: uppercase;
+	// color: var(--primary-highlight-color);
+	// font-weight: 800;
+	// font-size: 3rem;
+	// margin: 0;
+	// text-transform: uppercase;
 
-	&__white {
+	// &__white {
 
-		color: var(--primary-light-text-color);
+		// color: var(--primary-light-text-color);
 
-		.scheme-light & {
-			color: var(--primary-dark-text-color);
-		}
-		.scheme-dark & {
-			color: var(--primary-light-text-color);
-		}
-	}
-	@media (width >= 600px) {
-		display: block;
-	}
-	@media (width >= $orientation-change) {
-		font-size: 7rem;
-	}
+		// .scheme-light & {
+		// 	color: var(--primary-dark-text-color);
+		// }
+		// .scheme-dark & {
+		// 	color: var(--primary-light-text-color);
+		// }
+	// }
+	// @media (width >= 600px) {
+	// 	display: block;
+	// }
+	// @media (width >= $orientation-change) {
+	// 	font-size: 7rem;
+	// }
 }

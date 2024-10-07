@@ -1,25 +1,25 @@
 @use './variables.scss' as *;
 
 
-.note {
-	display: grid;
-	grid-template-areas: "notecenter";
-	grid-template-columns: 100%;
-	grid-template-rows: 100%;
+// .note {
+	// display: grid;
+	// grid-template-areas: "notecenter";
+	// grid-template-columns: 100%;
+	// grid-template-rows: 100%;
 
-	justify-items: center;
-	align-items: center;
+	// justify-items: center;
+	// align-items: center;
 
-	font-size: var(--note-text-size);
-	font-weight: bold;
+	// font-size: var(--note-text-size);
+	// font-weight: bold;
 	
-	color: white;
-	width: 100%;
-	height: 100%;
-	cursor: pointer;
+	// color: white;
+	// width: 100%;
+	// height: 100%;
+	// cursor: pointer;
 
-	transition: scale .25s ease-in-out;
-	scale: 1;
+	// transition: scale .25s ease-in-out;
+	// scale: 1;
 
 
 	// view-transition-name: note;
@@ -27,86 +27,84 @@
 	// animation-delay: calc(.01s * var(--fret-num) * (var(--num-strings) - var(--string-num)) );
 	// animation-fill-mode: both;
 
-	&:hover  {
-		scale: 1.2;	
-	}
+	// &:hover  {
+	// 	scale: 1.2;	
+	// }
 	
-	&:active  {
-		scale: .9;
-		transition: scale .1s ease-in-out;
-		.note__circle {
-			transition: filter .1s ease-in-out;
-			filter: saturate(110%) brightness(1.25);
-		}
-	}
+	// &:active  {
+	// 	scale: .9;
+	// 	transition: scale .1s ease-in-out;
+	// 	.note__circle {
+	// 		transition: filter .1s ease-in-out;
+	// 		filter: saturate(110%) brightness(1.25);
+	// 	}
+	// }
 
 
-	&__wrapper {
-		container-type: size;
-		container-name: notewrapper;
+	// &__wrapper {
+		// container-type: size;
+		// container-name: notewrapper;
 
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		// display: flex;
+		// justify-content: center;
+		// align-items: center;
 
-		grid-column: calc( var(--string-num) ) / span 1;
-		grid-row: calc( var(--fret-num) + 2 ) / span 1;
+		// grid-column: calc( var(--string-num) ) / span 1;
+		// grid-row: calc( var(--fret-num) + 2 ) / span 1;
 
-		@media ($orientation-change <= width) {
-			grid-column: calc(var(--fret-num) + 2) / span 1;
-			grid-row: calc( var(--num-strings) - var(--string-num) + 1) / span 1;
-		}
-	}
+		// @media ($orientation-change <= width) {
+		// 	grid-column: calc(var(--fret-num) + 2) / span 1;
+		// 	grid-row: calc( var(--num-strings) - var(--string-num) + 1) / span 1;
+		// }
+	// }
 
 
-	&__name, &__degree {
-		z-index: 2;
-	}
+	// &__name, &__degree {
+	// 	z-index: 2;
+	// }
 
-	&__name, &__degree, &__circle {
-		grid-area: notecenter;
-		text-align: center;
-	}
+	// &__name, &__degree, &__circle {
+	// 	grid-area: notecenter;
+	// 	text-align: center;
+	// }
 
-	&__circle {
-		aspect-ratio: 1 / 1;
-		border-radius: 100%;
-		width: 70%;
-		height: auto;
-		@container notewrapper (orientation: landscape) {
-			height: 70%;
-			width: auto;
-		}
-	}
+	// &__circle {
+		// aspect-ratio: 1 / 1;
+		// border-radius: 100%;
+		// width: 70%;
+		// height: auto;
+		// @container notewrapper (orientation: landscape) {
+		// 	height: 70%;
+		// 	width: auto;
+		// }
+	// }
 
-	&--in-scale &__circle {
-		background: var(--note-circle-default-color);
-	}
+	// &--in-scale &__circle {
+	// 	background: var(--note-circle-default-color);
+	// }
 
-	&--root &__circle {
-		background: #aaa;
-		background: var(--primary-highlight-dark-color);
-	}
-	&--highlighted .note__circle {
-		// scale: 1.2;
-		border: .1rem solid color-mix(in srgb, var(--primary-highlight-color), white 25%);
-		box-shadow: 0 0 2rem var(--primary-highlight-color);
+	// &--root &__circle {
+	// 	background: #aaa;
+	// 	background: var(--primary-highlight-dark-color);
+	// }
 
-		
-	}
 
-	&__oct {
-		font-weight: 500;
-		opacity: .7;
-	}
+	// &--highlighted .note__circle {
+	// 	// scale: 1.2;
+	// 	border: .1rem solid color-mix(in srgb, var(--primary-highlight-color), white 25%);
+	// 	box-shadow: 0 0 2rem var(--primary-highlight-color);		
+	// }
 
-	
-}
+	// &__oct {
+	// 	font-weight: 500;
+	// 	opacity: .7;
+	// }
+// }
 
-@keyframes pop {
-	from { scale: 0 }
-	to { scale: 1 }
-}
+// @keyframes pop {
+// 	from { scale: 0 }
+// 	to { scale: 1 }
+// }
 
 
 // ::view-transition-old(.notewrapper) {

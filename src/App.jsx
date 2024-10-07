@@ -54,10 +54,10 @@ export default function App() {
 	const [currentKey, setCurrentKey] = useState( 'E' );
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState('minor');
+	const [currentScale, setCurrentScale] = useState('major');
 
 	// * * * NOTE TYPE * * *  
-	const [noteType, setNoteType] = useState('degrees');
+	const [noteType, setNoteType] = useState('notes');
 
 	// * * * INTERFACE * * *  
 	const [interfaceScheme, setInterfaceScheme] = useState('scheme-dark');
@@ -100,7 +100,7 @@ export default function App() {
 					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
 			>
-				<h1 className="app-title">Fret<span className="app-title__white">Get</span></h1>
+				<h1 className="app-title text-2xl or-ch:text-5xl font-bold m-0 uppercase text-[var(--primary-highlight-color)]">Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Get</span></h1>
 
 				<ScaleTable 
 					currentKey={currentKey} 

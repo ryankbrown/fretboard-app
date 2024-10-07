@@ -60,102 +60,102 @@
 
 
 
-.frets-wrapper, .fret-numbers-wrapper, .strings-wrapper, .notes-wrapper, .tuning-notes-wrapper {
-	grid-column: 1 / -1;
-	grid-row: 1 / -1;
+// .frets-wrapper, .fret-numbers-wrapper, .strings-wrapper, .notes-wrapper, .tuning-notes-wrapper {
+// 	grid-column: 1 / -1;
+// 	grid-row: 1 / -1;
 	
-	display: grid;
-	grid-template-columns: subgrid;
-	grid-template-rows: subgrid;
-}
+// 	display: grid;
+// 	grid-template-columns: subgrid;
+// 	grid-template-rows: subgrid;
+// }
 
 
-.tuning-note {
-	grid-column: calc(var(--string-num) + 1) / span 1;
-	grid-row: 1 / span 1;
+// .tuning-note {
+// 	grid-column: calc(var(--string-num) + 1) / span 1;
+// 	grid-row: 1 / span 1;
 
-	justify-self: center;
-	align-self: center;
+// 	justify-self: center;
+// 	align-self: center;
 
-	@media (width >= $orientation-change) {
-		// grid-row: calc(var(--string-num) + 1) / span 1;
-		grid-row: calc(var(--num-strings) - var(--string-num) ) / span 1;
-		grid-column: 1 / span 1;
-	}
-}
+// 	@media (width >= $orientation-change) {
+// 		// grid-row: calc(var(--string-num) + 1) / span 1;
+// 		grid-row: calc(var(--num-strings) - var(--string-num) ) / span 1;
+// 		grid-column: 1 / span 1;
+// 	}
+// }
 
-.fret-number, .tuning-note {
-	font-weight: 600;
-	font-size: 1.3rem;
-	.scheme-dark & {
-		mix-blend-mode: hard-light;
-		// color: white;
-		color: rgba(white, .5);
-	}
-}
+// .fret-number, .tuning-note {
+// 	font-weight: 600;
+// 	font-size: 1.3rem;
+// 	.scheme-dark & {
+// 		mix-blend-mode: hard-light;
+// 		// color: white;
+// 		color: rgba(white, .5);
+// 	}
+// }
 
-.fret-number {
-	grid-row: calc(var(--fret-num) + 2) / span 1;
-	grid-column: -1 / span 1;
-	align-self: center;
-	justify-self: center;
+// .fret-number {
+// 	grid-row: calc(var(--fret-num) + 2) / span 1;
+// 	grid-column: -1 / span 1;
+// 	align-self: center;
+// 	justify-self: center;
 
-	@media ($orientation-change <= width) {
-		grid-column: calc(var(--fret-num) + 2) / span 1;
-		grid-row: -2 / -1;	
-		padding-top: 1.5rem;
-	}
-}
+// 	@media ($orientation-change <= width) {
+// 		grid-column: calc(var(--fret-num) + 2) / span 1;
+// 		grid-row: -2 / -1;	
+// 		padding-top: 1.5rem;
+// 	}
+// }
 
-.fret {
-	align-self: end;
-	grid-row: calc( var(--fret-num) + 2 ) / span 1;
-	grid-column: 1 / -2;
+// .fret {
+	// align-self: end;
+	// grid-row: calc( var(--fret-num) + 2 ) / span 1;
+	// grid-column: 1 / -2;
 
-	width: 100%;
-	height: .2rem;
+	// width: 100%;
+	// height: .2rem;
 	
-	background: var(--fret-wire-color);
+	// background: var(--fret-wire-color);
 
-	&__number {
-		display: none;
-	}
+	// &__number {
+	// 	display: none;
+	// }
 
-	&--0, &--12, &--24 {
-		.scheme-light & {
-			background: var(--primary-dark-text-color);
-		}
-		.scheme-dark & {
-			background: var(--primary-light-text-color);
-		}
-	}
+	// &--0, &--12, &--24 {
+	// 	.scheme-light & {
+	// 		background: var(--primary-dark-text-color);
+	// 	}
+	// 	.scheme-dark & {
+	// 		background: var(--primary-light-text-color);
+	// 	}
+	// }
 
-	@media ($orientation-change <= width) {
-		width: .2rem;
-		height: 100%;
-		grid-column: calc(var(--fret-num) + 2) / span 1;
-		grid-row: 1 / -2;
-		justify-self: end;
-	}
-}
+	// @media ($orientation-change <= width) {
+	// 	width: .2rem;
+	// 	height: 100%;
+	// 	grid-column: calc(var(--fret-num) + 2) / span 1;
+	// 	grid-row: 1 / -2;
+	// 	justify-self: end;
+	// }
+// }
 
 
-.string {
-	width: .1rem;
-	height: 100%;
-	align-self: center;
-	justify-self: center;
+// .string {
+	// width: .1rem;
+	// height: 100%;
+	// align-self: center;
+	// justify-self: center;
 
-	background: gray;
-	grid-column: calc(var(--num-strings) - var(--string-num) + 1) / span 1;
-	grid-row: 3 / -1;
+	// background: gray;
+	// grid-column: calc(var(--num-strings) - var(--string-num) + 1) / span 1;
+	// grid-row: 3 / -1;
 
-	@media ($orientation-change <= width) {
-		width: 100%;
-		height: .1rem;
-		grid-column: 3 / -1;
-		grid-row: var(--note-string) / span 1;
-	}
-}
+	// @media ($orientation-change <= width) {
+		// width: 100%;
+		// height: .1rem;
+		// grid-column: 3 / -1;
+		// grid-row: var(--note-string) / span 1;
+	// }
+// }
 
 

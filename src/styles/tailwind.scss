@@ -1,0 +1,32 @@
+@use './variables.scss' as *;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	legend {
+		@apply float-left;
+	}
+	button  {
+		@apply rounded-md px-2 py-0.5 text-sm;
+	}
+}
+
+
+@layer components {
+
+	.note__wrapper {
+		container-type: size;
+		container-name: notewrapper;
+	}
+	.note__circle {
+		@apply w-[60%] h-auto;
+
+		@container notewrapper (orientation: landscape) {
+			@apply h-[70%] w-auto;
+		}
+	}
+}
+
+
