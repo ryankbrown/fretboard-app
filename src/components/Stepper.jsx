@@ -1,21 +1,32 @@
-import '../styles/stepper.scss'
+// import '../styles/stepper.scss'
+
+
+
 
 export default function Stepper(props) {
+	
 	return (
-		<div className={`stepper stepper--${props.id}`}>
+		<div className={`stepper stepper--${props.id} w-full grid [grid-template-areas:'decrease_value_increase'] grid-cols-[min-content_1fr_min-content] justify-items-center items-center ${props.injectedClasses || ''}`}>
+
 			<button 
-				className="stepper__btn stepper__btn--decrease"
+				className={`stepper__btn stepper__btn--decrease [grid-area:decrease] rounded-[unset] rounded-l-[var(--toggler-corner-radius)] h-full ${props.injectedClassesDecrease || ''}`}
+
 				onClick={ ()=> props.setValue( props.value - 1 ) }
 				disabled={props.disableStepperBtns}
-			>{props.decreaseString}</button>
+			>{ props.decreaseString }</button>
 
-			<div className="stepper__value">{props.displayValue ? props.displayValue : props.value}</div>
+			<div 
+				className={`stepper__value [grid-area:value] w-full p-1 text-center min-w-[5ch] bg-[var(--primary-highlight-dark-color)] text-bold text-white flex justify-center items-center ${props.injectedClassesValue || ''}`}
+			>{
+				props.displayValue || props.value
+			}</div>
 
 			<button 
-				className="stepper__btn stepper__btn--increase"
+				className={`stepper__btn stepper__btn--increase [grid-area:increase] rounded-[unset] rounded-r-[var(--toggler-corner-radius)] h-full ${props.injectedClassesIncrease || ''}`}
 				onClick={ ()=> props.setValue( props.value + 1 ) }
 				disabled={props.disableStepperBtns}
-			>{props.increaseString}</button>
+			>{ props.increaseString }</button>
+
 		</div>
 	)
 }

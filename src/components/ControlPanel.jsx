@@ -15,8 +15,6 @@ import "../styles/control-panel.scss";
 
 export default function ControlPanel(props) {
 	
-
-	
 	//uppercased scale names
 	const scale_names = custom_ordered_scale_names.map((s) => change_str_case(s, 'upper'));
 
@@ -49,8 +47,7 @@ export default function ControlPanel(props) {
 				<FieldGroup
 					selectorName="key"
 					legendString="Select Key"
-					injectedClassesContent="control-panel__key-wrapper"
-
+					injectedClassesContent="control-panel__key-wrapper grid grid-cols-[repeat(auto-fill, minmax(var(--min-note-size), 1fr))] [grid-area:content]"
 				>
 					{props.keyList.map((k) => (
 						<Toggler
@@ -63,7 +60,8 @@ export default function ControlPanel(props) {
 								.replace("#", "♯") }
 							setValue={ props.setCurrentKey }
 							injectedClasses="rounded-full !p-[unset]"
-						></Toggler>
+							
+						/>
 					))}
 				</FieldGroup>
 
@@ -79,14 +77,14 @@ export default function ControlPanel(props) {
 						currentValue={props.noteType}
 						displayValue="Show Notes"
 						setValue={props.setNoteType}
-						injectedClasses={`rounded-e-none`}
+						injectedClasses={`rounded-r-none`}
 					/>
 					<Toggler
 						value={"degrees"}
 						currentValue={props.noteType}
 						displayValue="Show Degrees"
 						setValue={props.setNoteType}
-						injectedClasses={`rounded-s-none`}
+						injectedClasses={`rounded-l-none`}
 					/>
 				</FieldGroup>
 
@@ -102,14 +100,14 @@ export default function ControlPanel(props) {
 						currentValue={props.interfaceScheme}
 						displayValue="Light Scheme"
 						setValue={props.setInterfaceScheme}
-						injectedClasses={`rounded-e-none`}
+						injectedClasses={`rounded-r-none`}
 					/>
 					<Toggler
 						value={"scheme-dark"}
 						currentValue={props.interfaceScheme}
 						displayValue="Dark Scheme"
 						setValue={props.setInterfaceScheme}
-						injectedClasses={`rounded-s-none`}
+						injectedClasses={`rounded-l-none`}
 					/>
 				</FieldGroup>
 

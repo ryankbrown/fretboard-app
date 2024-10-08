@@ -1,44 +1,42 @@
-@use './variables.scss' as *;
+// @use './variables.scss' as *;
 
-.fretboard {
-	user-select: none;
+// .fretboard {
+	// user-select: none;
 	
-	--note-circle-default-color: #000;
-	--fret-wire-color: #525252;
-	--fret-wire-highlight-color: white;
-	--fret-number-color: var(--fret-wire-color);
+	// --note-circle-default-color: #000;
+	// --fret-wire-color: #525252;
+	// --fret-wire-highlight-color: white;
+	// --fret-number-color: var(--fret-wire-color);
 
-	align-self: center;
-	justify-self: center;
-	width: min(100%, 40rem);
-	height: 100%;
+	// align-self: center;
+	// justify-self: center;
+	// width: min(100%, 40rem);
+	// height: 100%;
 
-	// background: rgba(white, .01);
+	// display: grid;
+	// grid-template-columns: repeat( var(--num-strings), 1fr) min-content;
+	// grid-template-rows: min-content repeat( var(--num-frets), 1fr); 
 
-	display: grid;
-	grid-template-columns: repeat( var(--num-strings), 1fr) min-content;
-	grid-template-rows: min-content repeat( var(--num-frets), 1fr); 
-
-	grid-area: fretboard;
-	justify-content: center;
-	align-items: center;
+	// grid-area: fretboard;
+	// justify-content: center;
+	// align-items: center;
 
 	// view-transition-name: fretboard;
 
-	@media (width >= $orientation-change) {
-		width: clamp( 20rem, 100%, 400rem);
-		height: clamp( 35rem, 60%, 80rem);
+	// @media (width >= $orientation-change) {
+	// 	// width: clamp( 20rem, 100%, 400rem);
+	// 	// height: clamp( 35rem, 60%, 80rem);
 
-		grid-template-columns: 5ch minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
-		grid-template-rows: repeat( var(--num-strings), minmax(0, 1fr)) minmax(5rem, min-content);
+	// 	grid-template-columns: 5ch minmax(5rem, min-content) repeat(calc(var(--num-frets) - 1), minmax(0, 1fr));
+	// 	grid-template-rows: repeat( var(--num-strings), minmax(0, 1fr)) minmax(5rem, min-content);
 
-		@media (orientation: portrait) {
-			// height: min(100%, 60rem);
-			aspect-ratio: 2 / 1;
-			height: auto;
-		}
-	}
-}
+	// 	@media (orientation: portrait) {
+	// 		// height: min(100%, 60rem);
+	// 		aspect-ratio: 2 / 1;
+	// 		height: auto;
+	// 	}
+	// }
+// }
 
 // ::view-transition-old(fretboard) {
 // 	animation-duration: .5s;

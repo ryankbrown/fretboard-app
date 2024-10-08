@@ -1,10 +1,11 @@
-@use './variables.scss' as *;
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import './global.scss';
+
 @layer base {
+
 	legend {
 		@apply float-left;
 	}
@@ -16,6 +17,17 @@
 
 @layer components {
 
+	.app-main-container {
+		--disabled-input-color: #252525;
+		--side-container-padding: 0;
+	}
+
+	.fretboard {
+		--note-circle-default-color: #000;
+		--fret-wire-color: #525252;
+		--fret-wire-highlight-color: white;
+		--fret-number-color: var(--fret-wire-color);
+	}
 	.note__wrapper {
 		container-type: size;
 		container-name: notewrapper;

@@ -2,10 +2,29 @@ import { Note } from 'tonal'
 
 import NoteComponent from './NoteComponent'
 
-import '../styles/fretboard.scss'
+// import '../styles/fretboard.scss'
 // import { getNoteObj } from '../resources/Utils'
 
 export default function Fretboard(props) {
+
+	const fretboard_styles = 
+		`select-none
+		justify-self-center
+		self-center
+		w-[min(100%,40rem)]
+		h-[100%]
+		grid
+		grid-cols-[repeat(var(--num-strings),1fr)_min-content]
+		grid-rows-[min-content_repeat(var(--num-frets),1fr)]
+		[grid-area:fretboard]
+		justify-center
+		items-center
+		or-ch:w-[clamp(20rem,100%,400rem)]
+		or-ch:h-[clamp(35rem,60%,80rem)]
+		or-ch:grid-cols-[5ch_minmax(5rem,min-content)_repeat(calc(var(--num-frets)-1),minmax(0,1fr))]
+		or-ch:grid-rows-[repeat(var(--num-strings),minmax(0,1fr))_minmax(5rem,min-content)]
+		or-ch-v:aspect-[2/1]
+		or-ch-v:h-auto`
 
 	const wrapper_styles = 
 		`col-span-full
@@ -43,12 +62,12 @@ export default function Fretboard(props) {
 		or-ch:justify-self-end`
 
 	const fret_number_styles = 
-		`[grid-row:calc(var(--fret-num)+2)_/_span_1]
-		[grid-column:-1_/_span_1]
+		`row-[calc(var(--fret-num)+2)_/_span_1]
+		col-[-1_/_span_1]
 		self-center
 		justify-self-center
-		or-ch:[grid-column:calc(var(--fret-num)+2)_/_span_1]
-		or-ch:[grid-row:-2_/_span_1]
+		or-ch:row-[calc(var(--fret-num)+2)_/_span_1]
+		or-ch:col-[-2_/_span_1]
 		or-ch:pt-[1.5rem]`
 
 	const number_tuning_styles = 
@@ -69,7 +88,7 @@ export default function Fretboard(props) {
 		<>	
 			
 			<div 
-				className={`fretboard fretboard--${props.noteType}`}
+				className={`fretboard fretboard--${props.noteType} ${fretboard_styles}`}
 				style={{ 
 					['--num-strings']: props.currentTuning.notes.length, 
 					['--num-frets']: props.numFrets, 
@@ -80,9 +99,7 @@ export default function Fretboard(props) {
 					[...Array(props.numFrets)].map((_, i) => (
 						<div 
 							className={
-								`fret fret--${i} 
-								${fret_styles} 
-								${(i === 0 || i === 12 || i === 24) ? `bg-[var(--primary-light-text-color)]` : `bg-[var(--fret-wire-color)]`}`
+								`fret fret--${i} ${fret_styles} ${(i === 0 || i === 12 || i === 24) ? `bg-[var(--primary-light-text-color)]` : `bg-[var(--fret-wire-color)]`}`
 							} 
 							key={`fret--${i}`}
 							style={{ ['--fret-num']: i }}

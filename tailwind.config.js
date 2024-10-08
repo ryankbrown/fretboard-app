@@ -8,6 +8,7 @@ export default {
     extend: {
       screens: {
         'or-ch': '900px',
+        'or-ch-v' : { 'raw': '(orientation:portrait) and (min-width:900px)' },
       },
     },
   },

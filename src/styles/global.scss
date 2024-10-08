@@ -1,19 +1,7 @@
-*  {
-	box-sizing: border-box;
-}
 
 :root {
-	// font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	// line-height: 1.5;
-	// font-weight: 400;
-
-	// color-scheme: light dark;
-
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	// font-synthesis: none;
+	// text-rendering: optimizeLegibility;
 
 	--primary-highlight-color: white;
 	--primary-highlight-dark-color: gray;
@@ -24,17 +12,18 @@
 	--primary-light-bg-color: #eee;
 	--primary-dark-bg-color: #111;
 
-	--toggler-select-size: 1rem 1.5rem;
-	--toggler-corner-radius: .5rem;
+	--toggler-select-size: .25rem .75rem;
+	--toggler-corner-radius: .25rem;
 
-	--note-text-size: 1.2rem;
+	--note-text-size: 1rem;
 	--min-note-size: 4rem;
-	--control-panel-note-gap: 1.2rem;
+	--control-panel-note-gap: 1rem;
 }
 
 
 html {
-	view-transition-name: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 html:has(.app-main-container.scheme-dark) {
@@ -61,7 +50,6 @@ html:has(.app-main-container.scheme-dark), .scheme-dark {
 html:has(.app-main-container.scheme-light), .scheme-light {
 	color: var(--app-text-color);
 	background: var(--app-bg-color);
-	
 }
 
 
@@ -74,6 +62,4 @@ body,
 
 body {
 	margin: 0;
-	// font-size: 1.6rem;
-	// line-height: 1.2; 
 }

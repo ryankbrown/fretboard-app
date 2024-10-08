@@ -20,16 +20,13 @@ export default function FieldGroup(props) {
 		flex-row 
 		font-semibold 
 		text-sm`;
-	const content_wrapper_styles = 
-		`row-start-2 
-		row-span-1`;
 
 	return (
 		<fieldset className={
-			`fieldgroup--${props.selectorName} control-panel__${props.selectorName} ${fieldset_styles} ${props.isBooleanSwitch && boolean_switch_styles}`}
+			`fieldgroup--${props.selectorName} control-panel__${props.selectorName} ${fieldset_styles}`}
 		>
-			<legend className={`row-span-1`}>{props.legendString}</legend>
-			<div className={`fieldgroup__content fieldgroup__content--${props.selectorName} ${content_wrapper_styles} ${ props.isBooleanSwitch && boolean_switch_styles } ${ props.injectedClassesContent || ''} `}>
+			<legend className={`row-span-1 [grid-area:legend] text-sm font-semibold`}>{props.legendString}</legend>
+			<div className={`fieldgroup__content fieldgroup__content--${props.selectorName}  ${ props.isBooleanSwitch ? boolean_switch_styles : '' } ${ props.injectedClassesContent ? props.injectedClassesContent : ''} `}>
 				{props.children}
 			</div>
 		</fieldset>

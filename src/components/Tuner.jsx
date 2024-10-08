@@ -6,9 +6,9 @@ import '../styles/tuner.scss'
 
 export default function Tuner(props) {
 
-	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-		<path stroke="#fff" stroke-width="1.441" d="m4.726 4.448 7 7m0-7-7 7"/>
-	</svg>
+	// <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+	// 	<path stroke="#fff" stroke-width="1.441" d="m4.726 4.448 7 7m0-7-7 7"/>
+	// </svg>
 
 
 	const adjustTuner = (new_value) => {
@@ -42,7 +42,10 @@ export default function Tuner(props) {
 	}
 
 	return (
-		<div className={`tuner tuner--${props.tunerId}`} style={{ viewTransitionName: `tuner${props.tunerId}` }} >
+		<div 
+			className={`tuner tuner--${props.tunerId} relative origin-center`} 
+			style={{ viewTransitionName: `tuner${props.tunerId}` }} 
+		>
 			<Stepper 
 				id={`tuner-${props.tunerId}`}
 				key={`tuner-${props.tunerId}`} 
@@ -51,16 +54,19 @@ export default function Tuner(props) {
 				decreaseString="♭"
 				increaseString="♯"
 				setValue={ adjustTuner }
-				disableStepperBtns={props.tunerRemoverState}
+				disableStepperBtns={props.tunerRemoverState} 
+				injectedClasses={`[grid-template-areas:'decrease''value''increase']`}
 			/>
 			{
 				props.currentTuning.notes.length > 1 && props.tunerRemoverState && (
 					<button
-						className="tuner__remove-btn"
+						className="tuner__remove-btn bg-transparent col-span-full row-span-full absolute w-full h-full top-0 left-0 text-center transform-origin-center"
 						onClick={ removeTuner }
 						aria-label={`Remove ${props.displayValue} Tuner`}
 					>
-						<div className="tuner__remove-btn-circle">
+						<div
+						 	className="tuner__remove-btn-circle bg-[var(--primary-highlight-dark-color)] rounded-full right-0 top-0 p-0 flex items-center justify-center"
+						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
 								<path stroke="#fff" strokeWidth="1.5" d="m4.726 4.448 7 7m0-7-7 7"/>
 							</svg>
