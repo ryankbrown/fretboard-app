@@ -79,7 +79,7 @@ export default function TuningControls(props) {
 				{
 					title: "Modify Tuning",
 					selectorName: "modify-tuning",
-					addedClasses: "control-panel__modify-tuning-wrapper",
+					addedClasses: "control-panel__modify-tuning-wrapper flex flex-row gap-3",
 					content: (
 						<>
 							{/* Modify Tuner Controls */}
@@ -90,7 +90,7 @@ export default function TuningControls(props) {
 
 							{/* Modify Tuners Wrapper */}
 							<div
-								className="control-panel__tuning-wrapper"
+								className="control-panel__tuning-wrapper grid grid-cols-[repeat(var(--num-tuners),minmax(0,1fr))] gap-2 w-full"
 								style={{
 									["--num-tuners"]: Math.max(min_tuner_spaces, props.currentTuning.notes.length)
 								}}
@@ -123,7 +123,6 @@ export default function TuningControls(props) {
 					),
 				} // End of Modify Tuning Panel
 			]} // End of Tab Data
-
 		/> // End of <TabPanel />
 	);
 }

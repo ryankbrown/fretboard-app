@@ -4,9 +4,10 @@
 
 
 export default function Stepper(props) {
+
 	
 	return (
-		<div className={`stepper stepper--${props.id} w-full grid [grid-template-areas:'decrease_value_increase'] grid-cols-[min-content_1fr_min-content] justify-items-center items-center ${props.injectedClasses || ''}`}>
+		<div className={`stepper stepper--${props.id} grid justify-items-center items-center ${props.injectedClasses || ''}`}>
 
 			<button 
 				className={`stepper__btn stepper__btn--decrease [grid-area:decrease] rounded-[unset] rounded-l-[var(--toggler-corner-radius)] h-full ${props.injectedClassesDecrease || ''}`}

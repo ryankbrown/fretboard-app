@@ -62,12 +62,12 @@ export default function NoteComponent(props) {
 					props.inScale && (
 						props.noteType === 'notes' ? noteName : (
 							props.isRootNote ? noteName :
-								<div className="note__degree z-2 [grid-area:notecenter] text-center text-[var(--note-text-size)]">{ 
+								<div className="note__degree z-2 [grid-area:notecenter] text-center text-[length:var(--note-text-size)]">{ 
 									props.degree.replace('b', '♭').replace('#', '♯') 
 								}</div>
 						)	
 					)
-				}
+				} 
 			</div>
 		</div>
 	)

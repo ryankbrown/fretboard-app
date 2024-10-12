@@ -41,6 +41,13 @@ export default function Tuner(props) {
 		});
 	}
 
+
+	const tuner_value_classes = "rounded-full aspect-square p-[unset] text-sm w-full h-auto bg-black font-semibold"
+
+	const tuner_btn_styles = "bg-transparent font-bold p-1 text-[var(--primary-light-text-color)]"
+
+	const remove_btn_styles = "bg-[var(--primary-highlight-dark-color)] rounded-full right-0 top-[25%] p-0 flex items-center justify-center absolute"
+
 	return (
 		<div 
 			className={`tuner tuner--${props.tunerId} relative origin-center`} 
@@ -54,9 +61,12 @@ export default function Tuner(props) {
 				decreaseString="♭"
 				increaseString="♯"
 				setValue={ adjustTuner }
-				disableStepperBtns={props.tunerRemoverState} 
-				injectedClasses={`[grid-template-areas:'decrease''value''increase']`}
-			/>
+				disableStepperBtns={props.tunerRemoverState}
+				injectedClassesValue={tuner_value_classes}
+				injectedClassesDecrease={tuner_btn_styles}
+				injectedClassesIncrease={tuner_btn_styles}
+			>
+			{props.tunerRemoverState && 'true'}
 			{
 				props.currentTuning.notes.length > 1 && props.tunerRemoverState && (
 					<button
@@ -65,7 +75,7 @@ export default function Tuner(props) {
 						aria-label={`Remove ${props.displayValue} Tuner`}
 					>
 						<div
-						 	className="tuner__remove-btn-circle bg-[var(--primary-highlight-dark-color)] rounded-full right-0 top-0 p-0 flex items-center justify-center"
+						 	className={`tuner__remove-btn-circle ${remove_btn_styles}`}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
 								<path stroke="#fff" strokeWidth="1.5" d="m4.726 4.448 7 7m0-7-7 7"/>
@@ -74,6 +84,7 @@ export default function Tuner(props) {
 					</button>
 				)
 			}
+			</Stepper>
 		</div>
 	)
 }

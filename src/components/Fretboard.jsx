@@ -66,8 +66,8 @@ export default function Fretboard(props) {
 		col-[-1_/_span_1]
 		self-center
 		justify-self-center
-		or-ch:row-[calc(var(--fret-num)+2)_/_span_1]
-		or-ch:col-[-2_/_span_1]
+		or-ch:col-[calc(var(--fret-num)+2)_/_span_1]
+		or-ch:row-[-2_/_span_1]
 		or-ch:pt-[1.5rem]`
 
 	const number_tuning_styles = 
@@ -80,8 +80,8 @@ export default function Fretboard(props) {
 		[grid-row:1_/_span_1]
 		justify-self-center
 		self-center
-		or-ch:[grid-column:calc(var(--num-strings)-var(--string-num))_/_span_1]
-		or-ch:[grid-column:1_/_span_1]`
+		or-ch:row-[calc(var(--num-strings)-var(--string-num))_/_span_1]
+		or-ch:col-[1_/_span_1]`
 
 
 	return (

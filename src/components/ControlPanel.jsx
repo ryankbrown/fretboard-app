@@ -47,7 +47,7 @@ export default function ControlPanel(props) {
 				<FieldGroup
 					selectorName="key"
 					legendString="Select Key"
-					injectedClassesContent="control-panel__key-wrapper grid grid-cols-[repeat(auto-fill, minmax(var(--min-note-size), 1fr))] [grid-area:content]"
+					injectedClassesContent="control-panel__key-wrapper grid grid-cols-[repeat(3, 1fr)] [grid-area:content]"
 				>
 					{props.keyList.map((k) => (
 						<Toggler
@@ -59,10 +59,23 @@ export default function ControlPanel(props) {
 								.name.replace("b", "♭")
 								.replace("#", "♯") }
 							setValue={ props.setCurrentKey }
-							injectedClasses="rounded-full !p-[unset]"
+							injectedClasses="rounded-full !p-[unset] aspect-square"
 							
 						/>
 					))}
+				</FieldGroup>
+
+				{/* Tuning */}
+				<FieldGroup
+					selectorName="tuning"
+					legendString="Tuning Controls"
+					injectedClassesContent="control-panel__modify-tuning-wrapper gap-2"
+				>
+					<TuningControls
+						currentTuning={props.currentTuning}
+						maxTuners={props.maxTuners}
+						setCurrentTuning={props.setCurrentTuning}
+					/>
 				</FieldGroup>
 
 				{/* Note Type */}
@@ -126,18 +139,7 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 
-				{/* Tuning */}
-				<FieldGroup
-					selectorName="tuning"
-					legendString="Tuning Controls"
-					injectedClassesContent="control-panel__modify-tuning-wrapper"
-				>
-					<TuningControls
-						currentTuning={props.currentTuning}
-						maxTuners={props.maxTuners}
-						setCurrentTuning={props.setCurrentTuning}
-					/>
-				</FieldGroup>
+				
 			</div>
 		</>
 	);

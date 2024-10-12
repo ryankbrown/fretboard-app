@@ -2,9 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './global.scss';
+// @import './global.scss';
 
 @layer base {
+	:root {
+		// font-synthesis: none;
+		// text-rendering: optimizeLegibility;
+	
+		--primary-highlight-color: white;
+		--primary-highlight-dark-color: gray;
+	
+		--primary-light-text-color: white;
+		--primary-dark-text-color: #111;
+	
+		--primary-light-bg-color: #eee;
+		--primary-dark-bg-color: #111;
+	
+		--toggler-select-size: .25rem .75rem;
+		--toggler-corner-radius: .25rem;
+	
+		--note-text-size: .15rem;
+		--min-note-size: 2rem;
+		--control-panel-note-gap: 1rem;
+	}
+	
+	
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	html:has(.app-main-container.scheme-dark) {
+		--app-bg-color: var(--primary-dark-bg-color);
+		--app-text-color: var(--primary-light-text-color);
+	}
+	html:has(.app-main-container.scheme-light) {
+		--app-bg-color: var(--primary-light-bg-color);
+		--app-text-color: var(--primary-dark-text-color);
+	}
+	html:has(.app-main-container.scheme-dark), .scheme-dark {
+		// background: var(--app-bg-color);
+		color: var(--app-text-color);
+	
+		background: radial-gradient(
+			circle at 60% 60%, 
+			var(--app-bg-color) 30%, 
+			var(--primary-highlight-color) 100%
+			);
+		background-size: 200% 200%;
+		background-position: center;
+	}
+	
+	html:has(.app-main-container.scheme-light), .scheme-light {
+		color: var(--app-text-color);
+		background: var(--app-bg-color);
+	}
+	
+	
+	html,
+	body,
+	#root {
+		width: 100%;
+		height: 100%;
+	}
+	
+	body {
+		margin: 0;
+	}
 
 	legend {
 		@apply float-left;
@@ -17,17 +81,26 @@
 
 @layer components {
 
+	button:disabled {
+		@apply opacity-20;
+	}
+
 	.app-main-container {
 		--disabled-input-color: #252525;
 		--side-container-padding: 0;
 	}
-
 	.fretboard {
 		--note-circle-default-color: #000;
 		--fret-wire-color: #525252;
 		--fret-wire-highlight-color: white;
 		--fret-number-color: var(--fret-wire-color);
 	}
+
+	// .control-panel {
+	// 	&__tuning-wrapper {
+	// 		grid-template-columns: repeat(var(--num-tuners), 1fr;
+	// 	}		
+	// }
 	.note__wrapper {
 		container-type: size;
 		container-name: notewrapper;
@@ -38,6 +111,20 @@
 		@container notewrapper (orientation: landscape) {
 			@apply h-[70%] w-auto;
 		}
+	}
+	.stepper {
+		grid-template-areas: "decrease value increase";
+		grid-template-columns: 1fr min-content 1fr;
+		grid-template-rows: min-content;
+	}
+	.tuner .stepper {
+		grid-template-areas: 
+			"decrease"
+			"value"
+			"increase"
+		;
+		grid-template-columns: min-content;
+		grid-template-rows: 1fr min-content 1fr;
 	}
 }
 
