@@ -1,51 +1,49 @@
 @use './variables.scss' as *;
 
 
-@media (width <= 600px) {
-	.app-main-container:has(.control-panel__btn.active) .control-panel {
-		// pointer-events: none;
-		transform: translateX(0);
-	}
-	.app-main-container:not(:has(.control-panel__btn.active)) .control-panel {
-		// pointer-events: auto;
-		transform: translateX(100%);
-	}
-}
+// @media (width <= 600px) {
+// 	.app-main-container:has(.control-panel__btn.active) .control-panel {
+// 		// pointer-events: none;
+// 		transform: translateX(0);
+// 	}
+// 	.app-main-container:not(:has(.control-panel__btn.active)) .control-panel {
+// 		// pointer-events: auto;
+// 		transform: translateX(100%);
+// 	}
+// }
 
 .control-panel {
-	transition: transform .35s ease-in-out;
-	grid-row: 1 / -1;
-	grid-column: 1 / -1;
-	background: var(--primary-dark-bg-color);
+	// transition: transform .35s ease-in-out;
+	// grid-row: 1 / -1;
+	// grid-column: 1 / -1;
+	// background: var(--primary-dark-bg-color);
 	
-	width: 100%;
-	height: 100%;
-	overflow: scroll;
-	font-size: 1.4rem;
+	// width: 100%;
+	// height: 100%;
+	// overflow: scroll;
+	// font-size: 1.4rem;
 
-	bottom: 0;
-	z-index: 1;
+	// bottom: 0;
+	// z-index: 1;
 	
-	gap: 1rem;
-	display: grid;
-	
-	// opacity: .1;
+	// gap: 1rem;
+	// display: grid;
 
-	grid-template-areas: 
-		"key"	
-		"tuning"
-		"scale"
-		"numfrets"
-		"notetype"
-		"scheme"
-		"modifyscale"
-	;
+	// grid-template-areas: 
+	// 	"key"	
+	// 	"tuning"
+	// 	"scale"
+	// 	"numfrets"
+	// 	"notetype"
+	// 	"scheme"
+	// 	"modifyscale"
+	// ;
 
-	@media (width >= 600px) {
-		display: grid;
-		grid-area: controlPanel;
-		background: transparent;
-	}
+	// @media (width >= 600px) {
+	// 	display: grid;
+	// 	grid-area: controlPanel;
+	// 	background: transparent;
+	// }
 	// @media (width >= $orientation-change) {
 	// 	grid-template-areas:
 	// 		"scale tuning"
@@ -54,60 +52,47 @@
 	// 	;
 	// }
 
-	@media (width >= $orientation-change) {
-		grid-template-areas: 
-			"scale       tuning         key        key"
-			"modifyscale numfrets       scheme     notetype"
-			;
-		grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
-		grid-template-rows: min-content min-content;
-
-		.control-panel {
-			&__tuning {
-				grid-area: tuning;
-			}
-			// &__title {
-			// 	grid-area: title;
-			// }
-			
-		}
-	}
+	// @media (width >= $orientation-change) {
+	// 	grid-template-areas: 
+	// 		"scale       tuning         key        key"
+	// 		"modifyscale numfrets       scheme     notetype"
+	// 		;
+	// 	grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+	// 	grid-template-rows: min-content min-content;
+	// }
 
 	&__scheme {
 		grid-area: scheme;
 	}
 
-	&__tuning {
-		grid-area: tuning;
-	}
-	&__key {
-		grid-area: key;
-	}
-	&__scale {
-		grid-area: scale;
-	}
-	&__modifyscale {
-		grid-area: modifyscale;
-	}
-	&__num-frets {
-		grid-area: numfrets;
-	}
-	&__scheme {
-		grid-area: scheme;
-	}
-	&__notetype {
-		grid-area: notetype;
-	}
-	&__modifyscale {
-		grid-area: modifyscale;
-	}
+	// &__tuning {
+	// 	grid-area: tuning;
+	// }
+	// &__key {
+	// 	grid-area: key;
+	// }
+	// &__scale {
+	// 	grid-area: scale;
+	// }
+	// &__modifyscale {
+	// 	grid-area: modifyscale;
+	// }
+	// &__num-frets {
+	// 	grid-area: numfrets;
+	// }
+	// &__scheme {
+	// 	grid-area: scheme;
+	// }
+	// &__notetype {
+	// 	grid-area: notetype;
+	// }
 
-	&__title {
-		font-weight: bold;
-		font-size: 2rem;
-		margin: 0;
-		padding-top: 2rem;
-	}
+	// &__title {
+	// 	font-weight: bold;
+	// 	font-size: 2rem;
+	// 	margin: 0;
+	// 	padding-top: 2rem;
+	// }
 
 	&__key {
 		// width: 100%;
@@ -143,13 +128,13 @@
 		// }
 	}
 	&__key-wrapper {
-		width: 100%;
-		grid-area: keywrapper;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(var(--min-note-size), 1fr));
+		// width: 100%;
+		// grid-area: keywrapper;
+		// display: grid;
+		// grid-template-columns: repeat(auto-fill, minmax(var(--min-note-size), 1fr));
 		// grid-template-columns: repeat(auto-fill, var(--min-note-size));
-		grid-template-rows: min-content;
-		gap: var(--control-panel-note-gap);
+		// grid-template-rows: min-content;
+		// gap: var(--control-panel-note-gap);
 	}
 	// &__modify-tuning-wrapper {
 		// display: grid;
@@ -218,10 +203,10 @@
 	}
 }
 
-.control-panel__tuning-select {
-	width: 100%;
-	grid-column: 1 / -1;
-	grid-row: 1 / 2;
-}
+// .control-panel__tuning-select {
+// 	width: 100%;
+// 	grid-column: 1 / -1;
+// 	grid-row: 1 / 2;
+// }
 
 

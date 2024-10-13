@@ -7,11 +7,12 @@ export default {
   theme: {
     extend: {
       screens: {
+        'or-sm': '600px',
         'or-ch': '900px',
         'or-ch-v' : { 'raw': '(orientation:portrait) and (min-width:900px)' },
       },
     },
   },
-  plugins: [],
+  plugins: []
 }
 

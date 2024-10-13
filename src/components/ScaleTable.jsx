@@ -69,26 +69,85 @@ const ScaleTable = (props) => {
 		}
 	}
 
+	const border_styles = 
+	`border 
+	border-solid 
+	border-white/10`;
+
+	const group_heading_styles = 
+		`m-0 
+		row-span-1 
+		text-center 
+		h-full 
+		[writing-mode:vertical-rl] 
+		[text-orientation:mixed] 
+		text-sm
+		font-semibold 
+		or-ch:[writing-mode:unset] 
+		or-ch:text-left 
+		or-ch:h-full 
+		or-ch:w-full
+		or-ch:grid-cols-[1_/_span_1]
+		or-ch:grid-rows-[unset]
+		or-ch:whitespace-nowrap`;
+
 
 	return (
-		<div className="scale-table">
-			<div className="scale-table__header">
+		<div className={`
+			scale-table 
+			${border_styles} 
+			w-fit 
+			h-fit 
+			rounded 
+			[grid-area:scaletable] 
+			self-center
+			`}
+		>
+			<div className="
+				scale-table__header 
+				flex 
+				flex-col 
+				items-center 
+				p-1 
+				max-h-10 
+				text-[color:var(--primary-highlight-color)] 
+				or-ch:flex-row 
+				or-ch:max-h-[unset] 
+				or-ch:p-1 or-ch:justify-between
+			">
 				<button
-					className="scale-table__btn scale-table__btn--play-scale"
+					className={`
+						scale-table__btn 
+						scale-table__btn--play-scale
+					`}
 					onClick={ playScale }
 				>
 					<PlayPauseIcon isPlaying={isPlaying}/>
 				</button>
 				
-				<h2 className="scale-table__title">
+				<h2 className="scale-table__title font-bold m-0 block p-1 [writing-mode:vertical-rl] [text-orientation:mixed] text-lg or-ch:[writing-mode:unset]">
 					{`
 						${props.currentKey.replace('#', '♯').replace('b', '♭')} 
 						${change_str_case(props.currentScale, 'upper')}
 					`}
 				</h2>
 			</div>
-			<div className="scale-table__body">
-				<h3 className="scale-table__group-heading scale-table__group-heading--degrees">Degrees</h3>
+			<div className={
+				`scale-table__body
+				grid
+				grid-cols-[1fr_1fr]
+				grid-flow-row
+				justify-items-center
+				items-center
+				or-ch:grid-cols-[unset]]
+				`
+				// or-ch:[grid-template-columns:minmax(0,min-content)_repeat(auto\-fit,minmax(0,1fr))] 
+			}>
+				<h3 className={`
+					scale-table__group-heading 
+					scale-table__group-heading--degrees
+					${group_heading_styles}
+					`}>Degrees</h3>
 				{
 					scale_degrees_notes.map((n, i) => (
 						<div 
@@ -104,7 +163,10 @@ const ScaleTable = (props) => {
 						</div>
 					))
 				}
-				<h3 className="scale-table__group-heading scale-table__group-heading--notes">Notes</h3>
+				<h3 className={
+					`scale-table__group-heading scale-table__group-heading--notes
+					${group_heading_styles}`
+				}>Notes</h3>
 				{
 					scale_degrees_notes.map((n, i) => (
 						<div 

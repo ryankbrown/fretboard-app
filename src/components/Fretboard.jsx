@@ -13,6 +13,7 @@ export default function Fretboard(props) {
 		self-center
 		w-[min(100%,40rem)]
 		h-[100%]
+		opacity-10
 		grid
 		grid-cols-[repeat(var(--num-strings),1fr)_min-content]
 		grid-rows-[min-content_repeat(var(--num-frets),1fr)]
@@ -82,7 +83,6 @@ export default function Fretboard(props) {
 		self-center
 		or-ch:row-[calc(var(--num-strings)-var(--string-num))_/_span_1]
 		or-ch:col-[1_/_span_1]`
-
 
 	return (
 		<>	

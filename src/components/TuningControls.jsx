@@ -31,7 +31,7 @@ export default function TuningControls(props) {
 			className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add"
 			onClick={addTuner}
 			disabled={props.currentTuning.notes.length === props.maxTuners}
-		>
+		> 
 			{/* Add Icon */}
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1"/><path stroke="#fff" strokeWidth="1" d="M15 7.5v15m7.5-7.5h-15"/></svg>
 			<span>Add</span>

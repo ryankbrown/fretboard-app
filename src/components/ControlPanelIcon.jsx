@@ -12,6 +12,7 @@ export default function ControlPanelIcon(props) {
             className={`
                 control-panel__btn
                 ${ isActive ? 'active' : '' }
+                z-20
             `} 
             // aria-role="button"
             data-state={ isActive ? "true" : "false" }
