@@ -79,9 +79,9 @@ const ScaleTable = (props) => {
 		row-span-1 
 		text-center 
 		h-full 
+		p-2
 		[writing-mode:vertical-rl] 
 		[text-orientation:mixed] 
-		text-sm
 		font-semibold 
 		or-ch:[writing-mode:unset] 
 		or-ch:text-left 
@@ -99,6 +99,7 @@ const ScaleTable = (props) => {
 			w-fit 
 			h-fit 
 			rounded 
+			text-xs
 			[grid-area:scaletable] 
 			self-center
 			`}
@@ -108,8 +109,8 @@ const ScaleTable = (props) => {
 				flex 
 				flex-col 
 				items-center 
-				p-1 
-				max-h-10 
+				p-3 
+				max-h-50 
 				text-[color:var(--primary-highlight-color)] 
 				or-ch:flex-row 
 				or-ch:max-h-[unset] 
@@ -125,7 +126,17 @@ const ScaleTable = (props) => {
 					<PlayPauseIcon isPlaying={isPlaying}/>
 				</button>
 				
-				<h2 className="scale-table__title font-bold m-0 block p-1 [writing-mode:vertical-rl] [text-orientation:mixed] text-lg or-ch:[writing-mode:unset]">
+				<h2 className="
+					scale-table__title 
+					font-bold 
+					m-0 
+					block 
+					p-1 
+					[writing-mode:vertical-rl] 
+					[text-orientation:mixed] 
+					text-lg 
+					or-ch:[writing-mode:unset]
+				">
 					{`
 						${props.currentKey.replace('#', '♯').replace('b', '♭')} 
 						${change_str_case(props.currentScale, 'upper')}
@@ -140,9 +151,12 @@ const ScaleTable = (props) => {
 				justify-items-center
 				items-center
 				or-ch:grid-cols-[unset]]
+				or-ch:[grid-template-columns:minmax(0,min-content)_repeat(var(--num-cols),minmax(0,1fr))] 
 				`
-				// or-ch:[grid-template-columns:minmax(0,min-content)_repeat(auto\-fit,minmax(0,1fr))] 
-			}>
+				
+			}
+			style={{['--num-cols']: scale_degrees_notes.length}}
+			>
 				<h3 className={`
 					scale-table__group-heading 
 					scale-table__group-heading--degrees
@@ -152,10 +166,23 @@ const ScaleTable = (props) => {
 					scale_degrees_notes.map((n, i) => (
 						<div 
 							key={i} 
-							className={`scale-table__degree ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
 							style={{['--degree-num']: i}}
+							className={
+								`scale-table__degree 
+								w-full 
+								h-full 
+								${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted bg-[var(--primary-highlight-dark-color)]' : ''}`
+							}
 						>
-							<div className="scale-table__degree-inner">	
+							<div className={`
+								scale-table__degree-inner 
+								flex 
+								justify-center 
+								items-center 
+								font-semibold 
+								p-2
+								`}
+							>	
 								{
 									n.degree.replace('#', '♯').replace('b', '♭')
 								}
@@ -171,10 +198,15 @@ const ScaleTable = (props) => {
 					scale_degrees_notes.map((n, i) => (
 						<div 
 							key={i} 
-							className={`scale-table__note ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
 							style={{['--degree-num']: i}}
+							className={
+								`scale-table__note 
+								w-full 
+								h-full 
+								${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted bg-[var(--primary-highlight-dark-color)]' : ''}`
+							}
 						>
-							<div className="scale-table__note-inner">	
+							<div className="scale-table__note-inner flex justify-center items-center font-semibold p-2">	
 								{
 									Note.simplify(n.note).replace('#', '♯').replace('b', '♭')
 								}

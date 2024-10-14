@@ -75,7 +75,11 @@ export default function ControlPanel(props) {
 								.name.replace("b", "♭")
 								.replace("#", "♯")}
 							setValue={props.setCurrentKey}
-							injectedClasses="rounded-full !p-[unset] aspect-square"
+							injectedClasses={
+								`rounded-full 
+								!p-[unset] 
+								aspect-square`
+							}
 						/>
 					))}
 				</FieldGroup>

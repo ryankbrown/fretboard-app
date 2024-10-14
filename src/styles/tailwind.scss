@@ -105,7 +105,8 @@ $orientation-change: 900px;
 	}
 
 	.app-main-container {
-		--disabled-input-color: #252525;
+		// --disabled-input-color: #252525;
+		--disabled-input-color: color-mix(in sRGB, white, transparent 95%);
 		--side-container-padding: 0;
 	}
 	.fretboard {

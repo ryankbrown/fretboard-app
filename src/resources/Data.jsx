@@ -35,7 +35,8 @@ const custom_ordered_scale_names = composite_scale_names(Scale.names(), [
 	'mixolydian',
 	'aeolian',
 	'locrian',
-	'bebop'
+	'bebop',
+	'chromatic'
 ]);
 
 
