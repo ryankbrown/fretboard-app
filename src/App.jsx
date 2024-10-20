@@ -110,7 +110,7 @@ export default function App() {
 					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
 			>
-				<h1 className="app-title text-2xl or-ch:text-5xl font-bold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header]">Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Get</span></h1>
+				<h1 className="app-title text-2xl or-ch:text-5xl font-extrabold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header]">Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span></h1>
 
 				<ScaleTable 
 					currentKey={currentKey} 

@@ -54,7 +54,9 @@ export default function TuningControls(props) {
 	return (
 		<TabPanel
 			selectorName="tuning"
-			// injectedClassesContent="control-panel__tuning-wrapper"
+			injectedClassesContent={
+				`control-panel__tuning-wrapper w-full bg-blue-600/10`
+			}
 			tabData={[
 				//* Tuning Select Panel
 				{
@@ -79,7 +81,7 @@ export default function TuningControls(props) {
 				{
 					title: "Modify Tuning",
 					selectorName: "modify-tuning",
-					addedClasses: "control-panel__modify-tuning-wrapper flex flex-row gap-3",
+					addedClasses: `control-panel__modify-tuning-wrapper flex flex-row gap-3`,
 					content: (
 						<>
 							{/* Modify Tuner Controls */}
@@ -90,7 +92,9 @@ export default function TuningControls(props) {
 
 							{/* Modify Tuners Wrapper */}
 							<div
-								className="control-panel__tuning-wrapper grid grid-cols-[repeat(var(--num-tuners),minmax(0,1fr))] gap-2 w-full"
+								className={
+									`control-panel__tuning-wrapper grid grid-cols-[repeat(var(--num-tuners),minmax(0,1fr))] gap-1 w-full self-center bg-red-600/10 justify-center`
+								}
 								style={{
 									["--num-tuners"]: Math.max(min_tuner_spaces, props.currentTuning.notes.length)
 								}}
@@ -105,6 +109,7 @@ export default function TuningControls(props) {
 											tunerValue={tuner_val}
 											setCurrentTuning={props.setCurrentTuning}
 											tunerRemoverState={tunerRemoverState}
+											injectedClasses=""
 										/>
 									)
 								)}
@@ -115,7 +120,17 @@ export default function TuningControls(props) {
 									[...Array(6 - props.currentTuning.notes.length)].map((_, i) => (
 										<div
 											key={`tuner--empty-${i}`}
-											className="tuner tuner--empty"
+											className={
+												`tuner 
+												w-[var(--min-note-size)]
+												h-auto
+												rounded-full
+												aspect-square
+												border
+												border-white/20
+												self-center
+												tuner--empty`
+											}
 										></div>
 									))}
 							</div>

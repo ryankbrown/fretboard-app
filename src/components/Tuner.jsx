@@ -1,7 +1,7 @@
 import { Note, Interval } from 'tonal'
 
 import Stepper from "./Stepper"
-import '../styles/tuner.scss'
+// import '../styles/tuner.scss'
 
 
 export default function Tuner(props) {
@@ -9,7 +9,6 @@ export default function Tuner(props) {
 	// <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
 	// 	<path stroke="#fff" stroke-width="1.441" d="m4.726 4.448 7 7m0-7-7 7"/>
 	// </svg>
-
 
 	const adjustTuner = (new_value) => {
 		let new_note = Note.transpose(
@@ -44,13 +43,13 @@ export default function Tuner(props) {
 
 	const tuner_value_classes = "rounded-full aspect-square p-[unset] text-sm w-full h-auto bg-black font-semibold"
 
-	const tuner_btn_styles = "bg-transparent font-bold p-1 text-[var(--primary-light-text-color)]"
+	const tuner_btn_styles = "bg-transparent p-1 text-[var(--primary-light-text-color)] text-lg"
 
-	const remove_btn_styles = "bg-[var(--primary-highlight-dark-color)] rounded-full right-0 top-[25%] p-0 flex items-center justify-center absolute"
+
 
 	return (
 		<div 
-			className={`tuner tuner--${props.tunerId} relative origin-center`} 
+			className={`tuner tuner--${props.tunerId} relative origin-center ${props.tunerRemoverState ? "tuner--remover-active" : ""} ${props.injectedClasses || ''}`} 
 			style={{ viewTransitionName: `tuner${props.tunerId}` }} 
 		>
 			<Stepper 
@@ -65,17 +64,33 @@ export default function Tuner(props) {
 				injectedClassesValue={tuner_value_classes}
 				injectedClassesDecrease={tuner_btn_styles}
 				injectedClassesIncrease={tuner_btn_styles}
-			>
-			{props.tunerRemoverState && 'true'}
+			/>
 			{
-				props.currentTuning.notes.length > 1 && props.tunerRemoverState && (
+				props.currentTuning.notes.length > 1 &&props.tunerRemoverState && (
 					<button
-						className="tuner__remove-btn bg-transparent col-span-full row-span-full absolute w-full h-full top-0 left-0 text-center transform-origin-center"
+						className={
+							`tuner__remove-btn 
+							bg-transparent
+							absolute
+							top-5
+							right-2
+							text-center 
+							transform-origin-center`
+						}
 						onClick={ removeTuner }
 						aria-label={`Remove ${props.displayValue} Tuner`}
 					>
 						<div
-						 	className={`tuner__remove-btn-circle ${remove_btn_styles}`}
+						 	className={
+								`tuner__remove-btn-circle 
+								bg-[var(--primary-highlight-dark-color)] 
+								rounded-full
+								p-0.5
+								flex 
+								items-center 
+								justify-center 
+								absolute`
+							}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
 								<path stroke="#fff" strokeWidth="1.5" d="m4.726 4.448 7 7m0-7-7 7"/>
@@ -84,7 +99,6 @@ export default function Tuner(props) {
 					</button>
 				)
 			}
-			</Stepper>
 		</div>
 	)
 }

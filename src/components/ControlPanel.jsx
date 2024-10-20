@@ -89,7 +89,7 @@ export default function ControlPanel(props) {
 					selectorName="tuning"
 					legendString="Tuning Controls"
 					injectedClasses="[grid-area:tuning]"
-					injectedClassesContent="control-panel__modify-tuning-wrapper gap-2"
+					injectedClassesContent="control-panel__modify-tuning-wrapper gap-2 grid"
 				>
 					<TuningControls
 						currentTuning={props.currentTuning}

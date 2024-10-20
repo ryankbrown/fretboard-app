@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as Tone from "tone";
 import { Note,Scale } from "tonal";
 import { interval_to_degree, change_str_case } from "../resources/Utils";
-import "../styles/scale-table.scss";
+// import "../styles/scale-table.scss";
 
 import PlayPauseIcon from "./PlayPauseIcon";
 
@@ -76,10 +76,13 @@ const ScaleTable = (props) => {
 
 	const group_heading_styles = 
 		`m-0 
-		row-span-1 
-		text-center 
+		row-start-1
+		text-left 
+		w-full
 		h-full 
 		p-2
+		border-t
+		border-white/10
 		[writing-mode:vertical-rl] 
 		[text-orientation:mixed] 
 		font-semibold 
@@ -87,10 +90,10 @@ const ScaleTable = (props) => {
 		or-ch:text-left 
 		or-ch:h-full 
 		or-ch:w-full
-		or-ch:grid-cols-[1_/_span_1]
-		or-ch:grid-rows-[unset]
-		or-ch:whitespace-nowrap`;
-
+		or-ch:col-start-1
+		or-ch:row-start-auto
+		or-ch:whitespace-nowrap
+		`;
 
 	return (
 		<div className={`
@@ -110,7 +113,7 @@ const ScaleTable = (props) => {
 				flex-col 
 				items-center 
 				p-3 
-				max-h-50 
+				max-h-50
 				text-[color:var(--primary-highlight-color)] 
 				or-ch:flex-row 
 				or-ch:max-h-[unset] 
@@ -120,6 +123,24 @@ const ScaleTable = (props) => {
 					className={`
 						scale-table__btn 
 						scale-table__btn--play-scale
+						m-b-1
+						flex
+						justify-center
+						items-center
+						rounded-full
+						aspect-square
+						w-7
+						rotate-90
+						mb-2
+						h-auto
+						p-2
+						bg-[var(--primary-highlight-color)]
+						or-ch:w-7
+						or-ch:p-2
+						or-ch:mb-0
+						or-ch:rotate-0
+						or-ch:order-2
+						or-ch:mr-1
 					`}
 					onClick={ playScale }
 				>
@@ -151,9 +172,7 @@ const ScaleTable = (props) => {
 				justify-items-center
 				items-center
 				or-ch:grid-cols-[unset]]
-				or-ch:[grid-template-columns:minmax(0,min-content)_repeat(var(--num-cols),minmax(0,1fr))] 
-				`
-				
+				or-ch:[grid-template-columns:minmax(0,min-content)_repeat(var(--num-cols),minmax(0,1fr))]`
 			}
 			style={{['--num-cols']: scale_degrees_notes.length}}
 			>
@@ -161,6 +180,11 @@ const ScaleTable = (props) => {
 					scale-table__group-heading 
 					scale-table__group-heading--degrees
 					${group_heading_styles}
+					border-r
+					border-white/10
+					or-ch:border-r-0
+					
+					
 					`}>Degrees</h3>
 				{
 					scale_degrees_notes.map((n, i) => (
@@ -170,7 +194,16 @@ const ScaleTable = (props) => {
 							className={
 								`scale-table__degree 
 								w-full 
-								h-full 
+								h-full
+								col-start-1
+								row-start-[calc(var(--degree-num)+2)]
+								border-t
+								border-r
+								border-white/10
+								or-ch:border-r-0
+								or-ch:border-l
+								or-ch:row-start-1
+								or-ch:col-start-[calc(var(--degree-num)+2)]
 								${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted bg-[var(--primary-highlight-dark-color)]' : ''}`
 							}
 						>
@@ -203,6 +236,15 @@ const ScaleTable = (props) => {
 								`scale-table__note 
 								w-full 
 								h-full 
+								border-t
+								border-white/10
+								col-start-2
+								row-start-[calc(var(--degree-num)+2)]
+								or-ch:row-start-2
+								or-ch:col-start-[calc(var(--degree-num)+2)]
+								or-ch:border-r-0
+								or-ch:border-l
+
 								${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted bg-[var(--primary-highlight-dark-color)]' : ''}`
 							}
 						>
@@ -216,62 +258,6 @@ const ScaleTable = (props) => {
 				}
 			</div>
 		</div>
-
-
-
-		// <>
-		// 	<table className="info-section">
-		// 		<thead>
-		// 			<tr>
-		// 				<th
-		// 					className="info-section__title"
-		// 					colSpan={scale_data.notes.length + 1}
-		// 				>
-		// 					{`
-		// 						${props.currentKey.replace('#', '♯').replace('b', '♭')} 
-		// 						${change_str_case(props.currentScale, 'upper')}
-		// 					`}
-		// 					<button
-		// 						className="info-section__btn info-section__btn--play-scale"
-		// 						onClick={ playScale }
-		// 					>{
-		// 						<PlayPauseIcon isPlaying={isPlaying}/>
-		// 					}</button>
-		// 				</th>
-		// 			</tr>
-		// 		</thead>
-		// 		<tbody>
-		// 			<tr>
-		// 				<th className="info-section__header">Scale Degrees</th>
-		// 				{
-		// 					scale_degrees_notes.map((n, i) => (
-		// 						<td 
-		// 							key={i} 
-		// 							className={`scale-degree ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
-		// 							data-scale-degree={n.degree}
-		// 						>{
-		// 							n.degree.replace('#', '♯').replace('b', '♭')
-		// 						}</td>
-		// 					))
-		// 				}
-		// 			</tr>
-		// 			<tr>
-		// 				<th className="info-section__header">Scale Notes</th>
-		// 				{
-		// 					scale_degrees_notes.map((n, i) => (
-		// 						<td 
-		// 							key={i} 
-		// 							className={`scale-note ${props.highlightNotes.some( e => e.includes(n.note) ) ? 'note--highlighted' : ''}`}
-		// 							data-note-pc={n.note}
-		// 						>{
-		// 							Note.simplify(n.note).replace('#', '♯').replace('b', '♭')
-		// 						}</td>
-		// 					))
-		// 				}
-		// 			</tr>
-		// 		</tbody>
-		// 	</table>
-		// </>
 	);
 };
 
