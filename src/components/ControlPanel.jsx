@@ -10,7 +10,7 @@ import TuningControls from "./TuningControls";
 import { change_str_case } from "../resources/Utils";
 import { custom_ordered_scale_names } from "../resources/Data";
 
-import "../styles/control-panel.scss";
+// import "../styles/control-panel.scss";
 
 export default function ControlPanel(props) {
 	//uppercased scale names
@@ -53,7 +53,7 @@ export default function ControlPanel(props) {
 					selectorName="key"
 					legendString="Select Key"
 					injectedClasses="[grid-area:key] grid-rows-[min-content_auto]"
-					injectedClassesContent={`control-panel__key-wrapper 
+					injectedContentClasses={`control-panel__key-wrapper 
 						w-full
 						grid 
 						items-center
@@ -89,7 +89,7 @@ export default function ControlPanel(props) {
 					selectorName="tuning"
 					legendString="Tuning Controls"
 					injectedClasses="[grid-area:tuning]"
-					injectedClassesContent="control-panel__modify-tuning-wrapper gap-2 grid"
+					injectedContentClasses="control-panel__modify-tuning-wrapper gap-2 grid"
 				>
 					<TuningControls
 						currentTuning={props.currentTuning}
@@ -104,7 +104,7 @@ export default function ControlPanel(props) {
 					legendString="Note Type"
 					isBooleanSwitch={true}
 					injectedClasses="[grid-area:notetype]"
-					injectedClassesContent="flex flex-row"
+					injectedContentClasses="flex flex-row"
 				>
 					<Toggler
 						value={"notes"}
@@ -128,7 +128,7 @@ export default function ControlPanel(props) {
 					legendString="Interface Scheme"
 					isBooleanSwitch={true}
 					injectedClasses="[grid-area:scheme]"
-					injectedClassesContent="flex flex-row"
+					injectedContentClasses="flex flex-row"
 				>
 					<Toggler
 						value={"scheme-light"}
@@ -150,7 +150,9 @@ export default function ControlPanel(props) {
 				<FieldGroup
 					selectorName="num-frets"
 					legendString="Number of Frets"
-					injectedClasses="[grid-area:numfrets]"
+					injectedClasses="[grid-area:numfrets] or-sm:[grid-template-areas:'legend_content'] or-sm:grid-cols-[1fr_1fr] or-sm:grid-rows-[1fr]"
+					injectedLegendClasses="[grid-area:legend] col-start-1 col-span-1 row-start-1 row-span-1"
+					injectedContentClasses="[grid-area:content] m-0 p-0 row-start-1 row-span-1"
 				>
 					<Stepper
 						id="num-frets"

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "../styles/control-panel-icon.scss";
+// import "../styles/control-panel-icon.scss";
 
 export default function ControlPanelIcon(props) {
 
@@ -9,17 +9,25 @@ export default function ControlPanelIcon(props) {
 
     return (
         <button 
-            className={`
-                control-panel__btn
+            className={
+                `control-panel__btn
                 ${ isActive ? 'active' : '' }
-                z-20
-            `} 
+                z-[5]
+                relative
+                justify-self-end
+                [grid-area:header]
+                p-[unset]
+                bg-transparent
+                cursor-pointer
+                or-ch:hidden
+                or-ch:[grid-area:controlpanelicon]`
+            } 
             // aria-role="button"
             data-state={ isActive ? "true" : "false" }
             onClick={ ()=> setIsActive(()=> !isActive) }
         >
             <svg
-                className="cp-icon"
+                className="cp-icon w-[3.5rem] or-ch:w-[4.5rem]"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 35 35"
                 aria-hidden="true"

@@ -1,10 +1,18 @@
-import '../styles/play-pause-icon.scss';
+// import '../styles/play-pause-icon.scss';
 
 
 export default function PlayPauseIcon(props) {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-			className={`play-pause__svg ${ props.isPlaying ? 'play-pause__svg--playing' : 'play-pause__svg--paused'}`}
+			className={
+				`play-pause__svg 
+				w-full
+				h-auto
+				transition-transform
+				duration-300
+				ease-in-out
+				${ props.isPlaying ? 'play-pause__svg--playing' : 'play-pause__svg--paused'}`
+			}
 		>
 			<defs>
 				<clipPath id="play-pause__play-clip">

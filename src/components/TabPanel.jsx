@@ -10,7 +10,7 @@ const TabPanel = (props) => {
 			grid
 			grid-cols-1
 			grid-rows-[auto_1fr]
-			${props.injectedClassesContent ?? ''}
+			${props.injectedContentClasses ?? ''}
 			`
 			}>
 				<div className={
@@ -45,7 +45,7 @@ const TabPanel = (props) => {
 					w-fit
 					grid
 					[grid-template-areas:'content']
-					${props.injectedClassesContent || ''}`
+					${props.injectedContentClasses || ''}`
 					}>
 					 {props.tabData.map((tab, index) => (
 						  <div

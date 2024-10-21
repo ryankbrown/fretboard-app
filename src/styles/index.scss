@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+$orientation-change: 900px;
+
+@layer base {
+	:root {
+		// font-synthesis: none;
+		// text-rendering: optimizeLegibility;
+	
+		--primary-highlight-color: white;
+		--primary-highlight-dark-color: gray;
+	
+		--primary-light-text-color: white;
+		--primary-dark-text-color: #111;
+	
+		--primary-light-bg-color: #eee;
+		--primary-dark-bg-color: #111;
+	
+		--toggler-select-size: .25rem .75rem;
+		--toggler-corner-radius: .25rem;
+	
+		--note-text-size: .15rem;
+		--min-note-size: 2rem;
+		--control-panel-note-gap: 1rem;
+
+
+	}
+	
+	
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	
+	html:has(.app-main-container.scheme-dark) {
+		--app-bg-color: var(--primary-dark-bg-color);
+		--app-text-color: var(--primary-light-text-color);
+	}
+	html:has(.app-main-container.scheme-light) {
+		--app-bg-color: var(--primary-light-bg-color);
+		--app-text-color: var(--primary-dark-text-color);
+	}
+	html:has(.app-main-container.scheme-dark), .scheme-dark {
+		// background: var(--app-bg-color);
+		color: var(--app-text-color);
+	
+		background: radial-gradient(
+			circle at 60% 60%, 
+			var(--app-bg-color) 30%, 
+			var(--primary-highlight-color) 100%
+			);
+		background-size: 200% 200%;
+		background-position: center;
+	}
+	
+	html:has(.app-main-container.scheme-light), .scheme-light {
+		color: var(--app-text-color);
+		background: var(--app-bg-color);
+	}
+	
+	html,
+	body,
+	#root {
+		@apply w-full h-full;
+	}
+	
+	body {
+		@apply m-0;
+	}
+
+	legend {
+		@apply float-left;
+	}
+	button  {
+		@apply rounded-md px-2 py-0.5 text-sm;
+	}	
+}
+
+
+@layer components {
+	// .app-main-container {
+	// 	@media (width >= 1500px) {
+	// 		--side-container-padding: 10vh;
+	// 		padding-top: calc(var(--side-container-padding) * 0.5);
+	// 		padding-bottom: calc(var(--side-container-padding) * 0.5);
+	// 	}
+	// }
+
+	@media (width <= 600px) {
+		.app-main-container:has(.control-panel__btn.active) .control-panel {
+			// pointer-events: none;
+			transform: translateX(0);
+		}
+		.app-main-container:not(:has(.control-panel__btn.active)) .control-panel {
+			// pointer-events: auto;
+			transform: translateX(100%);
+		}
+	}
+	@media (width >= 600px) {
+		.app-main-container:has(.control-panel) {
+			transform: translateX(0);
+		}
+	}
+
+	button:disabled {
+		@apply opacity-20;
+	}
+
+	.app-main-container {
+		// --disabled-input-color: #252525;
+		--disabled-input-color: color-mix(in sRGB, white, transparent 95%);
+		--side-container-padding: 0;
+	}
+	.fretboard {
+		--note-circle-default-color: #000;
+		--fret-wire-color: #525252;
+		--fret-wire-highlight-color: white;
+		--fret-number-color: var(--fret-wire-color);
+	}
+
+	.scale-table {
+		&__body {
+			@media (width >= $orientation-change) {
+				grid-template-columns: minmax(0, min-content) repeat(auto-fit, minmax(0, 1fr));
+			}
+		}
+	}
+
+	// .control-panel {
+	// 	&__tuning-wrapper {
+	// 		grid-template-columns: repeat(var(--num-tuners), 1fr;
+	// 	}		
+	// }
+	.note__wrapper {
+		container-type: size;
+		container-name: notewrapper;
+	}
+	.note__circle {
+		@apply w-[60%] h-auto;
+
+		@container notewrapper (orientation: landscape) {
+			@apply h-[70%] w-auto;
+		}
+	}
+	.cp-icon {
+		// width: 3.5rem;
+		// cursor: pointer;
+		// @media screen and (min-width: 1920px) {
+		// 	width: 4.5rem;
+		// }
+		&__circle-background {
+			fill: rgba(#555, .9);
+			transition: all .15s ease-in-out;
+			filter: drop-shadow(0rem 2rem .5rem rgba(#000, .2));
+			.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {
+				fill: #666;
+				transform: scale(.95);
+			}
+		}
+		
+		$y-disp: 18.5;
+		&__circle-background, &__line-group, &__line, &__input-group, &__input-line {
+			transform-origin: 50% 50%;
+			transition: all .25s ease-in-out;
+		}
+		
+		&__line-group {
+			transition-delay: 0s;
+			.active & {
+				transition-delay: .1s;	
+			}
+			&--top {
+				transform: translateY($y-disp * -1%) rotate(0deg) scale(1);
+				.active & {
+					transform: translateY(0) rotate(45deg) scale(1.2);
+				}
+			}
+			&--mid {
+				transform: all .05s ease-in-out;
+				$length: 16.779;
+				transform-box: fill-box;
+				transform-origin: center left;
+				transform: scaleX(1);
+				.active & {
+					transform: scaleX(0);
+					transition-delay: 0s;
+				}
+			}
+			&--bot {
+				transform: translateY($y-disp * 1%) rotate(0deg) scale(1);
+				.active & {
+					transform: translateY(0) rotate(-45deg) scale(1.2);
+				}
+			}
+		}
+		
+		$x-disp: 14;
+		$x-disp-hover: 8;
+	
+		&__input-group {
+			&--top {
+				transform: translateX($x-disp * -1%);
+				.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {
+					transform: translateX($x-disp-hover * -1%);
+				}
+			}
+			&--mid {
+				transform: translateX($x-disp * 1%);
+				.active & {
+					transform: translateY(0) rotate(45deg) scale(1.2);
+				}
+				.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {	
+					transform: translateX($x-disp-hover * 1%);
+				}
+			} 
+			&--bot {
+				transform: translateX(0);
+				transition-delay: .2s;
+				.control-tray__settings-icon-btn:hover &, .control-tray__settings-icon-btn:focus & {
+					transform: translateX($x-disp * -1%);
+				}
+			} 
+		}
+	
+		&__input-line {
+			transform-origin: 50% 50%;
+			// stroke-dasharray: 0 20 3.5 20;
+			// stroke-dashoffset: 20;
+			transform: scaleY(1);
+	
+			.active & {
+				transform-origin: 50% 50%;
+				// stroke-dasharray: 0 20 0 20;
+				// stroke-dashoffset: 18.25;
+				transform: scaleY(0);
+				transition-delay: 0s;
+			}
+			&--top {
+				transition-delay: .25s;
+			}
+			&--mid {
+				transform-origin: 50% 50%;
+				transition-delay: .15s;
+				.active & {
+					transition-delay: 0s;
+				}
+			}
+			&--bot {
+				transition-delay: .25s;
+			}
+		}
+	}
+	.play-pause {
+		$time: .25s;
+		&__play-shape {
+			transform: scale(5);
+			transition: transform $time ease-in-out;
+			transform-origin: center center;
+		}
+		&__bar {
+			transition: transform $time ease-in-out, fill $time ease-in-out;
+			transform-origin: center center;
+			transform-box: fill-box;
+			// fill: var(--primary-dark-bg-color);
+	
+			fill: white;
+			&--left {
+				transform: scale(1, 1) translateX(0%);
+			}
+			&--right {
+				transform: scale(1, 1) translateX(0%);
+			}
+		}
+	}
+	
+	.play-pause__svg--paused {
+		.play-pause__play-shape {
+			transform: scale(1);
+		}
+		.play-pause__bar {
+			&--left {
+				transform: scale(1.85, 1.3) translateX(16%);
+			}
+			&--right {
+				transform: scale(2, 1) translateX(-10%);
+			}
+		}
+	}
+}
+
+

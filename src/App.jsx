@@ -11,8 +11,7 @@ import ControlPanelIcon from "./components/ControlPanelIcon";
 import Fretboard from './components/Fretboard'
 import ScaleTable from './components/ScaleTable'
 
-
-import "./styles/app.scss" 
+// import "./styles/app.scss" 
 
 // https://tonaljs.github.io/tonal/docs/
 
@@ -94,8 +93,17 @@ export default function App() {
 		grid
 		gap-2
 		overflow-hidden
+		grid-cols-[min-content_1fr]
+		grid-rows-[min-content_1fr]
+		[grid-template-areas:'header_header''scaletable_fretboard']
+		or-sm:grid-cols-[min-content_1fr_1fr]
+		or-sm:[grid-template-areas:'header_header_controlPanel''scaletable_fretboard_controlPanel']
+		or-ch:h-full
+		or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard'_'controlPanel_controlPanel']
+		or-ch:grid-cols-[1.2fr_.8fr]
+		or-ch:grid-rows-[auto_1fr_min-content]
+
 		`
-	
 	
 	return (
 		<>

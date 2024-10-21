@@ -25,8 +25,8 @@ export default function FieldGroup(props) {
 		<fieldset className={
 			`fieldgroup--${props.selectorName} control-panel__${props.selectorName} ${fieldset_styles} ${props.injectedClasses}`}
 		>
-			<legend className={`row-span-1 [grid-area:legend] text-sm font-semibold`}>{props.legendString}</legend>
-			<div className={`fieldgroup__content fieldgroup__content--${props.selectorName}  ${ props.isBooleanSwitch ? boolean_switch_styles : '' } ${ props.injectedClassesContent ? props.injectedClassesContent : ''} `}>
+			<legend className={`row-span-1 [grid-area:legend] text-sm font-semibold ${props.injectedLegendClasses}`}>{props.legendString}</legend>
+			<div className={`fieldgroup__content fieldgroup__content--${props.selectorName}  ${ props.isBooleanSwitch ? boolean_switch_styles : '' } ${ props.injectedContentClasses ? props.injectedContentClasses : ''} `}>
 				{props.children}
 			</div>
 		</fieldset>

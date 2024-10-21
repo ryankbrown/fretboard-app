@@ -28,7 +28,7 @@ export default function TuningControls(props) {
 	
 	const addTunerButton = (
 		<button
-			className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add"
+			className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add p-0"
 			onClick={addTuner}
 			disabled={props.currentTuning.notes.length === props.maxTuners}
 		> 
@@ -36,27 +36,27 @@ export default function TuningControls(props) {
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30">
 			<circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/>
 			<path stroke="#fff" strokeWidth="1.5" d="M15 7.5v15m7.5-7.5h-15"/></svg>
-			<span>Add</span>
+			<span className="hidden">Add</span>
 		</button>
 	)
 
 	const removeTunerButton = (
 		<button
-			className={`control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove ${ tunerRemoverState ? "--active" : "" }`}
+			className={`control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove p-0 ${ tunerRemoverState ? "--active" : "" }`}
 			onClick={() => setTunerRemoverState((prevValue) => prevValue ? false : true )
 			}
 			disabled={props.currentTuning.notes.length === 1}
 		>
 			{/* Remove Icon */}
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/><path stroke="#fff" strokeWidth="1.5" d="M22.5 15h-15"/></svg>
-			<span>Remove</span>
+			<span className="hidden">Remove</span>
 		</button>
 	)
 	
 	return (
 		<TabPanel
 			selectorName="tuning"
-			injectedClassesContent={
+			injectedContentClasses={
 				`control-panel__tuning-wrapper w-full`
 			}
 			tabData={[
@@ -64,7 +64,7 @@ export default function TuningControls(props) {
 				{
 					title: "Tuning Select",
 					selectorName: "tuning-select",
-					addedClasses: "control-panel__tuning-select-panel",
+					addedClasses: "control-panel__tuning-select-panel flex justify-item-center items-center",
 					content: (
 						<Dropdown
 							id="tuning-select"
@@ -87,7 +87,15 @@ export default function TuningControls(props) {
 					content: (
 						<>
 							{/* Modify Tuner Controls */}
-							<div className="control-panel__tuning-controls">
+							<div 
+								className={
+									`control-panel__tuning-controls
+									flex
+									flex-col
+									gap-3
+									self-center
+									`
+								}>
 								{addTunerButton}
 								{removeTunerButton}
 							</div>
