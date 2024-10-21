@@ -13,7 +13,6 @@ export default function Fretboard(props) {
 		self-center
 		w-[min(100%,40rem)]
 		h-[100%]
-		opacity-10
 		grid
 		grid-cols-[repeat(var(--num-strings),1fr)_min-content]
 		grid-rows-[min-content_repeat(var(--num-frets),1fr)]
@@ -99,7 +98,8 @@ export default function Fretboard(props) {
 					[...Array(props.numFrets)].map((_, i) => (
 						<div 
 							className={
-								`fret fret--${i} ${fret_styles} ${(i === 0 || i === 12 || i === 24) ? `bg-[var(--primary-light-text-color)]` : `bg-[var(--fret-wire-color)]`}`
+								`fret fret--${i} 
+								${fret_styles} ${(i === 0 || i === 12 || i === 24) ? `bg-[var(--primary-light-text-color)] z-10` : `bg-[var(--fret-wire-color)]`} `
 							} 
 							key={`fret--${i}`}
 							style={{ ['--fret-num']: i }}
@@ -141,7 +141,6 @@ export default function Fretboard(props) {
 					))
 				}</div>
 
-				
 				<div className={`notes-wrapper ${wrapper_styles}`}>{
 					props.fretboardData.map((fret_obj, i) => (
 						fret_obj.inScale && (

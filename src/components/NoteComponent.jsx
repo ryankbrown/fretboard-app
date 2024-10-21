@@ -8,10 +8,10 @@ import { Note } from 'tonal'
 export default function NoteComponent(props) {
 
 	const noteName = (
-		<div className="note__name z-2 [grid-area:notecenter] text-center text-[var(--note-text-size)]">{
+		<div className="note__name z-2 [grid-area:notecenter] text-center text-sm">{
 			props.note_obj.pc.replace('b', '♭').replace('#', '♯')
 		}{
-			<span className="note__oct opacity-70">{props.note_obj.oct}</span>
+			<span className="note__oct opacity-70 font-normal">{props.note_obj.oct}</span>
 		}</div>
 	)
 
@@ -21,7 +21,7 @@ export default function NoteComponent(props) {
 	const note_styles = 
 		`grid grid-cols-[100%] grid-rows-[100%]
 		[grid-template-areas:'notecenter'] items-center 
-		justify-items-center font-bold text-white w-full h-full cursor-pointer scale-100 hover:scale-125 active:scale-95 transition-transform`;
+		justify-items-center font-semibold text-white w-full h-full cursor-pointer scale-100 hover:scale-125 active:scale-95 transition-transform`;
 
 	const handleNoteClick = async () => {
 		await Tone.start();
@@ -45,7 +45,8 @@ export default function NoteComponent(props) {
 			<div 
 				className={
 					`note note--${ Note.get(props.note_obj).name } 
-					note--s${props.string}f${props.fret} ${note_styles} ${ props.isRootNote && 'note--root'} ${ props.inScale && 'note--in-scale' } ${ props.highlightNotes.some( e => e.includes(props.note_obj.name) ) && 'note--highlighted'}
+					${note_styles}
+					note--s${props.string}f${props.fret} ${ props.isRootNote && 'note--root'} ${ props.inScale && 'note--in-scale' } 
 				`} 
 				// data-note-pc={props.note_obj.pc}
 				// data-note-name={props.note_obj.name}
@@ -55,14 +56,14 @@ export default function NoteComponent(props) {
 				
 			>
 				{/* Note Circle */}
-				<div className={`note__circle [grid-area:notecenter] text-center rounded-full aspect-square ${circle_bg_color_styles}`}></div>
+				<div className={`note__circle [grid-area:notecenter] text-center rounded-full aspect-square ${circle_bg_color_styles} ${ props.highlightNotes.some( e => e.includes(props.note_obj.name) ) && 'ring-[var(--primary-highlight-color)] ring-2'}`}></div>
 
 				{/* Note Content */}
 				{
 					props.inScale && (
 						props.noteType === 'notes' ? noteName : (
 							props.isRootNote ? noteName :
-								<div className="note__degree z-2 [grid-area:notecenter] text-center text-[length:var(--note-text-size)]">{ 
+								<div className="note__degree z-2 [grid-area:notecenter] text-center text-sm">{ 
 									props.degree.replace('b', '♭').replace('#', '♯') 
 								}</div>
 						)	

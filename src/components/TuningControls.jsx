@@ -33,7 +33,9 @@ export default function TuningControls(props) {
 			disabled={props.currentTuning.notes.length === props.maxTuners}
 		> 
 			{/* Add Icon */}
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1"/><path stroke="#fff" strokeWidth="1" d="M15 7.5v15m7.5-7.5h-15"/></svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30">
+			<circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/>
+			<path stroke="#fff" strokeWidth="1.5" d="M15 7.5v15m7.5-7.5h-15"/></svg>
 			<span>Add</span>
 		</button>
 	)
@@ -46,7 +48,7 @@ export default function TuningControls(props) {
 			disabled={props.currentTuning.notes.length === 1}
 		>
 			{/* Remove Icon */}
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1"/><path stroke="#fff" strokeWidth="1" d="M22.5 15h-15"/></svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/><path stroke="#fff" strokeWidth="1.5" d="M22.5 15h-15"/></svg>
 			<span>Remove</span>
 		</button>
 	)
@@ -55,7 +57,7 @@ export default function TuningControls(props) {
 		<TabPanel
 			selectorName="tuning"
 			injectedClassesContent={
-				`control-panel__tuning-wrapper w-full bg-blue-600/10`
+				`control-panel__tuning-wrapper w-full`
 			}
 			tabData={[
 				//* Tuning Select Panel
@@ -93,12 +95,12 @@ export default function TuningControls(props) {
 							{/* Modify Tuners Wrapper */}
 							<div
 								className={
-									`control-panel__tuning-wrapper grid grid-cols-[repeat(var(--num-tuners),minmax(0,1fr))] gap-1 w-full self-center bg-red-600/10 justify-center`
+									`control-panel__tuning-wrapper grid grid-cols-[repeat(var(--num-tuners),minmax(0,1fr))] gap-1 w-full self-center justify-items-center or-ch:gap-2`
 								}
 								style={{
 									["--num-tuners"]: Math.max(min_tuner_spaces, props.currentTuning.notes.length)
 								}}
-							>
+							> 
 								{/* Tuner Components */}
 								{props.currentTuning.notes.map(
 									(tuner_val, idx) => (

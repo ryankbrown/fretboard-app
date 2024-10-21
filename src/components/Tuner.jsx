@@ -41,15 +41,16 @@ export default function Tuner(props) {
 	}
 
 
-	const tuner_value_classes = "rounded-full aspect-square p-[unset] text-sm w-full h-auto bg-black font-semibold"
-
-	const tuner_btn_styles = "bg-transparent p-1 text-[var(--primary-light-text-color)] text-lg"
-
-
-
 	return (
 		<div 
-			className={`tuner tuner--${props.tunerId} relative origin-center ${props.tunerRemoverState ? "tuner--remover-active" : ""} ${props.injectedClasses || ''}`} 
+			className={
+				`tuner 
+				tuner--${props.tunerId} 
+				relative 
+				origin-center 
+				w-full
+				${props.tunerRemoverState ? "tuner--remover-active" : ""} ${props.injectedClasses || ''}`
+			} 
 			style={{ viewTransitionName: `tuner${props.tunerId}` }} 
 		>
 			<Stepper 
@@ -61,9 +62,10 @@ export default function Tuner(props) {
 				increaseString="♯"
 				setValue={ adjustTuner }
 				disableStepperBtns={props.tunerRemoverState}
-				injectedClassesValue={tuner_value_classes}
-				injectedClassesDecrease={tuner_btn_styles}
-				injectedClassesIncrease={tuner_btn_styles}
+				injectedClasses={`![grid-template-areas:'decrease''value''increase'] !grid-cols-[1fr] !grid-rows-[1fr_min-content_1fr] w-full`}
+				injectedClassesDecrease={`!p-[unset]`}
+				injectedClassesValue={`text-sm aspect-square rounded-full p-[unset] bg-black font-semibold`}
+				injectedClassesIncrease={`!p-[unset]`}
 			/>
 			{
 				props.currentTuning.notes.length > 1 &&props.tunerRemoverState && (
