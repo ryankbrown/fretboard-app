@@ -64,6 +64,7 @@ export default function App() {
 
 	const [ highlightNotes, setHighlightNotes ] = useState([]);
 
+	const [ showNoteOctaves, setShowNoteOctaves ] = useState(true);
 
 
 	const fretboardData = useMemo(()=> calc_fretboard_data(currentTuning, numFrets, currentKey, currentScale), [
@@ -102,7 +103,6 @@ export default function App() {
 		or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard'_'controlPanel_controlPanel']
 		or-ch:grid-cols-[1.2fr_.8fr]
 		or-ch:grid-rows-[auto_1fr_min-content]
-
 		`
 	
 	return (
@@ -118,8 +118,12 @@ export default function App() {
 					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
 			>
-				<h1 className="app-title text-2xl or-ch:text-5xl font-extrabold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header]">Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span></h1>
-
+				<h1 className="app-title text-2xl  font-extrabold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header]
+				or-sm:text-4xl 
+				or-ch:text-6xl">
+					Fret
+					<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span>
+				</h1>
 				<ScaleTable 
 					currentKey={currentKey} 
 					currentScale={currentScale} 
@@ -154,6 +158,9 @@ export default function App() {
 
 					highlightNotes={highlightNotes}
 					setHighlightNotes={setHighlightNotes}
+
+					showNoteOctaves={showNoteOctaves}
+					setShowNoteOctaves={setShowNoteOctaves}
 				/>
 
 				<ControlPanel 
@@ -167,7 +174,10 @@ export default function App() {
 					maxTuners={max_tuners}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
-					currentScale={currentScale} setCurrentScale={setCurrentScale}					
+					currentScale={currentScale} setCurrentScale={setCurrentScale}
+					
+					showNoteOctaves={showNoteOctaves}
+					setShowNoteOctaves={setShowNoteOctaves}
 				/>
 			</main>
 		</>

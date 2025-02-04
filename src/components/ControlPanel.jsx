@@ -21,8 +21,8 @@ export default function ControlPanel(props) {
 	return (
 		<>
 			<div
-				className={`
-					control-panel grid-rows-[repeat(auto-fill,_minmax(0, 1fr))] bottom-0 z-10 col-start-1 col-end-4 row-span-full grid h-full w-full gap-3 overflow-scroll transition-transform duration-300 ease-in-out bg-[var(--primary-dark-bg-color)] or-sm:[grid-area:controlPanel] or-sm:col-start-2 or-ch:[grid-area:controlPanel] or-sm:bg-transparent [grid-template-areas:'key''tuning''scale''numfrets''notetype''scheme''modifyscale'] or-ch:grid-cols-[1.5fr_1.5fr_1fr_1fr] or-ch:[grid-template-areas:'scale_tuning_key_key''modifyscale_numfrets_scheme_notetype']`}
+				className="
+					control-panel grid-rows-[repeat(auto-fill,_minmax(0, 1fr))] bottom-0 z-10 col-start-1 col-end-4 row-span-full grid h-full w-full gap-3 overflow-scroll transition-transform duration-300 ease-in-out bg-[var(--primary-dark-bg-color)] [grid-template-areas:'key''tuning''scale''numfrets''notetype''scheme''modifyscale']  or-sm:[grid-area:controlPanel] or-sm:col-start-2 or-ch:[grid-area:controlPanel] or-sm:bg-transparent  or-ch:grid-cols-[1fr_1fr_1fr] or-ch:[grid-template-areas:'scale_tuning_key_key''modifyscale_numfrets_scheme_notetype']"
 			>
 				{/* <h3 className="control-panel__title">{`Options`}</h3> */}
 				{/* Scale */}
@@ -40,13 +40,13 @@ export default function ControlPanel(props) {
 				</FieldGroup>
 
 				{/* Modify Scale */}
-				<FieldGroup
+				{/* <FieldGroup
 					selectorName="modifyscale"
 					legendString="Modify Scale"
 					injectedClasses="[grid-area:modifyscale]"
 				>
 					<div style={{ color: "gray" }}>Modify Scale Content Here</div>
-				</FieldGroup>
+				</FieldGroup> */}
 
 				{/* Select Key */}
 				<FieldGroup
@@ -58,11 +58,12 @@ export default function ControlPanel(props) {
 						grid 
 						items-center
 						grid-cols-[repeat(6,minmax(0,1fr))] 
-						grid-rows-[auto]
-						gap-[var(--control-panel-note-gap)]
+						grid-rows-[minmax(0, 1fr)]
+						gap-2
 						line-height-0
 						m-0
 						p-0
+						or-ch:grid-rows-[repeat(auto-fit,minmax(0,1fr))]
 					`}
 				>
 					{props.keyList.map((k) => (
@@ -78,7 +79,10 @@ export default function ControlPanel(props) {
 							injectedClasses={
 								`rounded-full 
 								!p-[unset] 
-								aspect-square`
+								aspect-square
+								max-w-10
+								m-0
+								`
 							}
 						/>
 					))}
@@ -146,6 +150,7 @@ export default function ControlPanel(props) {
 					/>
 				</FieldGroup>
 
+
 				{/* Num Frets */}
 				<FieldGroup
 					selectorName="num-frets"
@@ -163,6 +168,19 @@ export default function ControlPanel(props) {
 						setValue={props.handleSetNumFrets}
 					/>
 				</FieldGroup>
+				{/* <FieldGroup
+					selectorName="show-note-octaves"
+					legendString="Show Note Octaves"
+
+				>
+					<Toggler	
+						id="show-note-octaves"
+						value="show-note-octaves"
+						currentValue={props.showNoteOctaves}
+						displayValue="Show Note Octaves"
+						setValue={props.setShowNoteOctaves}
+					/>
+				</FieldGroup> */}
 			</div>
 		</>
 	);

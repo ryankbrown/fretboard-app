@@ -11,7 +11,7 @@ export default function Fretboard(props) {
 		`select-none
 		justify-self-center
 		self-center
-		w-[min(100%,40rem)]
+		w-[min(100%,25rem)]
 		h-[100%]
 		grid
 		grid-cols-[repeat(var(--num-strings),1fr)_min-content]
@@ -19,8 +19,9 @@ export default function Fretboard(props) {
 		[grid-area:fretboard]
 		justify-center
 		items-center
+		min-[430px]:p-10 
 		or-ch:w-[clamp(20rem,100%,400rem)]
-		or-ch:h-[clamp(35rem,60%,80rem)]
+		or-ch:h-[clamp(0rem,80%,500rem)]
 		or-ch:grid-cols-[5ch_minmax(5rem,min-content)_repeat(calc(var(--num-frets)-1),minmax(0,1fr))]
 		or-ch:grid-rows-[repeat(var(--num-strings),minmax(0,1fr))_minmax(5rem,min-content)]
 		or-ch-v:aspect-[2/1]
@@ -99,7 +100,7 @@ export default function Fretboard(props) {
 						<div 
 							className={
 								`fret fret--${i} 
-								${fret_styles} ${(i === 0 || i === 12 || i === 24) ? `bg-[var(--primary-light-text-color)] z-10` : `bg-[var(--fret-wire-color)]`} `
+								${fret_styles} ${(i === 0 || i === 11 || i === 24) ? `bg-[var(--primary-light-text-color)] z-10` : `bg-[var(--fret-wire-color)]`} `
 							} 
 							key={`fret--${i}`}
 							style={{ ['--fret-num']: i }}

@@ -7,16 +7,15 @@ import { Note } from 'tonal'
 
 export default function NoteComponent(props) {
 
-	const noteName = (
-		<div className="note__name z-2 [grid-area:notecenter] text-center text-sm">{
-			props.note_obj.pc.replace('b', '♭').replace('#', '♯')
-		}{
-			<span className="note__oct opacity-70 font-normal">{props.note_obj.oct}</span>
-		}</div>
-	)
-
+	
 	const note_wrapper_styles = 
-		`flex justify-center items-center col-[var(--string-num)_/_span_1] row-[calc(var(--fret-num)+2)_/_span_1] or-ch:col-[calc(var(--fret-num)+2)_/_span_1] or-ch:row-[calc(var(--num-strings)-var(--string-num)+1)_/_span_1]`;
+		`flex 
+		justify-center 
+		items-center  e d d
+		col-[var(--string-num)_/_span_1] 
+		row-[calc(var(--fret-num)+2)_/_span_1] 
+		or-ch:col-[calc(var(--fret-num)+2)_/_span_1] 
+		or-ch:row-[calc(var(--num-strings)-var(--string-num)+1)_/_span_1]`;
 
 	const note_styles = 
 		`grid grid-cols-[100%] grid-rows-[100%]
@@ -33,6 +32,15 @@ export default function NoteComponent(props) {
 		`bg-[var(--primary-highlight-dark-color)]` :
 		`bg-[var(--note-circle-default-color)]`;
 
+	const noteName = (
+		<div className="note__name z-2 [grid-area:notecenter] text-center text-sm">{
+			props.note_obj.pc.replace('b', '♭').replace('#', '♯')
+		}{
+			props.showNoteOctaves && (
+				<span className="note__oct opacity-70 font-normal">{props.note_obj.oct}</span>
+			)
+		}</div>
+	)
 
 	return (
 		<div 

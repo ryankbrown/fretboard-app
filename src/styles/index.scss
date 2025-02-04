@@ -9,7 +9,6 @@ $orientation-change: 900px;
 	:root {
 		// font-synthesis: none;
 		// text-rendering: optimizeLegibility;
-	
 		--primary-highlight-color: white;
 		--primary-highlight-dark-color: gray;
 	
@@ -23,10 +22,6 @@ $orientation-change: 900px;
 		--toggler-corner-radius: .25rem;
 	
 		--note-text-size: .15rem;
-		--min-note-size: 2rem;
-		--control-panel-note-gap: 1rem;
-
-
 	}
 	
 	
@@ -91,17 +86,15 @@ $orientation-change: 900px;
 
 	@media (width <= 600px) {
 		.app-main-container:has(.control-panel__btn.active) .control-panel {
-			// pointer-events: none;
-			transform: translateX(0);
+			@apply translate-x-0;
 		}
 		.app-main-container:not(:has(.control-panel__btn.active)) .control-panel {
-			// pointer-events: auto;
-			transform: translateX(100%);
+			@apply translate-x-full;
 		}
 	}
 	@media (width >= 600px) {
 		.app-main-container:has(.control-panel) {
-			transform: translateX(0);
+			@apply translate-x-0;
 		}
 	}
 
@@ -113,6 +106,7 @@ $orientation-change: 900px;
 		// --disabled-input-color: #252525;
 		--disabled-input-color: color-mix(in sRGB, white, transparent 95%);
 		--side-container-padding: 0;
+		// @apply 
 	}
 	.fretboard {
 		--note-circle-default-color: #000;
