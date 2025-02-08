@@ -5,8 +5,7 @@ import { useState } from "react";
 export default function ControlPanelIcon(props) {
 
     const [isActive, setIsActive] = useState(false);
-
-
+    
     return (
         <button 
             className={
