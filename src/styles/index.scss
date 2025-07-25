@@ -44,7 +44,11 @@ $orientation-change: 900px;
 		--toggler-corner-radius: .25rem;
 	
 		--note-text-size: .15rem;
-		--circle-ctrl-size: 3rem;
+		--circle-ctrl-size: 1.9rem;
+
+		@media screen and (width >= 800px) {
+			--circle-ctrl-size: 3rem;
+		}
 	}
 	
 	

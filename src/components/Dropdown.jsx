@@ -6,7 +6,7 @@ export default function Dropdown(props) {
 			<div className="dropdown__wrapper w-full grid col-span-full [grid-template-areas:'content']">
 				<select
 
-					className={`dropdown dropdown--${props.id} appearance-none [grid-area:content] p-[var(--toggler-select-size)] bg-[var(--primary-highlight-dark-color)] text-white border-none rounded-[var(--toggler-corner-radius)] h-min text-lg`} 
+					className={`dropdown dropdown--${props.id} appearance-none [grid-area:content] p-[var(--toggler-select-size)] bg-[var(--primary-highlight-dark-color)] text-white border-none rounded-[var(--toggler-corner-radius)] h-min text-lg cursor-pointer`} 
 
 					id={props.id} 
 					name={props.id} 

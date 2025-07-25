@@ -1,5 +1,6 @@
 import { Note, Scale, Interval } from 'tonal';
 import { color_data, custom_ordered_scale_names } from './Data';
+import { useState } from 'react';
 
 
 const shuffle_array = (array) => {
@@ -151,6 +152,33 @@ const calc_color = (currentScale) => {
 
 	return color_data_arr[ scale_idx % color_data_arr.length ]
 }
+
+
+// Custom hook for localStorage persistence
+export const useLocalStorage = (key, defaultValue) => {
+	const [storedValue, setStoredValue] = useState(() => {
+		try {
+			const item = window.localStorage.getItem(key);
+			return item ? JSON.parse(item) : defaultValue;
+		} catch (error) {
+			console.error(`Error reading localStorage key "${key}":`, error);
+			return defaultValue;
+		}
+	});
+
+	const setValue = (value) => {
+		try {
+			// Allow value to be a function so we have the same API as useState
+			const valueToStore = value instanceof Function ? value(storedValue) : value;
+			setStoredValue(valueToStore);
+			window.localStorage.setItem(key, JSON.stringify(valueToStore));
+		} catch (error) {
+			console.error(`Error setting localStorage key "${key}":`, error);
+		}
+	};
+
+	return [storedValue, setValue];
+};
 
 
 export { 

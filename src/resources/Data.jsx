@@ -153,4 +153,68 @@ const tuning_options = [
 
 
 
-export { tuning_options, color_data, key_list, custom_ordered_scale_names }
+const piano_keys = [
+	{ 
+		interval: "1P", 
+		type: "natural", 
+		grid_start: 'col-start-1'
+	},
+	{ 
+		interval: "2m", 
+		type: "accidental",	
+		grid_start: 'col-start-2' 
+	},
+	{ 
+		interval: "2M", 
+		type: "natural", 
+		grid_start: 'col-start-3' 
+	},
+	{ 
+		interval: "3m", 
+		type: "accidental", 
+		grid_start: 'col-start-4' 
+	},
+	{ 
+		interval: "3M", 
+		type: "natural", 
+		grid_start: 'col-start-5' 
+	},
+	{ 
+		interval: "4P", 
+		type: "natural", 
+		grid_start: 'col-start-7' 
+	},
+	{ 
+		interval: "4A", 
+		type: "accidental", 
+		grid_start: 'col-start-8' 
+	},
+	{ 
+		interval: "5P", 
+		type: "natural", 
+		grid_start: 'col-start-9' 
+	},
+	{ 
+		interval: "6m", 
+		type: "accidental", 
+		grid_start: 'col-start-10' 
+	},
+	{ 
+		interval: "6M", 
+		type: "natural", 
+		grid_start: 'col-start-11' 
+	},
+	{ 
+		interval: "7m", 
+		type: "accidental", 
+		grid_start: 'col-start-12' 
+	},
+	{ 
+		interval: "7M", 
+		type: "natural", 
+		grid_start: 'col-start-13' 
+	}
+];
+
+
+export { tuning_options, color_data, key_list, custom_ordered_scale_names, piano_keys }

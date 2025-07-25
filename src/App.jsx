@@ -1,10 +1,12 @@
 import { Scale } from 'tonal'
 import * as Tone from 'tone';
 
+
+
 import { useState, useMemo, useEffect } from 'react'
 
 import { tuning_options, key_list } from './resources/Data'
-import { change_str_case, calc_fretboard_data, calc_color } from './resources/Utils'
+import { change_str_case, calc_fretboard_data, calc_color, interval_to_degree, useLocalStorage } from './resources/Utils'
 
 import ControlPanel from './components/ControlPanel'
 import ControlPanelIcon from "./components/ControlPanelIcon";
@@ -33,38 +35,56 @@ import ScaleTable from './components/ScaleTable'
 export default function App() {
 	
 	// * * * SOUND SETTINGS * * *  
-	const [soundState, setSoundState] = useState(true);
-	const toggleSound = () => soundState(prevVal => !prevVal);
+	const [soundState, setSoundState] = useLocalStorage('fretboard-sound-state', true);
+	const toggleSound = () => setSoundState(prevVal => !prevVal);
 
 	// * * * SYNTH * * * 
 	const synth = new Tone.Synth().toDestination();
 
+	// const synth = new Tone.FMSynth({
+	// 	harmonicity: 3.01,
+	// 	modulationIndex: 14,
+	// 	oscillator: { type: "triangle" },
+	// 	envelope: {
+	// 	  attack: 0.01,
+	// 	  decay: 0.1,
+	// 	  sustain: 1.0,
+	// 	  release: 1.2,
+	// 	},
+	// 	modulation: { type: "square" },
+	// 	modulationEnvelope: {
+	// 	  attack: 0.02,
+	// 	  decay: 0.2,
+	// 	  sustain: 0.1,
+	// 	  release: 0.5,
+	// 	}
+	//   }).toDestination();
+
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
-	const [currentTuning, setCurrentTuning] = useState(tuning_options.find(tuning => tuning.name === 'Half Step Down'));
+	const [currentTuning, setCurrentTuning] = useLocalStorage('fretboard-current-tuning', tuning_options.find(tuning => tuning.name === 'Half Step Down'));
 
 	// * * * NUMBER FRETS * * *  
-	const [numFrets, setNumFrets] = useState(13);
+	const [numFrets, setNumFrets] = useLocalStorage('fretboard-num-frets', 13);
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [currentKey, setCurrentKey] = useState( 'E' );
+	const [currentKey, setCurrentKey] = useLocalStorage('fretboard-current-key', 'E');
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useState('major');
+	const [currentScale, setCurrentScale] = useLocalStorage('fretboard-current-scale', 'major');
 
 	// * * * NOTE TYPE * * *  
-	const [noteType, setNoteType] = useState('notes');
+	const [noteType, setNoteType] = useLocalStorage('fretboard-note-type', 'notes');
 
 	// * * * INTERFACE * * *  
-	const [interfaceScheme, setInterfaceScheme] = useState('scheme-dark');
-
+	const [interfaceScheme, setInterfaceScheme] = useLocalStorage('fretboard-interface-scheme', 'scheme-dark');
 
 	const [ highlightNotes, setHighlightNotes ] = useState([]);
 
-	const [ showNoteOctaves, setShowNoteOctaves ] = useState(true);
+	const [ showNoteOctaves, setShowNoteOctaves ] = useLocalStorage('fretboard-show-note-octaves', true);
 
 
 	const fretboardData = useMemo(()=> calc_fretboard_data(currentTuning, numFrets, currentKey, currentScale), [
@@ -74,19 +94,20 @@ export default function App() {
 		currentTuning
 	])
 
-	// console.log(currentKey);
-	// console.log(currentScale);
 
-	// useEffect(()=> {
-	// 	// console.clear();
-	// 	console.log('Render App')
-	// 	console.log(Scale.get(currentScale).name)
-	// 	// console.log(Scale.get('Eb major').notes)
-	// 	// console.log(Scale.get('Bb Major').notes)
-	// })
+	const scaleData = useMemo(()=> Scale.get(`${currentKey} ${currentScale}`), [currentKey, currentScale]);
+
+	const scaleDegreeNotes = useMemo(()=> {
+		return scaleData.notes.map((n, i) => {
+			return {
+				note: n,
+				degree: interval_to_degree(scaleData.intervals[i])
+			}
+		});
+	}, [scaleData]);
+	
 
 	const color_scheme = calc_color( currentScale );
-
 
 	const app_main_container_styles = 
 		`w-full h-full grid gap-2 overflow-hidden grid-cols-[min-content_1fr] grid-rows-[min-content_1fr] [grid-template-areas:'header_header''scaletable_fretboard'] or-sm:grid-cols-[min-content_1fr_1fr] or-sm:[grid-template-areas:'header_header_controlPanel''scaletable_fretboard_controlPanel'] or-ch:h-full or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard'_'controlPanel_controlPanel'] or-ch:grid-cols-[1.2fr_.8fr] or-ch:grid-rows-[auto_1fr_min-content]
@@ -116,6 +137,8 @@ ${app_main_container_styles}
 					currentKey={currentKey} 
 					currentScale={currentScale} 
 					synth={synth}
+					scaleData={scaleData}
+					scaleDegreeNotes={scaleDegreeNotes}
 
 					highlightNotes={highlightNotes}
 					setHighlightNotes={setHighlightNotes}
@@ -163,6 +186,8 @@ ${app_main_container_styles}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
 					currentScale={currentScale} setCurrentScale={setCurrentScale}
+					scaleData={scaleData}
+					scaleDegreeNotes={scaleDegreeNotes}
 					
 					showNoteOctaves={showNoteOctaves}
 					setShowNoteOctaves={setShowNoteOctaves}

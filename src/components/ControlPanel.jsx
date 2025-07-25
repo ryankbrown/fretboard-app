@@ -1,4 +1,4 @@
-import { Note } from "tonal";
+import { Note, Scale } from "tonal";
 
 import Toggler from "./Toggler";
 import Dropdown from "./Dropdown";
@@ -7,16 +7,19 @@ import Stepper from "./Stepper";
 
 import TuningControls from "./TuningControls";
 
-import { change_str_case } from "../resources/Utils";
-import { custom_ordered_scale_names } from "../resources/Data";
+import { interval_to_degree, change_str_case } from "../resources/Utils";
+import { custom_ordered_scale_names, piano_keys } from "../resources/Data";
 
 // import "../styles/control-panel.scss";
 
 export default function ControlPanel(props) {
+
 	//uppercased scale names
 	const scale_names = custom_ordered_scale_names.map((s) =>
 		change_str_case(s, "upper"),
 	);
+
+
 
 	return (
 		<>
@@ -38,13 +41,34 @@ export default function ControlPanel(props) {
 				</FieldGroup>
 
 				{/* Modify Scale */}
-				{/* <FieldGroup
+				<FieldGroup
 					selectorName="modifyscale"
 					legendString="Modify Scale"
 					injectedClasses="[grid-area:modifyscale]"
 				>
-					<div style={{ color: "gray" }}>Modify Scale Content Here</div>
-				</FieldGroup> */}
+					<div 
+						className="modify-scale__wrapper grid gap-x-5 grid-cols-14 grid-rows-2 w-50"
+					>{
+						piano_keys.map((key) => (
+							<Toggler
+								key={key.interval}
+								id={`modify-scale-option--${key.interval}`}
+								value={key.interval}
+								injectedClasses={`
+									${key.grid_start}
+									${key.type === "accidental" 
+										? 
+										"row-span-1 bg-gray-900 z-2" 
+										: 
+										"row-span-2 bg-gray-500 !py-2 flex items-end"
+									}
+								`}
+							>
+								{key.interval}
+							</Toggler>
+						))
+					}</div>
+				</FieldGroup>
 
 				{/* Select Key */}
 				<FieldGroup

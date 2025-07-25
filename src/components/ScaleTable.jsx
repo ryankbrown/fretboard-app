@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as Tone from "tone";
-import { Note,Scale } from "tonal";
+import { Note, Scale } from "tonal";
 import { interval_to_degree, change_str_case } from "../resources/Utils";
 // import "../styles/scale-table.scss";
 
@@ -11,13 +11,13 @@ const ScaleTable = (props) => {
 	const bpm = 120;
 	Tone.Transport.bpm.value = bpm;
 	
-	const scale_data = Scale.get(`${props.currentKey} ${props.currentScale}`);
-	const scale_degrees_notes = scale_data.notes.map((n, i) => {
-		return {
-			note: n,
-			degree: interval_to_degree(scale_data.intervals[i])
-		}
-	});
+	// const scale_data = Scale.get(`${props.currentKey} ${props.currentScale}`);
+	// const props.scaleDegreeNotes = scale_data.notes.map((n, i) => {
+	// 	return {
+	// 		note: n,
+	// 		degree: interval_to_degree(scale_data.intervals[i])
+	// 	}
+	// });
 
 	// Playing
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -95,11 +95,11 @@ const ScaleTable = (props) => {
 			<div className={
 				`scale-table__body grid grid-cols-[1fr_1fr] grid-flow-row justify-items-center items-center or-ch:grid-cols-[unset]] or-ch:[grid-template-columns:minmax(0,min-content)_repeat(var(--num-cols),minmax(0,1fr))]`
 			}
-			style={{['--num-cols']: scale_degrees_notes.length}}
+			style={{['--num-cols']: props.scaleDegreeNotes.length}}
 			>
 				<h3 className={`scale-table__group-heading scale-table__group-heading--degrees ${group_heading_styles} border-r border-white/10`}>Degrees</h3>
 				{
-					scale_degrees_notes.map((n, i) => (
+					props.scaleDegreeNotes.map((n, i) => (
 						<div 
 							key={i} 
 							style={{['--degree-num']: i}}
@@ -122,7 +122,7 @@ const ScaleTable = (props) => {
 					${group_heading_styles}`
 				}>Notes</h3>
 				{
-					scale_degrees_notes.map((n, i) => (
+					props.scaleDegreeNotes.map((n, i) => (
 						<div 
 							key={i} 
 							style={{['--degree-num']: i}}
