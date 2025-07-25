@@ -28,27 +28,29 @@ export default function TuningControls(props) {
 	
 	const addTunerButton = (
 		<button
-			className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add p-0"
+			className="control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--add p-0 cursor-pointer"
 			onClick={addTuner}
 			disabled={props.currentTuning.notes.length === props.maxTuners}
 		> 
 			{/* Add Icon */}
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30">
-			<circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/>
-			<path stroke="#fff" strokeWidth="1.5" d="M15 7.5v15m7.5-7.5h-15"/></svg>
+				<circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/>
+				<path stroke="#fff" strokeWidth="1.5" d="M15 7.5v15m7.5-7.5h-15"/></svg>
 			<span className="hidden">Add</span>
 		</button>
 	)
 
 	const removeTunerButton = (
 		<button
-			className={`control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove p-0 ${ tunerRemoverState ? "--active" : "" }`}
+			className={`control-panel__tuner-ctrl-btn control-panel__tuner-ctrl-btn--remove p-0 cursor-pointer ${ tunerRemoverState ? "--active" : "" }`}
 			onClick={() => setTunerRemoverState((prevValue) => prevValue ? false : true )
 			}
 			disabled={props.currentTuning.notes.length === 1}
 		>
 			{/* Remove Icon */}
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30"><circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/><path stroke="#fff" strokeWidth="1.5" d="M22.5 15h-15"/></svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" viewBox="0 0 30 30">
+				<circle cx="15" cy="15" r="13.948" stroke="#3F3F3F" strokeWidth="1.5"/>
+				<path stroke="#fff" strokeWidth="1.5" d="M22.5 15h-15"/></svg>
 			<span className="hidden">Remove</span>
 		</button>
 	)
@@ -89,12 +91,7 @@ export default function TuningControls(props) {
 							{/* Modify Tuner Controls */}
 							<div 
 								className={
-									`control-panel__tuning-controls
-									flex
-									flex-col
-									gap-3
-									self-center
-									`
+									`control-panel__tuning-controls flex flex-col gap-3 self-center`
 								}>
 								{addTunerButton}
 								{removeTunerButton}
@@ -131,15 +128,7 @@ export default function TuningControls(props) {
 										<div
 											key={`tuner--empty-${i}`}
 											className={
-												`tuner 
-												w-[var(--min-note-size)]
-												h-auto
-												rounded-full
-												aspect-square
-												border
-												border-white/20
-												self-center
-												tuner--empty`
+												`tuner w-[var(--min-note-size)] h-auto rounded-full aspect-square border border-white/20 self-center tuner--empty`
 											}
 										></div>
 									))}

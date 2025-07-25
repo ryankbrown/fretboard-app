@@ -89,41 +89,29 @@ export default function App() {
 
 
 	const app_main_container_styles = 
-		`w-full
-		h-full
-		grid
-		gap-2
-		overflow-hidden
-		grid-cols-[min-content_1fr]
-		grid-rows-[min-content_1fr]
-		[grid-template-areas:'header_header''scaletable_fretboard']
-		or-sm:grid-cols-[min-content_1fr_1fr]
-		or-sm:[grid-template-areas:'header_header_controlPanel''scaletable_fretboard_controlPanel']
-		or-ch:h-full
-		or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard'_'controlPanel_controlPanel']
-		or-ch:grid-cols-[1.2fr_.8fr]
-		or-ch:grid-rows-[auto_1fr_min-content]
+		`w-full h-full grid gap-2 overflow-hidden grid-cols-[min-content_1fr] grid-rows-[min-content_1fr] [grid-template-areas:'header_header''scaletable_fretboard'] or-sm:grid-cols-[min-content_1fr_1fr] or-sm:[grid-template-areas:'header_header_controlPanel''scaletable_fretboard_controlPanel'] or-ch:h-full or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard'_'controlPanel_controlPanel'] or-ch:grid-cols-[1.2fr_.8fr] or-ch:grid-rows-[auto_1fr_min-content]
 		`
 	
 	return (
 		<>
 			<main 
-				className={`
-					app-main-container ${interfaceScheme} 
-					current-scale--${ change_str_case( currentScale, 'css' ) }
-					${app_main_container_styles}
+				className={`app-main-container ${interfaceScheme} current-scale--${ change_str_case( currentScale, 'css' ) }
+${app_main_container_styles}
 				`}
 				style={{ 
 					['--primary-highlight-color'] : color_scheme.main,
 					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
+				onClick={(e) => {
+					console.log(e.target)
+				}}
 			>
-				<h1 className="app-title text-2xl  font-extrabold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header]
+
+				<h1 className="app-title text-2xl font-extrabold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header] font-integral
 				or-sm:text-4xl 
-				or-ch:text-6xl">
-					Fret
-					<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span>
+				or-ch:text-6xl">Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span>
 				</h1>
+
 				<ScaleTable 
 					currentKey={currentKey} 
 					currentScale={currentScale} 

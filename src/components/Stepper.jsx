@@ -11,7 +11,7 @@ export default function Stepper(props) {
 		<div className={`stepper stepper--${props.id} grid justify-items-center items-center [grid-template-areas:'decrease_value_increase'] grid-cols-[1fr_min-content_1fr] grid-rows-[min-content] ${props.injectedClasses || ''}`}>
 
 			<button 
-				className={`stepper__btn stepper__btn--decrease [grid-area:decrease] ${btn_styles} ${props.injectedClassesDecrease || ''}`}
+				className={`stepper__btn stepper__btn--decrease [grid-area:decrease] cursor-pointer ${btn_styles} ${props.injectedClassesDecrease || ''}`}
 				onClick={ ()=> props.setValue( props.value - 1 ) }
 				disabled={props.disableStepperBtns}
 			>{ props.decreaseString }</button>
@@ -23,7 +23,7 @@ export default function Stepper(props) {
 			}</div>
 
 			<button 
-				className={`stepper__btn stepper__btn--increase [grid-area:increase] ${btn_styles} ${props.injectedClassesIncrease || ''}`}
+				className={`stepper__btn stepper__btn--increase [grid-area:increase] cursor-pointer ${btn_styles} ${props.injectedClassesIncrease || ''}`}
 				onClick={ ()=> props.setValue( props.value + 1 ) }
 				disabled={props.disableStepperBtns}
 			>{ props.increaseString }</button>

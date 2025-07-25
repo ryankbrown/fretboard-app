@@ -9,17 +9,7 @@ export default function ControlPanelIcon(props) {
     return (
         <button 
             className={
-                `control-panel__btn
-                ${ isActive ? 'active' : '' }
-                z-20
-                relative
-                justify-self-end
-                [grid-area:header]
-                p-[unset]
-                bg-transparent
-                cursor-pointer
-                or-sm:hidden
-                or-ch:[grid-area:controlpanelicon]`
+                `control-panel__btn ${ isActive ? 'active' : '' } z-20 relative justify-self-end [grid-area:header] p-[unset] bg-transparent cursor-pointer or-sm:hidden or-ch:[grid-area:controlpanelicon]`
             } 
             // aria-role="button"
             data-state={ isActive ? "true" : "false" }

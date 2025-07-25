@@ -44,11 +44,7 @@ export default function Tuner(props) {
 	return (
 		<div 
 			className={
-				`tuner 
-				tuner--${props.tunerId} 
-				relative 
-				origin-center 
-				w-full
+				`tuner tuner--${props.tunerId} relative origin-center w-[var(--circle-ctrl-size)] h-[var(--circle-ctrl-size)]
 				${props.tunerRemoverState ? "tuner--remover-active" : ""} ${props.injectedClasses || ''}`
 			} 
 			style={{ viewTransitionName: `tuner${props.tunerId}` }} 
@@ -71,27 +67,14 @@ export default function Tuner(props) {
 				props.currentTuning.notes.length > 1 &&props.tunerRemoverState && (
 					<button
 						className={
-							`tuner__remove-btn 
-							bg-transparent
-							absolute
-							top-5
-							right-2
-							text-center 
-							transform-origin-center`
+							`tuner__remove-btn bg-transparent absolute top-5 right-2 text-center  transform-origin-center cursor-pointer`
 						}
 						onClick={ removeTuner }
 						aria-label={`Remove ${props.displayValue} Tuner`}
 					>
-						<div
-						 	className={
-								`tuner__remove-btn-circle 
-								bg-[var(--primary-highlight-dark-color)] 
-								rounded-full
-								p-0.5
-								flex 
-								items-center 
-								justify-center 
-								absolute`
+						<div 
+							className={
+								`tuner__remove-btn-circle bg-[var(--primary-highlight-dark-color)] rounded-full p-0.5 flex items-center justify-center absolute`
 							}
 						>
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">

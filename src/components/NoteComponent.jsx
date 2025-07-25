@@ -9,18 +9,10 @@ export default function NoteComponent(props) {
 
 	
 	const note_wrapper_styles = 
-		`flex 
-		justify-center 
-		items-center  e d d
-		col-[var(--string-num)_/_span_1] 
-		row-[calc(var(--fret-num)+2)_/_span_1] 
-		or-ch:col-[calc(var(--fret-num)+2)_/_span_1] 
-		or-ch:row-[calc(var(--num-strings)-var(--string-num)+1)_/_span_1]`;
+		`flex justify-center items-center col-[var(--string-num)_/_span_1] row-[calc(var(--fret-num)+2)_/_span_1] or-ch:col-[calc(var(--fret-num)+2)_/_span_1] or-ch:row-[calc(var(--num-strings)-var(--string-num)+1)_/_span_1]`;
 
 	const note_styles = 
-		`grid grid-cols-[100%] grid-rows-[100%]
-		[grid-template-areas:'notecenter'] items-center 
-		justify-items-center font-semibold text-white w-full h-full cursor-pointer scale-100 hover:scale-125 active:scale-95 transition-transform`;
+		`grid grid-cols-[100%] grid-rows-[100%]	[grid-template-areas:'notecenter'] items-center justify-items-center font-semibold text-white w-full h-full cursor-pointer scale-100 hover:scale-125 active:scale-95 transition-transform`;
 
 	const handleNoteClick = async () => {
 		await Tone.start();

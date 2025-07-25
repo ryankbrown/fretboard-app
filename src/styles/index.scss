@@ -1,6 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+// Font declarations
+@font-face {
+  font-family: 'IntegralCF';
+  src: url('../assets/IntegralCF-Bold.woff2') format('woff2'),
+       url('../assets/IntegralCF-Bold.woff') format('woff'),
+       url('../assets/IntegralCF-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+// 'or-sm': '600px',
+// 'or-ch': '900px',
+// 'or-ch-v' : { 'raw': '(orientation:portrait) and (min-width:900px)' },
+
+@theme {
+	--breakpoint-or-sm: 600px;
+	--breakpoint-or-ch: 900px;
+	--font-integral: 'IntegralCF', sans-serif;
+	
+	// --or-ch-v: { 'raw': '(orientation:portrait) and (min-width:900px)' };
+}
 
 
 $orientation-change: 900px;
@@ -22,6 +44,7 @@ $orientation-change: 900px;
 		--toggler-corner-radius: .25rem;
 	
 		--note-text-size: .15rem;
+		--circle-ctrl-size: 3rem;
 	}
 	
 	
@@ -140,11 +163,6 @@ $orientation-change: 900px;
 		}
 	}
 	.cp-icon {
-		// width: 3.5rem;
-		// cursor: pointer;
-		// @media screen and (min-width: 1920px) {
-		// 	width: 4.5rem;
-		// }
 		&__circle-background {
 			fill: rgba(#555, .9);
 			transition: all .15s ease-in-out;

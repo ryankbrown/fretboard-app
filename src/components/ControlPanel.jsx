@@ -1,4 +1,4 @@
-import { Scale, Note } from "tonal";
+import { Note } from "tonal";
 
 import Toggler from "./Toggler";
 import Dropdown from "./Dropdown";
@@ -21,10 +21,8 @@ export default function ControlPanel(props) {
 	return (
 		<>
 			<div
-				className="
-					control-panel grid-rows-[repeat(auto-fill,_minmax(0, 1fr))] bottom-0 z-10 col-start-1 col-end-4 row-span-full grid h-full w-full gap-3 overflow-scroll transition-transform duration-300 ease-in-out bg-[var(--primary-dark-bg-color)] [grid-template-areas:'key''tuning''scale''numfrets''notetype''scheme''modifyscale']  or-sm:[grid-area:controlPanel] or-sm:col-start-2 or-ch:[grid-area:controlPanel] or-sm:bg-transparent  or-ch:grid-cols-[1fr_1fr_1fr] or-ch:[grid-template-areas:'scale_tuning_key_key''modifyscale_numfrets_scheme_notetype']"
+				className="control-panel grid-rows-[repeat(auto-fill,_minmax(0, 1fr))] bottom-0 z-10 col-start-1 col-end-4 row-span-full grid h-full w-full gap-3 overflow-scroll transition-transform duration-300 ease-in-out bg-[var(--primary-dark-bg-color)] [grid-template-areas:'key''tuning''scale''numfrets''notetype''scheme''modifyscale']  or-sm:[grid-area:controlPanel] or-sm:col-start-2 or-ch:[grid-area:controlPanel] or-sm:bg-transparent  or-ch:grid-cols-[1fr_1fr_1fr] or-ch:[grid-template-areas:'scale_tuning_key_key''modifyscale_numfrets_scheme_notetype']"
 			>
-				{/* <h3 className="control-panel__title">{`Options`}</h3> */}
 				{/* Scale */}
 				<FieldGroup
 					selectorName="scale"
@@ -53,18 +51,10 @@ export default function ControlPanel(props) {
 					selectorName="key"
 					legendString="Select Key"
 					injectedClasses="[grid-area:key] grid-rows-[min-content_auto]"
-					injectedContentClasses={`control-panel__key-wrapper 
-						w-full
-						grid 
-						items-center
-						grid-cols-[repeat(6,minmax(0,1fr))] 
-						grid-rows-[minmax(0, 1fr)]
-						gap-2
-						line-height-0
-						m-0
-						p-0
-						or-ch:grid-rows-[repeat(auto-fit,minmax(0,1fr))]
+					injectedContentClasses={`control-panel__key-wrapper w-full flex flex-wrap gap-2
 					`}
+					// injectedContentClasses={`control-panel__key-wrapper w-full grid items-center grid-cols-[repeat(6,minmax(0,1fr))] grid-rows-[minmax(0, 1fr)] gap-2 line-height-0 m-0 p-0 or-ch:grid-rows-[repeat(auto-fit,minmax(0,1fr))]
+					// 	`}
 				>
 					{props.keyList.map((k) => (
 						<Toggler
@@ -77,12 +67,7 @@ export default function ControlPanel(props) {
 								.replace("#", "♯")}
 							setValue={props.setCurrentKey}
 							injectedClasses={
-								`rounded-full 
-								!p-[unset] 
-								aspect-square
-								max-w-10
-								m-0
-								`
+								`rounded-full w-[var(--circle-ctrl-size)] h-[var(--circle-ctrl-size)]`
 							}
 						/>
 					))}
@@ -127,7 +112,7 @@ export default function ControlPanel(props) {
 				</FieldGroup>
 
 				{/* Scheme */}
-				<FieldGroup
+				{/* <FieldGroup
 					selectorName="scheme"
 					legendString="Interface Scheme"
 					isBooleanSwitch={true}
@@ -148,7 +133,7 @@ export default function ControlPanel(props) {
 						setValue={props.setInterfaceScheme}
 						injectedClasses={`rounded-l-none`}
 					/>
-				</FieldGroup>
+				</FieldGroup> */}
 
 
 				{/* Num Frets */}
