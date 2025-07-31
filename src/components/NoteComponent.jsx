@@ -1,3 +1,5 @@
+// NoteComponent.jsx
+
 import * as Tone from 'tone';
 
 // import SharpFlatText from './SharpFlatText';

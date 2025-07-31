@@ -1,3 +1,5 @@
+// ScaleTable.jsx
+
 import { useState } from "react";
 import * as Tone from "tone";
 import { Note, Scale } from "tonal";

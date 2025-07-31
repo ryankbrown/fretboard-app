@@ -1,3 +1,5 @@
+// Data.jsx
+
 import { Scale } from 'tonal';
 
 
@@ -20,6 +22,7 @@ const composite_scale_names = (original, reordered) => {
 }
 
 const custom_ordered_scale_names = composite_scale_names(Scale.names(), [
+	'custom',
 	'major',
 	'major pentatonic',
 	'minor pentatonic',
@@ -155,64 +158,76 @@ const tuning_options = [
 
 const piano_keys = [
 	{ 
+		semitone_position: 0,
 		interval: "1P", 
 		type: "natural", 
-		grid_start: 'col-start-1'
+		col_start: 'col-start-1'
 	},
 	{ 
+		semitone_position: 1,
 		interval: "2m", 
 		type: "accidental",	
-		grid_start: 'col-start-2' 
+		col_start: 'col-start-2' 
 	},
 	{ 
+		semitone_position: 2,
 		interval: "2M", 
 		type: "natural", 
-		grid_start: 'col-start-3' 
+		col_start: 'col-start-3' 
 	},
 	{ 
+		semitone_position: 3,
 		interval: "3m", 
 		type: "accidental", 
-		grid_start: 'col-start-4' 
+		col_start: 'col-start-4' 
 	},
 	{ 
+		semitone_position: 4,
 		interval: "3M", 
 		type: "natural", 
-		grid_start: 'col-start-5' 
+		col_start: 'col-start-5' 
 	},
 	{ 
+		semitone_position: 5,
 		interval: "4P", 
 		type: "natural", 
-		grid_start: 'col-start-7' 
+		col_start: 'col-start-7' 
 	},
 	{ 
-		interval: "4A", 
+		semitone_position: 6,
+		interval: "Tri", 
 		type: "accidental", 
-		grid_start: 'col-start-8' 
+		col_start: 'col-start-8' 
 	},
 	{ 
+		semitone_position: 7,
 		interval: "5P", 
 		type: "natural", 
-		grid_start: 'col-start-9' 
+		col_start: 'col-start-9' 
 	},
 	{ 
+		semitone_position: 8,
 		interval: "6m", 
 		type: "accidental", 
-		grid_start: 'col-start-10' 
+		col_start: 'col-start-10' 
 	},
 	{ 
+		semitone_position: 9,
 		interval: "6M", 
 		type: "natural", 
-		grid_start: 'col-start-11' 
+		col_start: 'col-start-11' 
 	},
 	{ 
+		semitone_position: 10,
 		interval: "7m", 
 		type: "accidental", 
-		grid_start: 'col-start-12' 
+		col_start: 'col-start-12' 
 	},
 	{ 
+		semitone_position: 11,
 		interval: "7M", 
 		type: "natural", 
-		grid_start: 'col-start-13' 
+		col_start: 'col-start-13' 
 	}
 ];
 

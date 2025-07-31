@@ -1,3 +1,5 @@
+// Tuner.jsx
+
 import { Note, Interval } from 'tonal'
 
 import Stepper from "./Stepper"

@@ -1,3 +1,5 @@
+// TuningControls.jsx
+
 import { useState } from "react";
 
 import Dropdown from "./Dropdown";

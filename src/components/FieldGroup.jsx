@@ -1,5 +1,4 @@
-// import '../styles/field-group.scss';
-
+// FieldGroup.jsx
 
 export default function FieldGroup(props) {
 

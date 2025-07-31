@@ -1,5 +1,6 @@
+// TabPanel.jsx
+
 import { useState } from "react";
-// import "../styles/tab-panel.scss";
 
 const TabPanel = (props) => {
 	

@@ -1,4 +1,6 @@
-import { Scale } from 'tonal'
+// App.jsx
+
+import { Scale, Interval } from 'tonal'
 import * as Tone from 'tone';
 
 
@@ -6,7 +8,7 @@ import * as Tone from 'tone';
 import { useState, useMemo, useEffect } from 'react'
 
 import { tuning_options, key_list } from './resources/Data'
-import { change_str_case, calc_fretboard_data, calc_color, interval_to_degree, useLocalStorage } from './resources/Utils'
+import { change_str_case, calc_fretboard_data, calc_color, interval_to_degree } from './resources/Utils'
 
 import ControlPanel from './components/ControlPanel'
 import ControlPanelIcon from "./components/ControlPanelIcon";
@@ -33,9 +35,12 @@ import ScaleTable from './components/ScaleTable'
 // Behavior: returns a memoized value that is only recalculated if any of the dependencies change. It helps to prevent unnecessary calculations in each render cycle.
 
 export default function App() {
+
+	
+	// console.log( Scale.get('C chromatic').intervals )
 	
 	// * * * SOUND SETTINGS * * *  
-	const [soundState, setSoundState] = useLocalStorage('fretboard-sound-state', true);
+	const [soundState, setSoundState] = useState(true);
 	const toggleSound = () => setSoundState(prevVal => !prevVal);
 
 	// * * * SYNTH * * * 
@@ -62,31 +67,91 @@ export default function App() {
 
 	// * * *  TUNING * * * 
 	const max_tuners = 9;
-	const [currentTuning, setCurrentTuning] = useLocalStorage('fretboard-current-tuning', tuning_options.find(tuning => tuning.name === 'Half Step Down'));
+	const [currentTuning, setCurrentTuning] = useState(tuning_options.find(tuning => tuning.name === 'Standard'));
 
 	// * * * NUMBER FRETS * * *  
-	const [numFrets, setNumFrets] = useLocalStorage('fretboard-num-frets', 13);
+	const [numFrets, setNumFrets] = useState(13);
 	const handleSetNumFrets = (newNumFrets) => {
 		setNumFrets(prevNumFrets => (newNumFrets < 5 || newNumFrets > 25) ? prevNumFrets : newNumFrets);
 	};
 
 	// * * * SCALE KEY - set to first key in all_notes
-	const [currentKey, setCurrentKey] = useLocalStorage('fretboard-current-key', 'E');
+	const [currentKey, setCurrentKey] = useState('E');
 
 	// * * * CURRENT SCALE - set to first scale in scale data
-	const [currentScale, setCurrentScale] = useLocalStorage('fretboard-current-scale', 'major');
-
-	// * * * NOTE TYPE * * *  
-	const [noteType, setNoteType] = useLocalStorage('fretboard-note-type', 'notes');
-
-	// * * * INTERFACE * * *  
-	const [interfaceScheme, setInterfaceScheme] = useLocalStorage('fretboard-interface-scheme', 'scheme-dark');
-
-	const [ highlightNotes, setHighlightNotes ] = useState([]);
-
-	const [ showNoteOctaves, setShowNoteOctaves ] = useLocalStorage('fretboard-show-note-octaves', true);
+	const [currentScale, setCurrentScale] = useState('major');
 
 
+	// * * * SCALE DATA * * *
+	const scaleData = useMemo(()=>  Scale.get(`${currentKey} ${currentScale}`), [currentKey, currentScale]);
+
+	// * * * SCALE DEGREE NOTES * * *
+	const scaleDegreeNotes = useMemo(()=> {
+		return scaleData.notes.map((n, i) => {
+			return {
+				note: n,
+				degree: interval_to_degree(scaleData.intervals[i]),
+				interval: scaleData.intervals[i],
+				semitone: i
+			}
+		});
+	}, [scaleData]);
+
+
+	// * * * CUSTOM SCALE MODE * * * 
+	// This is a boolean that determines if the user is in custom scale mode
+	// If true, the user can modify the scale by enabling and disabling intervals
+	// If false, the user can only select from the predefined scales
+	const [isCustomScaleMode, setIsCustomScaleMode] = useState(false);
+
+
+	// This object template will be used to indicate which intervals are enabled in a predefined or custom scale
+	const createBlankIntervalTemplate = ()=> {
+		return {
+			'1P' : true,
+			'2m' : false,
+			'2M' : false,
+			'3m' : false,
+			'3M' : false,
+			'4P' : false,
+			'Tri' : false,
+			'5P' : false,
+			'6m' : false,
+			'6M' : false,
+			'7m' : false,
+			'7M' : false
+		}
+	}
+
+	// * * * CUSTOM MODIFIED SCALE * * *
+	// This is the state object that keeps track of which intervals are enabled and which are disabled.
+	const [customScaleIntervals, setCustomScaleIntervals] = useState(createBlankIntervalTemplate())
+
+
+	// This function resets the custom scale to the current scale
+	// It is used to reset the custom scale to the current scale when the user is not in custom scale mode
+	const resetCustomScaleToCurrent = ()=> {
+		if (scaleData && scaleData.intervals) {
+			// Create a blank interval template
+			const blank_interval_template = createBlankIntervalTemplate()
+
+			// Enable only the intervals in current scale
+			scaleData.intervals.forEach(interval => {
+				if (interval === '4A' || interval === '4d') {
+					blank_interval_template['Tri'] = true;
+				} else {
+					blank_interval_template[interval] = true;
+				}
+			});
+			setCustomScaleIntervals(blank_interval_template)
+		}
+	}
+
+	
+	
+
+
+	// * * * FRETBOARD DATA * * *
 	const fretboardData = useMemo(()=> calc_fretboard_data(currentTuning, numFrets, currentKey, currentScale), [
 		currentKey, 
 		currentScale, 
@@ -95,16 +160,14 @@ export default function App() {
 	])
 
 
-	const scaleData = useMemo(()=> Scale.get(`${currentKey} ${currentScale}`), [currentKey, currentScale]);
+	// * * * NOTE TYPE * * *  
+	const [noteType, setNoteType] = useState('notes');
 
-	const scaleDegreeNotes = useMemo(()=> {
-		return scaleData.notes.map((n, i) => {
-			return {
-				note: n,
-				degree: interval_to_degree(scaleData.intervals[i])
-			}
-		});
-	}, [scaleData]);
+	// * * * INTERFACE * * *  
+	const [ interfaceScheme, setInterfaceScheme ] = useState('scheme-dark');
+	const [ highlightNotes, setHighlightNotes ] = useState([]);
+	const [ showNoteOctaves, setShowNoteOctaves ] = useState(true);
+
 	
 
 	const color_scheme = calc_color( currentScale );
@@ -144,14 +207,6 @@ ${app_main_container_styles}
 					setHighlightNotes={setHighlightNotes}
 				/>
 				<ControlPanelIcon />
-
-				{/* <div className="highlight-notes-container">
-					<h3>Highlighted Notes</h3>
-					{
-					highlightNotes && highlightNotes.map((note, index) => (
-						<div key={index} className="highlight-note">{note}</div>
-					))}
-				</div> */}
 				
 				<Fretboard
 					soundState
@@ -185,9 +240,13 @@ ${app_main_container_styles}
 					maxTuners={max_tuners}
 
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
+					
 					currentScale={currentScale} setCurrentScale={setCurrentScale}
-					scaleData={scaleData}
-					scaleDegreeNotes={scaleDegreeNotes}
+					
+					scaleData={scaleData} scaleDegreeNotes={scaleDegreeNotes}
+
+					customScaleIntervals={customScaleIntervals} setCustomScaleIntervals={setCustomScaleIntervals}
+					isCustomScaleMode={isCustomScaleMode} setIsCustomScaleMode={setIsCustomScaleMode}
 					
 					showNoteOctaves={showNoteOctaves}
 					setShowNoteOctaves={setShowNoteOctaves}

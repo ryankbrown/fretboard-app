@@ -1,7 +1,4 @@
-// import '../styles/stepper.scss'
-
-
-
+// Stepper.jsx
 
 export default function Stepper(props) {
 

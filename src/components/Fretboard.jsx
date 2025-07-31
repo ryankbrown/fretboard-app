@@ -1,3 +1,5 @@
+// Fretboard.jsx
+
 import { Note } from 'tonal'
 
 import NoteComponent from './NoteComponent'

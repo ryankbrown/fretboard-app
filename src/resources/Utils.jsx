@@ -1,3 +1,5 @@
+// Utils.jsx
+
 import { Note, Scale, Interval } from 'tonal';
 import { color_data, custom_ordered_scale_names } from './Data';
 import { useState } from 'react';
@@ -91,7 +93,7 @@ const calc_fretboard_data = (currentTuning, numFrets=13, currentKey, currentScal
 	
 	const fretboard_data = [];
 
-	// Remember that currentTuning is an object with {name, notes} created by me and note tonal.js
+	// Remember that currentTuning is an object with {name, notes} created by me and not tonal.js
 	for ( let s = 0; s < currentTuning.notes.length; s++ ) {
 		for (let f = 0; f < numFrets; f++) {
 			// Get the starting string note

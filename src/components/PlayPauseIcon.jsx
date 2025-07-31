@@ -1,4 +1,4 @@
-// import '../styles/play-pause-icon.scss';
+// PlayPauseIcon.jsx
 
 
 export default function PlayPauseIcon(props) {

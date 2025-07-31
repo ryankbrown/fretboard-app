@@ -1,4 +1,4 @@
-// import '../styles/dropdown.scss'
+// Dropdown.jsx
 
 export default function Dropdown(props) {
 	return (
@@ -6,7 +6,7 @@ export default function Dropdown(props) {
 			<div className="dropdown__wrapper w-full grid col-span-full [grid-template-areas:'content']">
 				<select
 
-					className={`dropdown dropdown--${props.id} appearance-none [grid-area:content] p-[var(--toggler-select-size)] bg-[var(--primary-highlight-dark-color)] text-white border-none rounded-[var(--toggler-corner-radius)] h-min text-lg cursor-pointer`} 
+					className={`dropdown dropdown--${props.id} appearance-none [grid-area:content] p-[var(--toggler-select-size)] bg-[var(--primary-highlight-dark-color)] text-white border-none rounded-[var(--toggler-corner-radius)] h-min text-lg font-semibold cursor-pointer  transition-all duration-500 focus:bg-(--primary-highlight-color) hover:bg-(--primary-highlight-color) focus:outline-2 outline-offset-3 outline-(--primary-highlight-color)`} 
 
 					id={props.id} 
 					name={props.id} 

@@ -1,3 +1,5 @@
+// ControlPanelIcon.jsx
+
 import { useState } from "react";
 
 // import "../styles/control-panel-icon.scss";
