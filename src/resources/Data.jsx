@@ -195,7 +195,7 @@ const piano_keys = [
 	},
 	{ 
 		semitone_position: 6,
-		interval: "Tri", 
+		interval: "4ad", 
 		type: "accidental", 
 		col_start: 'col-start-8' 
 	},

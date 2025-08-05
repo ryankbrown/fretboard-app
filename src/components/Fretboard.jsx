@@ -10,7 +10,23 @@ import NoteComponent from './NoteComponent'
 export default function Fretboard(props) {
 
 	const fretboard_styles = 
-		`select-none justify-self-center self-center w-[min(100%,25rem)] h-[100%] grid grid-cols-[repeat(var(--num-strings),1fr)_min-content] grid-rows-[min-content_repeat(var(--num-frets),1fr)] [grid-area:fretboard] justify-center items-center min-[430px]:p-10 or-ch:w-[clamp(20rem,100%,400rem)] or-ch:h-[clamp(0rem,80%,500rem)] or-ch:grid-cols-[5ch_minmax(5rem,min-content)_repeat(calc(var(--num-frets)-1),minmax(0,1fr))] or-ch:grid-rows-[repeat(var(--num-strings),minmax(0,1fr))_minmax(5rem,min-content)] or-ch-v:aspect-[2/1] or-ch-v:h-auto`
+		`
+		select-none
+		justify-self-center
+		w-[min(100%,25rem)] 
+		size-full
+		grid 
+		grid-cols-[repeat(var(--num-strings),1fr)_min-content] 
+		grid-rows-[min-content_repeat(var(--num-frets),1fr)] 
+		[grid-area:fretboard]
+		items-center 
+		min-[430px]:p-6 
+		or-ch:w-[clamp(20rem,100%,400rem)] 
+		or-ch:h-[clamp(0rem,80%,500rem)] 
+		or-ch:grid-cols-[5ch_minmax(5rem,min-content)_repeat(calc(var(--num-frets)-1),minmax(0,1fr))] 
+		or-ch:grid-rows-[repeat(var(--num-strings),minmax(0,1fr))_minmax(5rem,min-content)] 
+		or-ch:self-center
+		`
 
 	const wrapper_styles = 
 		`col-span-full row-span-full grid grid-cols-subgrid grid-rows-subgrid`

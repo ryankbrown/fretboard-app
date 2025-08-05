@@ -4,7 +4,6 @@ import { useState } from "react";
 import * as Tone from "tone";
 import { Note, Scale } from "tonal";
 import { interval_to_degree, change_str_case } from "../resources/Utils";
-// import "../styles/scale-table.scss";
 
 import PlayPauseIcon from "./PlayPauseIcon";
 
@@ -77,7 +76,7 @@ const ScaleTable = (props) => {
 		`m-0 row-start-1 text-left w-full h-full p-2 border-t border-white/10 [writing-mode:vertical-rl] [text-orientation:mixed] font-semibold or-ch:[writing-mode:unset] or-ch:text-left or-ch:h-full or-ch:w-full or-ch:col-start-1 or-ch:row-start-auto or-ch:whitespace-nowrap`;
 
 	return (
-		<div className={`scale-table ${border_styles} w-fit h-fit rounded text-xs [grid-area:scaletable] self-center`}
+		<div className={`scale-table ${border_styles} w-fit h-fit rounded text-xs [grid-area:scaletable] justify-self-end`}
 		>
 			<div className="scale-table__header flex flex-col items-center p-3 max-h-50 text-[color:var(--primary-highlight-color)] or-ch:flex-row or-ch:max-h-[unset] or-ch:p-1 or-ch:justify-between">
 				<button

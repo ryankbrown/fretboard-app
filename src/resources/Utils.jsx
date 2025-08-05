@@ -156,6 +156,27 @@ const calc_color = (currentScale) => {
 }
 
 
+
+// This object template will be used to indicate which intervals are enabled in a predefined or custom scale
+const create_blank_interval_template = ()=> {
+	return {
+		'1P' : true,
+		'2m' : false,
+		'2M' : false,
+		'3m' : false,
+		'3M' : false,
+		'4P' : false,
+		'4A/4d' : false,
+		'5P' : false,
+		'6m' : false,
+		'6M' : false,
+		'7m' : false,
+		'7M' : false
+	}
+}
+
+
+
 // Custom hook for localStorage persistence
 export const useLocalStorage = (key, defaultValue) => {
 	const [storedValue, setStoredValue] = useState(() => {
@@ -189,5 +210,6 @@ export {
 	interval_to_degree, 
 	get_core_note, 
 	calc_color, 
-	shuffle_array 
+	shuffle_array,
+	create_blank_interval_template
 }

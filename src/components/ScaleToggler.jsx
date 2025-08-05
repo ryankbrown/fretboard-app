@@ -27,7 +27,7 @@ export default function ScaleToggler(props) {
 		if (interval === '4A' || interval === '4d') {
 			props.setCustomScaleIntervals(prev => ({
 				...prev,
-				['Tri']: !prev['Tri']
+				['4ad']: !prev['4ad']
 			}));
 		} else {
 			props.setCustomScaleIntervals(prev => ({

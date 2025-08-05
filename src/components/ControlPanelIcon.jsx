@@ -11,14 +11,23 @@ export default function ControlPanelIcon(props) {
     return (
         <button 
             className={
-                `control-panel__btn ${ isActive ? 'active' : '' } z-20 relative justify-self-end [grid-area:header] p-[unset] bg-transparent cursor-pointer or-sm:hidden or-ch:[grid-area:controlpanelicon]`
+                `control-panel__btn ${ isActive ? 'active' : '' } 
+                z-20 
+                relative 
+                justify-self-end 
+                [grid-area:controlpanelicon] 
+                p-[unset] 
+                bg-transparent 
+                cursor-pointer 
+                or-sm:hidden 
+                or-ch:[grid-area:controlpanelicon]`
             } 
             // aria-role="button"
             data-state={ isActive ? "true" : "false" }
             onClick={ ()=> setIsActive(()=> !isActive) }
         >
             <svg
-                className="cp-icon w-[3.5rem] or-ch:w-[4.5rem]"
+                className="cp-icon w-[3rem] or-ch:w-[4rem]"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 35 35"
                 aria-hidden="true"

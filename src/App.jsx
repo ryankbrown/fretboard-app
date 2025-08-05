@@ -1,14 +1,29 @@
 // App.jsx
-
-import { Scale, Interval } from 'tonal'
 import * as Tone from 'tone';
 
+import { 
+	Scale, 
+	Interval 
+} from 'tonal'
 
+import { 
+	useState, 
+	useMemo, 
+	useEffect 
+} from 'react'
 
-import { useState, useMemo, useEffect } from 'react'
+import { 
+	tuning_options, 
+	key_list 
+} from './resources/Data'
 
-import { tuning_options, key_list } from './resources/Data'
-import { change_str_case, calc_fretboard_data, calc_color, interval_to_degree } from './resources/Utils'
+import { 
+	change_str_case, 
+	calc_fretboard_data, 
+	calc_color, 
+	interval_to_degree, 
+	create_blank_interval_template 
+} from './resources/Utils'
 
 import ControlPanel from './components/ControlPanel'
 import ControlPanelIcon from "./components/ControlPanelIcon";
@@ -82,8 +97,53 @@ export default function App() {
 	const [currentScale, setCurrentScale] = useState('major');
 
 
+
+	// * * * CUSTOM SCALE MODE * * * 
+	// This is a boolean that determines if the user is in custom scale mode
+	// If true, the user can modify the scale by enabling and disabling intervals
+	// If false, the user can only select from the predefined scales
+	const [isCustomScaleMode, setIsCustomScaleMode] = useState(false);
+
+
+	
+	// * * * CUSTOM MODIFIED SCALE * * *
+	// This is the state object that keeps track of which intervals are enabled and which are disabled.
+	const [customScaleIntervals, setCustomScaleIntervals] = useState(create_blank_interval_template())
+
+
 	// * * * SCALE DATA * * *
-	const scaleData = useMemo(()=>  Scale.get(`${currentKey} ${currentScale}`), [currentKey, currentScale]);
+	const scaleData = useMemo(()=>  {
+		if (currentScale === 'custom') {
+			// Get all possible notes and intervals from chromatic scale
+			const chromaticScale = Scale.get(`${currentKey} chromatic`);
+			
+			// Filter notes and intervals based on enabled customScaleIntervals
+			const enabledNotes = [];
+			const enabledIntervals = [];
+			
+			chromaticScale.intervals.forEach((interval, idx) => {
+				// Special handling for tritone (4A/4d)
+				if (interval === '4A' || interval === '4d') {
+					if (customScaleIntervals['4ad']) {
+						enabledNotes.push(chromaticScale.notes[idx]);
+						enabledIntervals.push(interval);
+					}
+				}
+				// Normal intervals
+				else if (customScaleIntervals[interval]) {
+					enabledNotes.push(chromaticScale.notes[idx]);
+					enabledIntervals.push(interval);
+				}
+			});
+
+			return {
+				notes: enabledNotes,
+				intervals: enabledIntervals
+			};
+		} else {
+			return Scale.get(`${currentKey} ${currentScale}`)
+		}
+	}, [currentKey, currentScale]);
 
 	// * * * SCALE DEGREE NOTES * * *
 	const scaleDegreeNotes = useMemo(()=> {
@@ -98,47 +158,18 @@ export default function App() {
 	}, [scaleData]);
 
 
-	// * * * CUSTOM SCALE MODE * * * 
-	// This is a boolean that determines if the user is in custom scale mode
-	// If true, the user can modify the scale by enabling and disabling intervals
-	// If false, the user can only select from the predefined scales
-	const [isCustomScaleMode, setIsCustomScaleMode] = useState(false);
-
-
-	// This object template will be used to indicate which intervals are enabled in a predefined or custom scale
-	const createBlankIntervalTemplate = ()=> {
-		return {
-			'1P' : true,
-			'2m' : false,
-			'2M' : false,
-			'3m' : false,
-			'3M' : false,
-			'4P' : false,
-			'Tri' : false,
-			'5P' : false,
-			'6m' : false,
-			'6M' : false,
-			'7m' : false,
-			'7M' : false
-		}
-	}
-
-	// * * * CUSTOM MODIFIED SCALE * * *
-	// This is the state object that keeps track of which intervals are enabled and which are disabled.
-	const [customScaleIntervals, setCustomScaleIntervals] = useState(createBlankIntervalTemplate())
-
 
 	// This function resets the custom scale to the current scale
 	// It is used to reset the custom scale to the current scale when the user is not in custom scale mode
 	const resetCustomScaleToCurrent = ()=> {
 		if (scaleData && scaleData.intervals) {
 			// Create a blank interval template
-			const blank_interval_template = createBlankIntervalTemplate()
+			const blank_interval_template = create_blank_interval_template()
 
 			// Enable only the intervals in current scale
 			scaleData.intervals.forEach(interval => {
 				if (interval === '4A' || interval === '4d') {
-					blank_interval_template['Tri'] = true;
+					blank_interval_template['4ad'] = true;
 				} else {
 					blank_interval_template[interval] = true;
 				}
@@ -146,6 +177,21 @@ export default function App() {
 			setCustomScaleIntervals(blank_interval_template)
 		}
 	}
+
+	// This funciton does all the necessary things when a user changes scale is is passed to the Scale Change Dropdown component.
+	const handleScaleChange= (newScale) => {
+		setCurrentScale(newScale);
+		setIsCustomScaleMode(false);
+	}
+
+	// This useEffect runs whenever scaleData or isCustomScaleMode changes
+	// When custom mode is disabled (isCustomScaleMode is false), it resets the custom scale intervals
+	// to match the currently selected scale. This keeps the custom scale in sync when not being used.
+	useEffect(() => {
+		if (!isCustomScaleMode) {
+			resetCustomScaleToCurrent();
+		}
+	}, [scaleData, isCustomScaleMode]);
 
 	
 	
@@ -168,12 +214,24 @@ export default function App() {
 	const [ highlightNotes, setHighlightNotes ] = useState([]);
 	const [ showNoteOctaves, setShowNoteOctaves ] = useState(true);
 
-	
+
+	// console.log(scaleData.intervals)
 
 	const color_scheme = calc_color( currentScale );
 
 	const app_main_container_styles = 
-		`w-full h-full grid gap-2 overflow-hidden grid-cols-[min-content_1fr] grid-rows-[min-content_1fr] [grid-template-areas:'header_header''scaletable_fretboard'] or-sm:grid-cols-[min-content_1fr_1fr] or-sm:[grid-template-areas:'header_header_controlPanel''scaletable_fretboard_controlPanel'] or-ch:h-full or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard'_'controlPanel_controlPanel'] or-ch:grid-cols-[1.2fr_.8fr] or-ch:grid-rows-[auto_1fr_min-content]
+		`
+		size-full 
+		grid 
+		[grid-template-areas:'mainViewArea']
+		gap-2 
+		overflow-hidden 
+		or-sm:[grid-template-areas:'mainViewArea_controlPanel']
+		or-sm:grid-cols-[1fr_minmax(0,40%)]
+		or-ch:[grid-template-areas:'mainViewArea''controlPanel']
+		or-ch:grid-cols-[1fr]
+		or-ch:grid-rows-[1fr_35%]
+		or-ch:p-10
 		`
 	
 	return (
@@ -186,50 +244,73 @@ ${app_main_container_styles}
 					['--primary-highlight-color'] : color_scheme.main,
 					['--primary-highlight-dark-color'] : color_scheme.dark
 				}}
-				onClick={(e) => {
-					console.log(e.target)
-				}}
 			>
+				<div className="
+					main-view-area
+					p-2
+					[grid-area:mainViewArea]
+					grid 
+					[grid-template-areas:'header_header_controlpanelicon''scaletable_fretboard_fretboard'] 
+					grid-cols-[min-content_1fr_min-content]
+					grid-rows-[min-content_1fr]
+					gap-4
+					or-ch:[grid-template-areas:'header_scaletable''fretboard_fretboard']
+					or-ch:p-[unset]
+				">
+					<h1 className="
+						app-title 
+						text-4xl 
+						font-extrabold 
+						m-0 
+						uppercase 
+						text-[var(--primary-highlight-color)] 
+						[grid-area:header] 
+						font-integral
+						md:text-5xl
+						or-ch:text-6xl
+						lg:text-7xl
+					">
+						Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span>
+					</h1>
 
-				<h1 className="app-title text-2xl font-extrabold m-0 uppercase text-[var(--primary-highlight-color)] [grid-area:header] font-integral
-				or-sm:text-4xl 
-				or-ch:text-6xl">Fret<span className="app-title__white text-[var(--primary-light-text-color)]">Finder</span>
-				</h1>
+					<ScaleTable 
+						currentKey={currentKey} 
+						currentScale={currentScale} 
+						synth={synth}
+						scaleData={scaleData}
+						scaleDegreeNotes={scaleDegreeNotes}
 
-				<ScaleTable 
-					currentKey={currentKey} 
-					currentScale={currentScale} 
-					synth={synth}
-					scaleData={scaleData}
-					scaleDegreeNotes={scaleDegreeNotes}
+						highlightNotes={highlightNotes}
+						setHighlightNotes={setHighlightNotes}
+					/>
 
-					highlightNotes={highlightNotes}
-					setHighlightNotes={setHighlightNotes}
-				/>
-				<ControlPanelIcon />
-				
-				<Fretboard
-					soundState
-					fretboardData={fretboardData}
-					currentTuning={currentTuning}
-					numFrets={numFrets} 
+					<ControlPanelIcon />
 					
-					currentKey={currentKey}
-					currentScale={currentScale} 
+					<Fretboard
+						soundState
+						fretboardData={fretboardData}
+						currentTuning={currentTuning}
+						numFrets={numFrets} 
+						
+						currentKey={currentKey}
+						currentScale={currentScale} 
+						
 
-					noteType={noteType}
-					interfaceScheme={interfaceScheme}
+						noteType={noteType}
+						interfaceScheme={interfaceScheme}
 
-					synth={synth}
+						synth={synth}
 
-					highlightNotes={highlightNotes}
-					setHighlightNotes={setHighlightNotes}
+						highlightNotes={highlightNotes}
+						setHighlightNotes={setHighlightNotes}
 
-					showNoteOctaves={showNoteOctaves}
-					setShowNoteOctaves={setShowNoteOctaves}
-				/>
-
+						showNoteOctaves={showNoteOctaves}
+						setShowNoteOctaves={setShowNoteOctaves}
+					/>
+				</div>
+				
 				<ControlPanel 
+				
 					keyList={key_list}
 					numFrets={numFrets} handleSetNumFrets={handleSetNumFrets}
 					currentKey={currentKey} setCurrentKey={setCurrentKey}
@@ -242,11 +323,14 @@ ${app_main_container_styles}
 					interfaceScheme={interfaceScheme} setInterfaceScheme={setInterfaceScheme}
 					
 					currentScale={currentScale} setCurrentScale={setCurrentScale}
+					handleScaleChange={handleScaleChange}
 					
 					scaleData={scaleData} scaleDegreeNotes={scaleDegreeNotes}
 
 					customScaleIntervals={customScaleIntervals} setCustomScaleIntervals={setCustomScaleIntervals}
 					isCustomScaleMode={isCustomScaleMode} setIsCustomScaleMode={setIsCustomScaleMode}
+
+					resetCustomScaleToCurrent={resetCustomScaleToCurrent}
 					
 					showNoteOctaves={showNoteOctaves}
 					setShowNoteOctaves={setShowNoteOctaves}
